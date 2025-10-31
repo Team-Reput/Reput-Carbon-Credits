@@ -1,0 +1,261 @@
+<app-navbar></app-navbar>
+
+
+
+<div class="dashboard-container">
+  <!-- Header Section -->
+  <div class="header-section">
+    <h1 class="main-title">My Purchased & Retired Credits</h1>
+    <p class="subtitle">Monitor all your purchased carbon credits, tokenized holdings, and retirement certificates in one place.</p>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">🔄</div>
+      <div class="stat-content">
+        <div class="stat-label">Total Credits Purchased</div>
+        <div class="stat-value">{{ totalPurchased }} tCO2e</div>
+        <div class="stat-sublabel">Lifetime purchased credits</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">♻️</div>
+      <div class="stat-content">
+        <div class="stat-label">Total Credits Retired</div>
+        <div class="stat-value">{{ totalRetired.toLocaleString() }} rCC</div>
+        <div class="stat-sublabel">Permanently retired to offset emissions</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">💰</div>
+      <div class="stat-content">
+        <div class="stat-label">Active Balance</div>
+        <div class="stat-value">{{ activeBalance.toLocaleString() }} rCC</div>
+        <div class="stat-sublabel">Available for future offset or trade</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">🌐</div>
+      <div class="stat-content">
+        <div class="stat-label">Networks Used</div>
+        <div class="stat-value">{{ networks }}</div>
+        <div class="stat-sublabel">Blockchain networks holding tokens</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">📅</div>
+      <div class="stat-content">
+        <div class="stat-label">Last Updated</div>
+        <div class="stat-value">{{ lastUpdated }}</div>
+        <div class="stat-sublabel">Auto-refresh daily at realtime</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Credits by Project -->
+  <div class="section-card">
+    <h2 class="section-title">Credits by Project</h2>
+    
+    <div class="table-container">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Project Name</th>
+            <th>Credits Owned</th>
+            <th>Credits Retired</th>
+            <th>Network</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let project of filteredProjects">
+            <td class="project-name">{{ project.name }}</td>
+            <td>{{ project.creditsOwned.toLocaleString() }} rCC</td>
+            <td>{{ project.creditsRetired.toLocaleString() }} rCC</td>
+            <td>{{ project.network }}</td>
+            <td>
+              <span class="status-badge" [ngClass]="getStatusClass(project.status)">
+                {{ project.status }}
+              </span>
+            </td>
+            <td>
+              <button class="action-btn" (click)="viewDetails(project)">View Details</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Sustainability Impact Overview -->
+  <div class="section-card">
+    <h2 class="section-title">Sustainability Impact Overview</h2>
+    <p class="section-subtitle">Impact metrics are calculated from verified retirements only, based on on-chain and registry records.</p>
+
+    <div class="impact-grid">
+      <!-- Total CO2 Offset -->
+      <div class="impact-card">
+        <h3 class="impact-title">Total CO<sub>2</sub> Offset</h3>
+        <div class="impact-value">{{ totalPurchased }} tCO2e</div>
+        <div class="impact-sublabel">Lifetime purchased credits</div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 75%"></div>
+        </div>
+        <div class="progress-label">75% of 20,000 tonne annual target</div>
+      </div>
+
+      <!-- Offsets by Project Type -->
+      <div class="impact-card">
+        <h3 class="impact-title">Offsets By Project Type</h3>
+        <div class="pie-chart-container">
+          <svg viewBox="0 0 200 200" class="pie-chart">
+            <g *ngFor="let item of offsetData; let i = index">
+              <path 
+                [attr.d]="getPieSlicePath(getAccumulatedAngle(i), getAccumulatedAngle(i) + getSliceAngle(item.percentage), 90)"
+                [attr.fill]="i === 0 ? '#8B5CF6' : i === 1 ? '#F97583' : '#5DD9C1'"
+                class="pie-slice"
+              />
+            </g>
+          </svg>
+          <div class="pie-legend">
+            <div class="legend-item" *ngFor="let item of offsetData; let i = index">
+              <div class="legend-color" 
+                   [style.background-color]="i === 0 ? '#8B5CF6' : i === 1 ? '#F97583' : '#5DD9C1'"></div>
+              <span class="legend-label">{{ item.type }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="offset-details">
+          <div class="offset-item" *ngFor="let item of offsetData; let i = index">
+            <span class="offset-name">{{ item.type }}</span>
+            <span class="offset-percentage">{{ item.percentage }}%</span>
+            <span class="offset-value">{{ item.value }}t</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Offset Timeline -->
+      <div class="impact-card">
+        <h3 class="impact-title">Offset Timeline</h3>
+        <div class="timeline-chart">
+          <svg viewBox="0 0 250 120" class="line-chart">
+            <polyline
+              [attr.points]="getTimelinePoints()"
+              fill="none"
+              stroke="#5DD9C1"
+              stroke-width="2"
+            />
+            <circle
+              *ngFor="let point of getTimelineCircles()"
+              [attr.cx]="point.x"
+              [attr.cy]="point.y"
+              r="4"
+              fill="#5DD9C1"
+              stroke="#fff"
+              stroke-width="2"
+            />
+          </svg>
+          <div class="timeline-labels">
+            <span *ngFor="let item of timelineData" class="timeline-label">{{ item.month }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Certificates & Proofs -->
+  <div class="section-card">
+    <h2 class="section-title">Certificates & Proofs</h2>
+    <p class="section-subtitle">Each PDF includes project details, registry reference, ReFuEl signature, and transaction hash.</p>
+
+    <div class="table-container">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Credits Owned</th>
+            <th>Certificate Type</th>
+            <th>Quantity</th>
+            <th>Issued Date</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cert of certificates">
+            <td>{{ cert.type }}</td>
+            <td>{{ cert.certificateType }}</td>
+            <td>{{ cert.quantity.toLocaleString() }} rCC</td>
+            <td>{{ cert.issuedDate }}</td>
+            <td>
+              <div class="action-buttons">
+                <button class="action-btn secondary" *ngIf="cert.hasChain" (click)="viewOnChain(cert)">
+                  View on chain 🔗
+                </button>
+                <button class="action-btn" (click)="downloadPDF(cert)">
+                  Download PDF ⬇
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Transaction History -->
+  <div class="section-card">
+    <div class="section-header">
+      <h2 class="section-title">Transaction History</h2>
+      <div class="filters-container">
+        <select class="filter-select" [(ngModel)]="selectedProjectFilter" (change)="onProjectFilterChange()">
+          <option *ngFor="let option of getProjectOptions()">{{ option }}</option>
+        </select>
+        <select class="filter-select" [(ngModel)]="selectedTypeFilter" (change)="onTypeFilterChange()">
+          <option *ngFor="let option of getTypeOptions()">{{ option }}</option>
+        </select>
+        <button class="download-btn" (click)="downloadCSV()">
+          📥 Download CSV
+        </button>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Project Name</th>
+            <th>Action</th>
+            <th>Credits</th>
+            <th>Network</th>
+            <th>Tx Hash</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let transaction of filteredTransactions">
+            <td>{{ transaction.date }}</td>
+            <td class="project-name">{{ transaction.projectName }}</td>
+            <td>{{ transaction.action }}</td>
+            <td>{{ transaction.credits.toLocaleString() }}</td>
+            <td>{{ transaction.network }}</td>
+            <td class="tx-hash">
+              {{ transaction.txHash }} 
+              <span class="external-link">🔗</span>
+            </td>
+            <td>
+              <span class="status-badge" [ngClass]="getStatusClass(transaction.status)">
+                {{ transaction.status }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

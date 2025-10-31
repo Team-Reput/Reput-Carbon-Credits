@@ -1,0 +1,48 @@
+<nav class="navbar">
+  <div class="left-section">
+    <div class="logo" >
+      <img style="width: 210px;position: relative;bottom: 15px;" src="assets/images/RePutLogo.png" alt="logo" />
+    </div>
+    
+ 
+</div>
+
+<div class="title-section" style="display: flex;">
+      <img style="width: 52px; height: 50px;position: relative;top: 12px;right: 6px;" src="assets/images/carbonCredit.png" alt="logo" />
+      <div style="display: flex;flex-direction: column;">
+      <h3 style="font-size: 24px;color: #111827;">Carbon Credit</h3>
+      <p  style="font-size: 18px;color: #808380;">Verified Climate Impact</p>
+      </div>
+    </div>
+
+  <div class="right-section">
+    <img class="company-icon" src="assets/images/user.png" alt="Company">
+    <span class="company-name" style="font-size: 20px;">ABFL Pvt Ltd</span>
+
+    <button class="hamburger" (click)="toggleMenu()">
+      <i class="fa" [ngClass]="menuOpen?'fa-times':'fa-bars'"  ></i>
+    </button>
+  </div>
+</nav>
+
+<!-- Dropdown Menu -->
+<div class="dropdown-menu" *ngIf="menuOpen">
+  <a>Feature Project</a>
+  <a>Dashboard</a>
+  <a class="">Projects</a>
+  <a>Retire</a>
+  <a>Carbon Portfolio</a>
+  <div class="submenu" (click)="toggleLanguage()">
+    <span>Language</span>
+     <i class="fa" [ngClass]="languageOpen ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+  </div>
+
+    <div class="language-dropdown" *ngIf="languageOpen">
+        <a>English</a>
+        <a>Hindi</a>
+        <a>Spanish</a>
+    </div>
+
+  <a>Profile</a>
+  <a>Logout</a>
+</div>

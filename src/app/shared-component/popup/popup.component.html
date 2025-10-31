@@ -1,0 +1,13 @@
+<div class="notification-popup" *ngIf="showPopup" [ngClass]="type">
+    <div class="notification-content">
+      <span class="icon" *ngIf="type === 'success'">✔</span>
+      <span class="icon" *ngIf="type === 'error'">✖</span>
+      <div class="message">
+        <strong *ngIf="type === 'success'">Success</strong>
+        <strong *ngIf="type === 'error'">Error</strong>
+        <p>{{ message }}</p>
+      </div>
+      <span class="close-icon" (click)="closePopup()">✖</span>
+    </div>
+  </div>
+  

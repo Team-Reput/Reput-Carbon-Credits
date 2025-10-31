@@ -1,0 +1,99 @@
+.page {
+  padding: 30px;
+  background: #e9f4e9;
+  min-height: 100vh;
+  font-family: "Outfit", sans-serif;
+}
+
+h1 {
+  text-align: center;
+  font-weight: 600;
+}
+
+.stats-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 20px;
+    background: white;
+    position: relative;
+    // width: 62%;
+    width: 59%;
+    left: 20%;
+    border-radius: 16px;
+}
+
+.stat-box {
+//   background: white;
+  background: #effff6;
+  padding: 20px 40px;
+  border-radius: 12px;
+  text-align: center;
+
+  height: 131px;
+    // width: 302px;
+    width: 404px;
+}
+
+.sub-text {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 16px;
+  color: #1C1B1F;
+  font-size: medium;
+}
+
+.table-title {
+  margin-top: 40px;
+  margin-bottom: 10px;
+  font-size: 22px;
+  color: #1C1B1F;
+}
+
+.search-filter input {
+  width: 500px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #aaa;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 14px;
+  border-bottom: 1px solid #ddd;
+}
+
+.download-btn, .share-btn {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.download-btn {
+  background: #2e7d32;
+  color: white;
+  margin-right: 6px;
+}
+
+.share-btn {
+  background: #e0e0e0;
+}
+
+
+.stats{
+    // background: #555;
+    display: flex;
+    margin: 20px;
+    gap: 20px;
+}
+
+ 

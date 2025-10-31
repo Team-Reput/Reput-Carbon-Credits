@@ -1,0 +1,191 @@
+<div class="onboarding-container">
+
+  <div class="logo" >
+      <img src="assets/images/RePutLogo.png" alt="logo" />
+  </div>
+
+  <div class="onboarding-card" *ngIf="onGoingStep==='step1'">
+    <p class="a">Welcome to the Carbon Credit Marketplace!</p>
+
+    <div class="options">
+      <div    class="option"    [class.active]="selectedRole === 'buyer'"    (click)="selectRole('buyer')"   >
+        <div class="icon">  🛒   </div>
+        <span>Buyer</span>
+        <div *ngIf="selectedRole === 'buyer'" class="check">✔</div>
+      </div>
+
+      <div    class="option"    [class.active]="selectedRole === 'seller'"    (click)="selectRole('seller')"  >
+        <div class="icon"> 🏦  </div>
+        <span>Seller</span>
+        <div *ngIf="selectedRole === 'seller'" class="check">✔</div>
+      </div>
+    </div>
+
+    <button class="start-btn" (click)="startOnboarding()">Start Onboarding</button>
+
+    <p class="footer-text">
+      Already registered?
+      <a routerLink="/dashboard">Go to Dashboard</a>
+    </p>
+
+  </div>
+
+
+
+ 
+
+
+
+
+
+  <div class="onboarding-card2" *ngIf="onGoingStep==='step2'">
+    <p class="a">Welcome to the Carbon Credit Marketplace!</p>
+
+    <p class="description2" style="color: #666666;font-size: 20px;">
+      To ensure a secure and compliant experience, all buyers must complete a
+      one-time onboarding process. This mandatory step includes:
+    </p>
+
+    <div class="features">
+      <div *ngFor="let feature of features">
+        <i [class]="feature.icon"></i>
+        <span>{{ feature.text }}</span>
+      </div>
+    </div>
+
+    <div class="buttons">
+      <button class="skip-btn" (click)="skipOnboarding()" style="font-weight: bold;font-size: 24px;">Skip Now</button>
+      <button class="start-btn" (click)="startOnboarding2()" style="font-weight: bold;font-size: 24px;"> Start Onboarding </button>
+    </div>
+
+    <p class="footer-text">
+      Already registered?
+      <a routerLink="/dashboard">Go to Dashboard</a>
+    </p>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="kyc-container" *ngIf="onGoingStep==='step3'">
+
+    <div class="kyc-card">
+        <p style="font-size: 32px;font-weight: bold;">Verify your identity to access the marketplace</p>
+        <p class="subtitle">
+        To comply with global KYC (Know Your Customer) and AML (Anti-Money Laundering) standards, we need some basic details and supporting documents.
+        This one-time verification ensures secure and transparent carbon credit transactions.
+        </p>
+
+        <!-- Stepper -->
+        <div class="stepper">
+        <div *ngFor="let step of steps; let i = index" class="step">
+            <div class="circle" [class.active]="currentStep === i || i < currentStep">
+            {{ i + 1 }}
+            </div>
+            <span >{{ step }}</span>
+            <div *ngIf="i < steps.length - 1" class="line" [class.active]="i < currentStep"></div>
+        </div>
+        </div>
+
+        <!-- Step Content -->
+        <form [formGroup]="kycForm">
+        <!-- Step 1 -->
+        <div *ngIf="currentStep === 0">
+            <h3>Organization Type</h3>
+            <div class="org-types">
+            <div *ngFor="let type of orgTypes" class="org-card" [class.selected]="selectedOrgType === type.label"
+                (click)="selectOrgType(type)">
+                <i class="material-icons">{{ type.icon }}</i>
+                <p>{{ type.label }}</p>
+            </div>
+            </div>
+
+            <label>Legal Entity Name*</label>
+            <input formControlName="entityName" placeholder="Enter Legal Entity Name" />
+
+            <label>Country of Registration*</label>
+            <select formControlName="country">
+            <option value="" disabled>Select ISO country list</option>
+            <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+            </select>
+        </div>
+
+        <!-- Step 2 -->
+        <div *ngIf="currentStep === 1">
+          <h3>Upload Documents</h3>
+
+          <div class="upload-row" *ngFor="let doc of documentFields">
+            
+            <label class="upload-label">{{ doc.label }}</label>
+
+            <div class="upload-box">
+              <div class="drop-area" (click)="onFileClick(doc)">
+                <i class="material-icons up">cloud_upload</i>
+                <p>Drag and drop your file here, or click to browse</p>
+                <div class="choose">choose a file</div>
+              </div>
+
+              <small *ngIf="uploadedFiles[doc.key]">✅ {{ uploadedFiles[doc.key].name }}</small>
+            </div>
+
+          </div>
+        </div>
+
+
+        <!-- Step 3 -->
+        <div *ngIf="currentStep === 2" class="thirdstepform" >
+            <h3>Authorized Contact</h3>
+            <div class="form-row">
+            <div>
+                <label>Full Name</label>
+                <input formControlName="fullName" placeholder="Enter Full Name" />
+            </div>
+            <div>
+                <label>Designation / Role</label>
+                <input formControlName="role" placeholder="Enter Designation / Role" />
+            </div>
+            </div>
+
+            <div class="form-row">
+            <div>
+                <label>Email Address</label>
+                <input formControlName="email" placeholder="Enter Email Address" />
+            </div>
+            <div>
+                <label>Phone Number</label>
+                <input formControlName="phone" placeholder="+91" />
+            </div>
+            </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="actions">
+            <button type="button" class="back" *ngIf="currentStep > 0" (click)="prevStep()">Back</button>
+            <button type="button" class="next" (click)="nextStep()">
+            {{ currentStep === steps.length - 1 ? 'Submit' : 'Next' }}
+            </button>
+        </div>
+        </form>
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+<p class="rights" style="position: absolute;bottom: 2px;" >© 2024 ALL RIGHTS RESERVED</p>
+
+
+</div>

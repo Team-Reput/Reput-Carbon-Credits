@@ -1,0 +1,56 @@
+<app-navbar></app-navbar>
+
+
+<div class="page">
+
+  <h1 style="font-size: 32px;font-weight: 600;">Carbon Retirements</h1>
+
+  <div class="stats-container">
+    <div  class="stats">
+    <div class="stat-box" style="background: white;">
+      <h2>{{ totalTonnes }} tCO2e</h2>
+      <p style="font-size: 24px;">Total carbon tonnes retired</p>
+    </div>
+
+    <div class="stat-box">
+      <h2>{{ totalTransactions }}</h2>
+      <p style="font-size: 24px;">Total retirement transactions</p>
+    </div>
+    </div>
+  </div>
+
+  <p class="sub-text">={{ avoided }}</p>
+
+  <h2 class="table-title" style="font-size: 32px;">Retirements Project</h2>
+
+  <div class="search-filter">
+    <!-- <i class="fa fa-search search-icon"></i> -->
+    <input type="text" placeholder="Search Projects..." [(ngModel)]="searchText"  >
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Project Name</th>
+        <th>Date</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let project of filteredProjects">
+        <td>{{ project.name }}</td>
+        <td>{{ project.date }}</td>
+        <td>{{ project.quantity }}</td>
+        <td>{{ project.price }}</td>
+        <td>
+          <button (click)="downloadPDF(project)" class="download-btn">Download PDF</button>
+          <button (click)="share(project)" class="share-btn">Share</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

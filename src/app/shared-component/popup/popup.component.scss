@@ -1,0 +1,139 @@
+
+.notification-popup {
+    position: fixed;
+    bottom: 20px;
+    // bottom: 560px;
+    right: 30px;
+    background: #f5f7eb;
+    color: #4d5c2b;
+    border: 1px solid #a1b174;
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.3s ease-in-out;
+      width: 400px; // Adjust width as needed
+  }
+  
+  .notification-content {
+    display: flex;
+    align-items: center;
+          gap: 10px;
+      flex-grow: 1;
+  }
+  
+  .icon {
+    background: #a1b174;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15%;
+    margin-right: 10px;
+  }
+  
+  .message strong {
+    font-size: 14px;
+  }
+  
+  .message p {
+    font-size: 12px;
+    margin: 0;
+  }
+  
+  .close-icon {
+    margin-left: auto;
+    cursor: pointer;
+    font-size: 14px;
+    color: #4d5c2b;
+  }
+  
+  
+  .table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 15px;
+  }
+
+  .success {
+    background: #f5f7eb;
+    color: #4d5c2b;
+    border: 1px solid #a1b174;
+  }
+  
+  .error {
+    background: #f8776e; // Red for error
+    color: black;
+    border: 2px solid #9e0000;
+  }
+
+  .error {
+    .icon{
+      background: #F44336; // Red for error
+      color: white;
+    }
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  .error {
+    background: #f8d7da; // Light red background for error
+    color: black; // Dark red text for contrast
+    // border: 1px solid #f5c6cb; // Soft red border for error
+    border: 1px solid #d3594b; // Soft red border for error
+  
+    .icon {
+      // background: #f5c6cb; // Light red for icon background
+      // background: #fdefee; // Light red for icon background
+      background-color: #d3594b;
+
+      color: black; // Dark red for icon text
+      font-size: 14px;
+      font-weight: bold;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 15%;
+      margin-right: 10px;
+    }
+  
+    .message strong {
+      font-size: 14px;
+      font-weight: bold;
+    }
+  
+    .message p {
+      font-size: 12px;
+      margin: 0;
+    }
+  
+    .close-icon {
+      color: #721c24; // Matching close icon color
+      cursor: pointer;
+      font-size: 14px;
+      margin-left: auto;
+    }
+  }
+  
+
+
