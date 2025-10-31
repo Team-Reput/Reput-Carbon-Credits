@@ -6,6 +6,7 @@ import { CarbonRetirementsComponent } from './components/carbon-retirements/carb
 // import { NavbarComponent } from './common/navbar/navbar.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MyPurchaseComponent } from './components/my-purchase/my-purchase.component';
+import { FeaturesComponent } from './components/features/features.component';
 
  
 
@@ -19,6 +20,7 @@ export const routes: Routes = [
     // {path:'nav' , component:NavbarComponent},
     {path:'dash' , component:DashboardComponent},
     {path:'pur' , component:MyPurchaseComponent},
+    {path:'feat' , component:FeaturesComponent},
     
 
  

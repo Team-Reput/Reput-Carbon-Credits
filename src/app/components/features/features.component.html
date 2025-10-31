@@ -1,1 +1,197 @@
-<p>features works!</p>
+<app-navbar></app-navbar>
+
+
+
+
+
+
+
+
+<div class="features-container">
+  <!-- Hero Carousel Section -->
+  <section class="hero-carousel">
+    <div class="carousel-wrapper">
+      <div class="carousel-slides" [style.transform]="'translateX(-' + (currentSlide * 100) + '%)'">
+        <div class="carousel-slide" *ngFor="let slide of heroSlides">
+          <div class="slide-image" [style.background-image]="'url(' + slide.image + ')'">
+            <div class="slide-overlay"></div>
+          </div>
+          <div class="slide-content">
+            <div class="slide-badge">Starting</div>
+            <div class="slide-price">
+              <span class="currency">$</span>
+              <span class="amount">{{ slide.price }}</span>
+              <span class="unit">/ tonne</span>
+            </div>
+            <h1 class="slide-title">{{ slide.title }}</h1>
+            <p class="slide-description">{{ slide.description }}</p>
+            <div class="slide-actions">
+              <button class="btn-primary">LEARN MORE</button>
+              <button class="btn-secondary">EXPLORE MORE PROJECTS</button>
+            </div>
+            <div class="slide-verified">
+              <span class="verified-text">Verified Projects by</span>
+              <span class="verified-badge">{{ slide.verifiedBy }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carousel Navigation -->
+      <div class="carousel-indicators">
+        <button 
+          *ngFor="let slide of heroSlides; let i = index"
+          class="indicator"
+          [class.active]="i === currentSlide"
+          (click)="goToSlide(i)"
+        ></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section class="projects-section">
+    <div class="container">
+      <div class="projects-layout">
+        <!-- Sidebar Categories -->
+        <aside class="categories-sidebar">
+          <div class="sidebar-header">
+            <svg class="filter-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M3 4h18M3 12h12M3 20h6" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <h3>Project Categories</h3>
+          </div>
+
+          <div class="categories-list">
+            <button 
+              *ngFor="let category of categories"
+              class="category-item"
+              [class.active]="category.active"
+              (click)="selectCategory(category.id)"
+            >
+              <span class="category-icon">{{ category.icon }}</span>
+              <span class="category-name">{{ category.name }}</span>
+              <span class="category-count" *ngIf="category.id === 'biodiversity'">
+                ₹30 x 56 Hug
+              </span>
+            </button>
+          </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="projects-main">
+          <!-- Section Header -->
+          <div class="section-header">
+            <div class="header-content">
+              <h2 class="section-title">Top-selling agriculture projects</h2>
+              <p class="section-description">
+                Carbon credits stem from sustainable farming practices—cover cropping, reduced tillage, crop rotation, and agroforestry—improve soil health, boost biodiversity, and enhance the land's ability to store carbon. These projects deliver both greenhouse-gas mitigation and long-term soil renewal.
+              </p>
+            </div>
+            <div class="header-stats">
+              <div class="stat-item">
+                <span class="stat-label">Total Supply:</span>
+                <span class="stat-value">{{ totalSupply / 1000 }}K Tonnes</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Lowest Price:</span>
+                <span class="stat-value">${{ lowestPrice }}/Tonne</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Filters Bar -->
+          <div class="filters-bar">
+            <div class="search-box">
+              <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <circle cx="11" cy="11" r="8" stroke-width="2"/>
+                <path d="m21 21-4.35-4.35" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              <input 
+                type="text" 
+                placeholder="Search Projects....." 
+                [(ngModel)]="searchQuery"
+                class="search-input"
+              />
+            </div>
+
+            <div class="filter-controls">
+              <select [(ngModel)]="selectedStatus" class="filter-select">
+                <option value="all">Status: All</option>
+                <option value="in-stock">In Stock</option>
+                <option value="out-of-stock">Out of Stock</option>
+              </select>
+
+              <select [(ngModel)]="selectedSort" class="filter-select">
+                <option value="newest">Sort: Newest</option>
+                <option value="oldest">Sort: Oldest</option>
+              </select>
+
+              <select [(ngModel)]="selectedPrice" class="filter-select">
+                <option value="low-high">Price: Low to high</option>
+                <option value="high-low">Price: High to low</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Projects Grid -->
+          <div class="projects-grid">
+            <div class="project-card" *ngFor="let project of filteredProjects">
+              <div class="card-image">
+                <img [src]="project.image" [alt]="project.name">
+                <span class="stock-badge">{{ project.badge }}</span>
+                <button class="favorite-btn" (click)="toggleFavorite(project, $event)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke-width="2"/>
+                  </svg>
+                </button>
+              </div>
+
+              <div class="card-content">
+                <div class="card-header">
+                  <div class="sdg-badge">
+                    <span class="sdg-number">{{ project.sdgs }}</span>
+                    <span class="sdg-text">SDGs</span>
+                  </div>
+                  <span class="project-tag">{{ project.tag }}</span>
+                </div>
+
+                <h3 class="card-title">{{ project.name }}</h3>
+                <p class="card-description">{{ project.description }}</p>
+
+                <div class="card-details">
+                  <div class="detail-row">
+                    <span class="detail-label">Vintage:</span>
+                    <span class="detail-value">{{ project.vintage }}</span>
+                    <span class="detail-label">Country:</span>
+                    <span class="detail-value">
+                      <span class="flag">{{ project.countryFlag }}</span>
+                      {{ project.country }}
+                    </span>
+                  </div>
+                  <div class="detail-row">
+                    <span class="detail-label">Registry:</span>
+                    <span class="detail-value">{{ project.registry }}</span>
+                    <span class="detail-label">Industry:</span>
+                    <span class="detail-value">{{ project.industry }}</span>
+                  </div>
+                </div>
+
+                <div class="card-footer">
+                  <div class="price-info">
+                    <span class="price">${{ project.price }}</span>
+                    <span class="price-unit">/ton</span>
+                  </div>
+                  <div class="availability">
+                    <span class="availability-label">Available:</span>
+                    <span class="availability-value">{{ project.available }} UD</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </section>
+</div>
