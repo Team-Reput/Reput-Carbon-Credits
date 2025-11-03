@@ -1,0 +1,206 @@
+<app-navbar></app-navbar>
+
+
+
+<div class="retire-container">
+  <div class="hero-section">
+      <span class="back-icon">←</span> Back
+    <button class="back-button" (click)="goBack()">
+    </button>
+
+    <div class="hero-content">
+      <div class="project-info">
+        <div class="verified-badge">
+          <span class="badge-icon">✓</span>
+          <span>Verified by {{ certificate.verifiedBy }}</span>
+        </div>
+
+        <h1 class="project-title">{{ certificate.projectName }}</h1>
+
+        <div class="project-meta-row">
+          <span class="meta-icon">📍</span>
+          <span>{{ certificate.location }}</span>
+        </div>
+
+        <div class="project-meta-row">
+          <span class="meta-icon">📁</span>
+          <span>{{ certificate.projectType }} • {{ certificate.vcsNumber }}</span>
+        </div>
+
+        <div class="project-description-box">
+          {{ certificate.description }}
+        </div>
+      </div>
+
+
+
+
+     
+    </div>
+    
+  </div>
+
+    <div class="certificate-card">
+        <h2 class="certificate-title">Carbon Retirement Certificate</h2>
+        <div class="certificate-date">{{ certificate.retirementDate }}</div>
+
+        <div class="tonnes-display">
+          <div class="tonnes-number">{{ certificate.verifiedTonnes }}</div>
+          <div class="tonnes-label">Verified Tonnes</div>
+          <div class="tonnes-subtitle">Carbon Permanently Retired</div>
+        </div>
+
+        <div class="retirement-message">
+          <div class="message-text">{{ certificate.retirementMessage }}</div>
+          <div class="message-label">Retirement Message</div>
+        </div>
+
+        <div class="account-details">
+          <div class="account-row">
+            <span class="account-label">Account:</span>
+            <span class="account-value" (click)="copyToClipboard(certificate.account)" [title]="certificate.account">
+              {{ certificate.account }}
+            </span>
+          </div>
+          <div class="account-row">
+            <span class="account-label">TX ID</span>
+            <span class="account-value" (click)="copyToClipboard(certificate.txId)" [title]="certificate.txId">
+              {{ certificate.txId }}
+            </span>
+          </div>
+        </div>
+
+        <button class="download-button" (click)="downloadPDF()">
+          <span>Download PDF</span>
+          <span class="download-icon">↓</span>
+        </button>
+
+        <div class="action-buttons">
+          <button class="share-button" (click)="shareRetirement()">
+            <span>Share</span>
+            <span class="share-icon">↗</span>
+          </button>
+          <button class="registry-button" (click)="viewRegistry()">
+            <span>Registry</span>
+            <span class="external-icon">↗</span>
+          </button>
+        </div>
+
+        <div class="certificate-number">
+          Certificate {{ certificate.certificateNumber }}
+        </div>
+    </div>
+
+
+
+
+
+
+  <div class="main-content">
+    <div class="section-card">
+      <div class="section-header" (click)="toggleProjectOverview()">
+        <h2 class="section-title">Project Overview</h2>
+        <span class="toggle-icon" [class.expanded]="projectOverviewExpanded">
+          {{ projectOverviewExpanded ? '▼' : '▶' }}
+        </span>
+      </div>
+
+      <div class="section-content" [class.expanded]="projectOverviewExpanded">
+        <p class="project-description">
+          {{ getDescription() }}<span class="read-more" (click)="toggleDescription()">{{ showFullDescription ? '' : ' Read More..' }}</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="section-card">
+      <div class="section-header" (click)="toggleProjectDetails()">
+        <h2 class="section-title">Project Details</h2>
+        <span class="toggle-icon" [class.expanded]="projectDetailsExpanded">
+          {{ projectDetailsExpanded ? '▼' : '▶' }}
+        </span>
+      </div>
+
+      <div class="section-content" [class.expanded]="projectDetailsExpanded">
+        <div class="details-grid">
+          <div class="details-column">
+            <div class="detail-row">
+              <span class="detail-label">Country :</span>
+              <span class="detail-value">{{ projectDetails.country }}</span>
+            </div>
+
+            <div class="detail-row">
+              <span class="detail-label">Company :</span>
+              <span class="detail-value">{{ projectDetails.company }}</span>
+            </div>
+
+            <div class="detail-row">
+              <span class="detail-label">Web :</span>
+              <span class="detail-value detail-link">{{ projectDetails.web }}</span>
+            </div>
+
+            <div class="detail-row">
+              <span class="detail-label">Registry:</span>
+              <span class="detail-value">{{ projectDetails.registry }}</span>
+            </div>
+
+            <div class="detail-row">
+              <span class="detail-label">Validation:</span>
+              <span class="detail-value">{{ projectDetails.validation }}</span>
+            </div>
+          </div>
+
+          <div class="details-column">
+            <div class="detail-row">
+              <span class="detail-label">Blockchain Address :</span>
+              <span class="detail-value detail-truncate" [title]="projectDetails.blockchainAddress">{{ projectDetails.blockchainAddress }}</span>
+            </div>
+
+            <div class="detail-row">
+              <span class="detail-label">Type :</span>
+              <span class="detail-value">{{ projectDetails.type }}</span>
+            </div>
+
+            <div class="detail-row">
+              <span class="detail-label">Mechanism :</span>
+              <span class="detail-value">{{ projectDetails.mechanism }}</span>
+            </div>
+
+            <div class="detail-row">
+              <span class="detail-label">Characteristics :</span>
+              <span class="detail-value">{{ projectDetails.characteristics }}</span>
+            </div>
+
+            <div class="detail-row">
+              <span class="detail-label">Methodology:</span>
+              <span class="detail-value">{{ projectDetails.methodology }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="verification-card">
+      <div class="verification-header">
+        <span class="verification-icon">🛡️</span>
+        <h3 class="verification-title">Verification Status</h3>
+      </div>
+
+      <ul class="verification-list">
+        <li class="verification-item" [class.verified]="verificationStatus.blockchainVerified">
+          <span class="bullet">•</span>
+          <span>Blockchain Verified</span>
+        </li>
+        <li class="verification-item" [class.verified]="verificationStatus.registryApproved">
+          <span class="bullet">•</span>
+          <span>Registry Approved</span>
+        </li>
+        <li class="verification-item" [class.verified]="verificationStatus.permanentlyRetired">
+          <span class="bullet">•</span>
+          <span>Permanently Retired</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+ 

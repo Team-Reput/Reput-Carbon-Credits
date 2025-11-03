@@ -1,0 +1,618 @@
+ // Variables
+$primary-green: #2f8132;
+$dark-green: #1e5a2e;
+$light-bg: #e8ebe5;
+$card-bg: #ffffff;
+$text-primary: #2c2c2c;
+$text-secondary: #666666;
+$text-light: #999999;
+$border-color: #d0d0c8;
+$certificate-bg: #f5f7f4;
+
+// Reset
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.retire-container {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  color: $text-primary;
+  background-color: $light-bg;
+  min-height: 100vh;
+}
+
+// Hero Section
+.hero-section {
+  position: relative;
+  background-image: url('https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?q=80&w=2070&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  padding: 0;
+  color: #fff;
+  overflow: hidden;
+  height: 400px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(100, 40, 60, 0.7) 0%,
+      rgba(150, 70, 80, 0.65) 25%,
+      rgba(200, 110, 90, 0.6) 50%,
+      rgba(230, 140, 100, 0.65) 75%,
+      rgba(255, 170, 110, 0.7) 100%
+    );
+    pointer-events: none;
+  }
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 40px;
+  background-color: transparent;
+  border: none;
+  color: $text-primary;
+  padding: 0;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  z-index: 10;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  .back-icon {
+    font-size: 14px;
+  }
+}
+
+.hero-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 80px 40px 40px;
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 520px;
+  gap: 40px;
+  align-items: start;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: 1fr;
+    padding: 60px 40px 40px;
+  }
+}
+
+// Left Side - Project Info
+.project-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.verified-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: transparent;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 400;
+  width: fit-content;
+
+  .badge-icon {
+    font-size: 16px;
+  }
+}
+
+.project-title {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  margin: 0;
+}
+
+.project-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 400;
+
+  .meta-icon {
+    font-size: 16px;
+  }
+}
+
+.project-description-box {
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 16px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-top: 12px;
+}
+
+// Certificate Card
+.certificate-card {
+  background-color: $card-bg;
+  border-radius: 12px;
+  padding: 40px 36px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+
+
+  width: 36%;
+    position: absolute;
+    top: 20%;
+    left: 63%;
+}
+
+.certificate-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: $text-primary;
+  margin-bottom: 8px;
+  text-align: center;
+  line-height: 1.3;
+}
+
+.certificate-date {
+  text-align: center;
+  font-size: 15px;
+  color: $text-secondary;
+  margin-bottom: 32px;
+  font-weight: 400;
+}
+
+.tonnes-display {
+  background-color: $certificate-bg;
+  padding: 32px 24px;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.tonnes-number {
+  font-size: 72px;
+  font-weight: 700;
+  color: $text-primary;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.tonnes-label {
+  font-size: 18px;
+  font-weight: 600;
+  color: $text-primary;
+  margin-bottom: 6px;
+}
+
+.tonnes-subtitle {
+  font-size: 14px;
+  color: $text-secondary;
+  font-weight: 400;
+}
+
+.retirement-message {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.message-text {
+  font-size: 18px;
+  font-weight: 600;
+  color: $text-primary;
+  margin-bottom: 6px;
+}
+
+.message-label {
+  font-size: 13px;
+  color: $text-light;
+  font-weight: 400;
+}
+
+.account-details {
+  background-color: transparent;
+  padding: 0;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.account-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 13px;
+}
+
+.account-label {
+  color: $text-primary;
+  font-weight: 400;
+  flex-shrink: 0;
+  min-width: 70px;
+}
+
+.account-value {
+  color: $text-primary;
+  font-weight: 400;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  flex: 1;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.download-button {
+  width: 100%;
+  background-color: $primary-green;
+  color: #fff;
+  border: none;
+  padding: 16px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: darken($primary-green, 5%);
+  }
+
+  .download-icon {
+    font-size: 18px;
+  }
+}
+
+.action-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.share-button,
+.registry-button {
+  background-color: transparent;
+  border: 1px solid darken($border-color, 10%);
+  color: $text-primary;
+  padding: 14px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: lighten($border-color, 8%);
+  }
+
+  .share-icon,
+  .external-icon {
+    font-size: 16px;
+  }
+}
+
+.certificate-number {
+  text-align: center;
+  font-size: 13px;
+  color: $text-light;
+  font-weight: 400;
+}
+
+// Main Content
+.main-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px 60px;
+}
+
+// Section Cards
+.section-card {
+  background-color: $card-bg;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+
+  width: 58%;
+    background: #EAF6EA;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 28px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s ease;
+
+      background: #EAF6EA;
+    width: 99%;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+  }
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: $text-primary;
+}
+
+.toggle-icon {
+  font-size: 14px;
+  color: $text-primary;
+  transition: transform 0.3s ease;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.expanded {
+    transform: rotate(0deg);
+  }
+}
+
+.section-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+  padding: 0 28px;
+
+  &.expanded {
+    max-height: 2000px;
+    padding: 0 28px 28px;
+  }
+}
+
+.project-description {
+  font-size: 14px;
+  line-height: 1.6;
+  color: $text-primary;
+  font-weight: 400;
+  margin: 0;
+}
+
+.read-more {
+  color: darken($primary-green, 5%);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// Project Details Grid
+.details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+.details-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.detail-row {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.detail-label {
+  font-size: 14px;
+  color: $text-primary;
+  font-weight: 400;
+  flex-shrink: 0;
+  min-width: 140px;
+}
+
+.detail-value {
+  font-size: 14px;
+  color: $text-primary;
+  font-weight: 600;
+  flex: 1;
+}
+
+.detail-link {
+  color: darken($primary-green, 5%);
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.detail-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Verification Card
+.verification-card {
+  background-color: $card-bg;
+  border-radius: 8px;
+  padding: 28px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.verification-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+
+  .verification-icon {
+    font-size: 20px;
+  }
+}
+
+.verification-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: $text-primary;
+  margin: 0;
+}
+
+.verification-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-left: 0;
+}
+
+.verification-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: $text-primary;
+  font-weight: 400;
+
+  .bullet {
+    color: $text-primary;
+    font-size: 24px;
+    line-height: 1;
+    width: 12px;
+    text-align: center;
+  }
+
+  &.verified .bullet {
+    color: $text-primary;
+  }
+}
+
+// Responsive Design
+@media (max-width: 1200px) {
+  .hero-content {
+    grid-template-columns: 1fr;
+  }
+
+  .certificate-card {
+    max-width: 600px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    height: auto;
+    min-height: 350px;
+  }
+
+  .back-button {
+    left: 20px;
+  }
+
+  .hero-content {
+    padding: 60px 20px 30px;
+    gap: 24px;
+  }
+
+  .project-title {
+    font-size: 36px;
+  }
+
+  .certificate-card {
+    padding: 32px 24px;
+    max-width: 100%;
+  }
+
+  .tonnes-number {
+    font-size: 56px;
+  }
+
+  .main-content {
+    padding: 0 20px 40px;
+  }
+
+  .section-header,
+  .section-content.expanded {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-label {
+    min-width: 120px;
+  }
+
+  .verification-card {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .project-title {
+    font-size: 28px;
+  }
+
+  .certificate-title {
+    font-size: 22px;
+  }
+
+  .tonnes-number {
+    font-size: 48px;
+  }
+
+  .action-buttons {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-label {
+    min-width: 100px;
+  }
+}
+
+
+
+
+
+
