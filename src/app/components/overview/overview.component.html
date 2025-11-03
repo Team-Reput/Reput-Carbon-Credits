@@ -1,0 +1,180 @@
+<div class="overview-container">
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <button class="back-button" (click)="goBack()">
+      <span class="back-icon">←</span> Back
+    </button>
+    
+    <div class="hero-content">
+      <h1 class="project-title">{{ project.title }}</h1>
+      
+      <div class="badges">
+        <span class="badge verified">Verified by {{ project.verifiedBy }}</span>
+        <span class="badge vintage">Vintage {{ project.vintage }}</span>
+      </div>
+      
+      <div class="project-meta">
+        <span class="meta-item">
+          <span class="icon">📍</span> {{ project.location }}
+        </span>
+        <span class="meta-separator">|</span>
+        <span class="meta-item">
+          <span class="icon">🌳</span> {{ project.projectType }}
+        </span>
+        <span class="meta-separator">|</span>
+        <span class="meta-item">
+          <span class="icon">✓</span> {{ project.vcsNumber }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Left Column -->
+    <div class="left-column">
+      
+      <!-- Project Overview Section -->
+      <div class="section-card">
+        <div class="section-header" (click)="toggleProjectOverview()">
+          <h2 class="section-title">Project Overview</h2>
+          <span class="toggle-icon" [class.expanded]="projectOverviewExpanded">
+            {{ projectOverviewExpanded ? '−' : '+' }}
+          </span>
+        </div>
+        
+        <div class="section-content" [class.expanded]="projectOverviewExpanded">
+          <p class="project-description">
+            {{ getDescription() }}
+            <span class="read-more" (click)="toggleDescription()">
+              {{ showFullDescription ? ' Read Less' : ' Read More..' }}
+            </span>
+          </p>
+          
+          <ul class="features-list">
+            <li *ngFor="let feature of project.features">{{ feature }}</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Retirement Details Section -->
+      <div class="section-card">
+        <div class="section-header" (click)="toggleRetirementDetails()">
+          <h2 class="section-title">Retirement Details</h2>
+          <span class="toggle-icon" [class.expanded]="retirementDetailsExpanded">
+            {{ retirementDetailsExpanded ? '−' : '+' }}
+          </span>
+        </div>
+        
+        <div class="section-content" [class.expanded]="retirementDetailsExpanded">
+          <div class="form-group">
+            <label class="form-label">How many tonnes of carbon would you like to retire?</label>
+            <input 
+              type="number" 
+              class="form-input" 
+              [(ngModel)]="project.selectedQuantity"
+              (ngModelChange)="updateQuantity($event)"
+              min="1"
+              max="1000"
+            />
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Who will this retirement be credited to?</label>
+            <input 
+              type="text" 
+              class="form-input" 
+              [(ngModel)]="project.creditedTo"
+            />
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Public message</label>
+            <textarea 
+              class="form-textarea" 
+              [(ngModel)]="project.publicMessage"
+              rows="3"
+            ></textarea>
+            <small class="form-hint">Message is public and permanent. Don't include personal info</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment & Privacy Information Section -->
+      <div class="section-card">
+        <div class="section-header" (click)="togglePaymentInfo()">
+          <h2 class="section-title">Payment & Privacy Information</h2>
+          <span class="toggle-icon" [class.expanded]="paymentInfoExpanded">
+            {{ paymentInfoExpanded ? '−' : '+' }}
+          </span>
+        </div>
+        
+        <div class="section-content payment-content" [class.expanded]="paymentInfoExpanded">
+          <div class="payment-grid">
+            <div class="payment-column">
+              <div class="info-header">
+                <span class="info-icon">💳</span>
+                <h3>Accepted Payment Methods</h3>
+              </div>
+              <ul class="info-list">
+                <li *ngFor="let method of paymentMethods">{{ method }}</li>
+              </ul>
+            </div>
+            
+            <div class="payment-column">
+              <div class="info-header">
+                <span class="info-icon">🔒</span>
+                <h3>Security & Privacy</h3>
+              </div>
+              <ul class="info-list">
+                <li *ngFor="let feature of securityFeatures">{{ feature }}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right Column - Cost Summary -->
+    <div class="right-column">
+      <div class="cost-summary-card">
+        <h2 class="summary-title">Cost Summary</h2>
+        
+        <div class="summary-main">
+          <div class="tonnes-display">{{ project.selectedQuantity }}</div>
+          <div class="tonnes-label">tonnes to retire</div>
+        </div>
+        
+        <div class="summary-details">
+          <div class="summary-row">
+            <span class="summary-label">Price per tonne:</span>
+            <span class="summary-value">${{ project.pricePerTonne.toFixed(2) }}</span>
+          </div>
+          
+          <div class="summary-row">
+            <span class="summary-label">Quantity</span>
+            <span class="summary-value">{{ project.selectedQuantity }}</span>
+          </div>
+          
+          <div class="summary-row">
+            <span class="summary-label">VAT / GST:</span>
+            <span class="summary-value">{{ (vatRate * 100).toFixed(2) }}</span>
+          </div>
+        </div>
+        
+        <div class="summary-total">
+          <span class="total-label">Total Cost</span>
+          <span class="total-value">${{ calculateTotal().toFixed(2) }}</span>
+        </div>
+        
+        <button class="buy-button" (click)="buyNow()">Buy Now</button>
+        
+        <a class="polygonscan-link" (click)="viewOnPolygonscan()">
+          View on polygonscan <span class="external-icon">↗</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
