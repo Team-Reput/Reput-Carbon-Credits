@@ -24,3 +24,189 @@
     <button class="pay-button">Pay</button>
   </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+
+
+<div class="card">
+  <div class="card-image-container">
+    <img [src]="cardData.imageUrl" [alt]="cardData.title" class="card-image">
+    <div class="stock-badge" *ngIf="cardData.inStock">In Stock</div>
+    <button class="favorite-btn" (click)="toggleFavorite()" [class.active]="isFavorite">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" 
+              [attr.fill]="isFavorite ? '#ff4757' : 'none'" 
+              [attr.stroke]="isFavorite ? '#ff4757' : 'white'" 
+              stroke-width="2"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="card-content">
+    <div class="sdg-badge-container">
+      <div class="sdg-circle" [style.background]="getGradientString()">
+        <div class="sdg-inner">
+          <div class="sdg-number">{{ cardData.sdgScore }}</div>
+          <div class="sdg-label">SDGs</div>
+        </div>
+      </div>
+      <div class="category-badge">{{ cardData.category }}</div>
+    </div>
+
+    <h2 class="card-title">{{ cardData.title }}</h2>
+    <p class="card-description">{{ cardData.description }}</p>
+
+    <div class="info-grid">
+      <div class="info-item">
+        <span class="info-label">Vintage :</span>
+        <span class="info-value">{{ cardData.vintage }}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Country :</span>
+        <span class="info-value">{{ cardData.countryFlag }} {{ cardData.country }}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Registry :</span>
+        <span class="info-value highlight">{{ cardData.registry }}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Industry :</span>
+        <span class="info-value">{{ cardData.industry }}</span>
+      </div>
+    </div>
+
+    <div class="price-section">
+      <div class="price">
+        <span class="price-amount">${{ cardData.price }}</span>
+        <span class="price-unit">/ton</span>
+      </div>
+      <div class="availability">
+        <span class="availability-label">Available:</span>
+        <span class="availability-value">{{ cardData.available.toLocaleString() }} UD</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+<div class="card" *ngFor="let project of filteredProjects">
+  <div class="card-image-container">
+    <img [src]="project.imageUrl" [alt]="project.title" class="card-image">
+    <div class="stock-badge" *ngIf="project.inStock">In Stock</div>
+    <button class="favorite-btn" (click)="toggleFavorite()" [class.active]="isFavorite">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" 
+              [attr.fill]="isFavorite ? '#ff4757' : 'none'" 
+              [attr.stroke]="isFavorite ? '#ff4757' : 'white'" 
+              stroke-width="2"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="card-content">
+    <div class="sdg-badge-container">
+      <div class="sdg-circle" [style.background]="getGradientString()">
+        <div class="sdg-inner">
+          <div class="sdg-number">{{ project.sdgScore }}</div>
+          <div class="sdg-label">SDGs</div>
+        </div>
+      </div>
+      <div class="category-badge">{{ project.category }}</div>
+    </div>
+
+    <h2 class="card-title">{{ project.title }}</h2>
+    <p class="card-description">{{ project.description }}</p>
+
+    <div class="info-grid">
+      <div class="info-item">
+        <span class="info-label">Vintage :</span>
+        <span class="info-value">{{ project.vintage }}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Country :</span>
+        <span class="info-value">{{ project.countryFlag }} {{ project.country }}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Registry :</span>
+        <span class="info-value highlight">{{ project.registry }}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Industry :</span>
+        <span class="info-value">{{ project.industry }}</span>
+      </div>
+    </div>
+
+    <div class="price-section">
+      <div class="price">
+        <span class="price-amount">${{ project.price }}</span>
+        <span class="price-unit">/ton</span>
+      </div>
+      <div class="availability">
+        <span class="availability-label">Available:</span>
+        <span class="availability-value">{{ project.available.toLocaleString() }} UD</span>
+      </div>
+    </div>
+  </div>
+</div>
+ -->
+

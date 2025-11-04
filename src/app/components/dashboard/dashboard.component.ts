@@ -69,7 +69,7 @@ export class DashboardComponent {
     {
       id: 1,
       name: 'Vent du Midi',
-      description: 'ISO-compliant Life Cycle Assessment platform enabling large-scale wind projects to offset carbon emissions acro...',
+      description: 'ISO-compliant Life Cycle Assessment platform enabling large-scale wind projects to ...',
       image: 'https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?w=800&h=600&fit=crop',
       sdgs: 11,
       sdgsLabel: 'SDGs',
@@ -86,7 +86,7 @@ export class DashboardComponent {
     {
       id: 2,
       name: 'Verde Biomassa Italia',
-      description: 'High-efficiency biomass facilities converting organic waste into clean power for rural and urban grids...',
+      description: 'High-efficiency biomass facilities converting organic waste into clean power for  ...',
       image: 'https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=800&h=600&fit=crop',
       sdgs: 8,
       sdgsLabel: 'SDGs',
@@ -103,7 +103,7 @@ export class DashboardComponent {
     {
       id: 3,
       name: 'Solar Suryan',
-      description: 'Community-scale photovoltaic projects delivering reliable solar power and reducing dependence on fossil fuels.',
+      description: 'Community-scale photovoltaic projects delivering reliable solar power and  .',
       image: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&h=600&fit=crop',
       sdgs: 5,
       sdgsLabel: 'SDGs',
@@ -120,7 +120,7 @@ export class DashboardComponent {
     {
       id: 4,
       name: 'Delta Capture',
-      description: 'Industrial carbon capture and storage network capturing CO₂ directly from the atmosphere and industrial streams',
+      description: 'Industrial carbon capture and storage network capturing CO₂ directly from ..',
       image: 'https://images.unsplash.com/photo-1580541631950-7282082b53ce?w=800&h=600&fit=crop',
       sdgs: 8,
       sdgsLabel: 'SDGs',
@@ -137,7 +137,7 @@ export class DashboardComponent {
     {
       id: 5,
       name: 'AlpenTherm Geo',
-      description: 'Deep-well geothermal plants harnessing natural heat to provide continuous baseload energy with minimal emissi...',
+      description: 'Deep-well geothermal plants harnessing natural heat to provide continuous...',
       image: 'https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=800&h=600&fit=crop',
       sdgs: 3,
       sdgsLabel: 'SDGs',
@@ -154,7 +154,7 @@ export class DashboardComponent {
     {
       id: 6,
       name: 'IberHydro',
-      description: 'Peatland restoration to lock carbon in soil and rejuvenate native wildlife habitats.',
+      description: 'Peatland restoration to lock carbon in soil and rejuvenate native wildlife ..',
       // image: 'https://images.unsplash.com/photo-1587048170540-9b5fc127e528?w=800&h=600&fit=crop',
       image: 'assets/images/verdeBiomass.png',
       sdgs: 7,
@@ -208,4 +208,38 @@ export class DashboardComponent {
   setViewMode(mode: string) {
     this.viewMode = mode;
   }
+
+
+  getSdgColors(project: Project): string[] {
+    const colors = [
+      '#E5243B', '#DDA63A', '#4C9F38', '#C5192D', '#FF3A21',
+      '#26BDE2', '#FCC30B', '#A21942', '#FD6925', '#DD1367',
+      '#FD9D24', '#BF8B2E', '#3F7E44', '#0A97D9', '#56C02B',
+      '#00689D', '#19486A'
+    ];
+    return colors.slice(0, project.sdgs);
+  }
+
+  getGradientString(project: Project): string {
+    const colors = this.getSdgColors(project);
+    const segmentSize = 100 / colors.length;
+    let gradient = 'conic-gradient(';
+    
+    colors.forEach((color, index) => {
+      const startAngle = index * segmentSize;
+      const endAngle = (index + 1) * segmentSize;
+      gradient += `${color} ${startAngle}% ${endAngle}%`;
+      if (index < colors.length - 1) gradient += ', ';
+    });
+    
+    gradient += ')';
+    return gradient;
+  }
+
+  isFavorite: boolean = false;
+
+  // toggleFavorite(): void {
+  //   this.isFavorite = !this.isFavorite;
+  // }
+
 }
