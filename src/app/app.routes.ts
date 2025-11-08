@@ -10,6 +10,7 @@ import { FeaturesComponent } from './components/features/features.component';
 import { OverviewComponent } from './components/overview/overview.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { RetireProofComponent } from './components/retire-proof/retire-proof.component';
+import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 
  
 
@@ -27,6 +28,7 @@ export const routes: Routes = [
     {path:'over' , component:OverviewComponent},
     {path:'check' , component:CheckoutComponent},
     {path:'proof' , component:RetireProofComponent},
+    {path:'detail' , component:ProductDetailComponent},
     { path: '**', redirectTo: 'login' },
 
 

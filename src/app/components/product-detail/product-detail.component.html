@@ -1,0 +1,434 @@
+<div class="product-detail-container">
+  <!-- Hero Section -->
+  <div class="hero-section" [style.background-image]="'url(' + product.heroImage + ')'">
+    <button class="back-button" (click)="goBack()">
+      <span class="back-icon">←</span> Back
+    </button>
+    
+    <div class="hero-content">
+      <h1 class="product-title">{{ product.title }}</h1>
+      
+      <div class="badges">
+        <span class="badge verification-badge">{{ product.verificationBadge }}</span>
+        <span class="badge vintage-badge">{{ product.vintage }}</span>
+      </div>
+      
+      <div class="location-info">
+        <span class="location-icon">📍</span>
+        <span>{{ product.location }}</span>
+        <span class="separator">|</span>
+        <span class="info-icon">🏛️</span>
+        <span>{{ product.projectType }}</span>
+        <span class="separator">|</span>
+        <span>{{ product.sdgs }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content Section -->
+  <div class="content-wrapper">
+    <div class="main-content">
+      <!-- Project Overview -->
+      <div class="section-card">
+        <div class="section-header" (click)="toggleOverview()">
+          <h2>{{ product.overview.title }}</h2>
+          <span class="toggle-icon">{{ overviewExpanded ? '▼' : '▶' }}</span>
+        </div>
+        <div class="section-content" *ngIf="overviewExpanded">
+          <p>{{ product.overview.description }}<a href="javascript:void(0)" class="read-more-link">Read More...</a></p>
+        </div>
+      </div>
+
+      <!-- Project Details -->
+      <div class="section-card">
+        <div class="section-header" (click)="toggleDetails()">
+          <h2>Project Details</h2>
+          <span class="toggle-icon">{{ detailsExpanded ? '▼' : '▶' }}</span>
+        </div>
+        <div class="section-content details-content" *ngIf="detailsExpanded">
+          <div class="details-grid">
+            <div class="detail-item">
+              <span class="detail-label">Country :</span>
+              <span class="detail-value">{{ product.details.country }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Blockchain Address :</span>
+              <span class="detail-value blockchain-value">{{ product.details.blockchainAddress }}</span>
+            </div>
+            
+            <div class="detail-item">
+              <span class="detail-label">Company :</span>
+              <span class="detail-value">{{ product.details.company }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Type :</span>
+              <span class="detail-value">{{ product.details.type }}</span>
+            </div>
+            
+            <div class="detail-item">
+              <span class="detail-label">Web :</span>
+              <span class="detail-value web-link">{{ product.details.web }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Mechanism :</span>
+              <span class="detail-value">{{ product.details.mechanism }}</span>
+            </div>
+            
+            <div class="detail-item">
+              <span class="detail-label">Registry :</span>
+              <span class="detail-value">{{ product.details.registry }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Characteristics :</span>
+              <span class="detail-value">{{ product.details.characteristics }}</span>
+            </div>
+            
+            <div class="detail-item">
+              <span class="detail-label">Validation :</span>
+              <span class="detail-value">{{ product.details.validation }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Methodology :</span>
+              <span class="detail-value">{{ product.details.methodology }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- UN Sustainable Development Goals -->
+      <div class="section-card">
+        <div class="section-header" (click)="toggleSDG()">
+          <h2>{{ product.sustainabilityGoals.title }}</h2>
+          <span class="toggle-icon">{{ sdgExpanded ? '▼' : '▶' }}</span>
+        </div>
+        <div class="sdg-header-info" *ngIf="sdgExpanded">
+          <a [href]="product.sustainabilityGoals.learnMoreUrl" class="learn-more-link" target="_blank">
+            {{ product.sustainabilityGoals.learnMoreText }}
+          </a>
+          <span class="sdg-count">{{ product.sustainabilityGoals.date }}</span>
+        </div>
+        <div class="section-content sdg-content" *ngIf="sdgExpanded">
+          <div class="sdg-icons-grid">
+            <img *ngFor="let icon of product.sustainabilityGoals.icons" 
+                 [src]="icon" 
+                 alt="SDG Icon" 
+                 class="sdg-icon">
+          </div>
+        </div>
+      </div>
+
+      <!-- Standards & Certifications -->
+      <div class="section-card">
+        <div class="section-header" (click)="toggleStandards()">
+          <h2>{{ product.standardsCertifications.title }}</h2>
+          <span class="toggle-icon">{{ standardsExpanded ? '▼' : '▶' }}</span>
+        </div>
+      </div>
+
+      <!-- Verification -->
+      <div class="section-card">
+        <div class="section-header" (click)="toggleVerification()">
+          <h2>{{ product.verification.title }}</h2>
+          <span class="toggle-icon">{{ verificationExpanded ? '▼' : '▶' }}</span>
+        </div>
+        <div class="section-content verification-content" *ngIf="verificationExpanded">
+          <div class="verification-item">
+            <div class="verification-logo">|VERRA|</div>
+            <div class="verification-details">
+              <h3>{{ product.verification.registry }}</h3>
+              <p class="verification-issuer">{{ product.verification.issuedBy }}</p>
+              <p class="verification-validity">{{ product.verification.validUntil }}</p>
+            </div>
+            <a [href]="product.verification.viewCertificateUrl" class="view-certificate-link">
+              <span class="arrow-icon">↗</span> View Certificate
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Methodology And PDD -->
+      <div class="section-card">
+        <div class="section-header" (click)="toggleMethodology()">
+          <h2>{{ product.methodologyPDD.title }}</h2>
+          <span class="toggle-icon">{{ methodologyExpanded ? '▼' : '▶' }}</span>
+        </div>
+        <div class="section-content methodology-content" *ngIf="methodologyExpanded">
+          <div class="methodology-document">
+            <div class="document-icon">📄</div>
+            <div class="document-details">
+              <p class="document-issuer">{{ product.methodologyPDD.issuedBy }}</p>
+              <p class="document-size">{{ product.methodologyPDD.documentSize }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Map & Gallery -->
+      <div class="section-card">
+        <div class="section-header" (click)="toggleMapGallery()">
+          <h2>{{ product.mapGallery.title }}</h2>
+          <span class="toggle-icon">{{ mapGalleryExpanded ? '▼' : '▶' }}</span>
+        </div>
+        <div class="section-content map-gallery-content" *ngIf="mapGalleryExpanded">
+          <div class="map-container">
+            <img [src]="product.mapGallery.mapImage" alt="Project Location Map" class="map-image">
+          </div>
+          <div class="gallery-images">
+            <img *ngFor="let image of product.mapGallery.galleryImages" 
+                 [src]="image" 
+                 alt="Gallery Image" 
+                 class="gallery-image">
+          </div>
+        </div>
+      </div>
+
+      <!-- Project Impact -->
+      <div class="section-card">
+        <div class="section-header" (click)="toggleProjectImpact()">
+          <h2>{{ product.projectImpact.title }}</h2>
+          <span class="toggle-icon">{{ projectImpactExpanded ? '▼' : '▶' }}</span>
+        </div>
+        <div class="section-content impact-content" *ngIf="projectImpactExpanded">
+          <div class="impact-grid">
+            <div *ngFor="let impact of product.projectImpact.impacts" class="impact-card">
+              <div class="impact-image-container">
+                <img [src]="impact.image" alt="{{ impact.title }}" class="impact-image">
+                <div class="impact-overlay">
+                  <span class="impact-icon" *ngIf="impact.icon">{{ impact.icon }}</span>
+                  <h3 class="impact-title">{{ impact.title }}</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="price-card">
+        <div class="price-display">
+          <div class="price-amount">{{ product.currency }}{{ pricePerTonne | number:'1.2-2' }}</div>
+          <div class="price-unit">/per tonne {{ product.unit }}</div>
+          <div class="price-label">Carbon Credit Price</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Select Vintage</label>
+          <select [(ngModel)]="selectedVintage" class="form-select">
+            <option *ngFor="let vintage of product.vintageOptions" 
+                    [value]="vintage.year + ' - $' + vintage.pricePerTonne + '/tones( ' + vintage.availableTonnes + '  available )'">
+              {{ vintage.year }} - ${{ vintage.pricePerTonne }}/tones( {{ vintage.availableTonnes | number }}  available )
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Quantity tonnes ({{ product.unit }})</label>
+          <div class="quantity-control">
+            <button class="quantity-btn" (click)="decrementQuantity()">-</button>
+            <input type="number" [(ngModel)]="quantity" class="quantity-input" min="1">
+            <button class="quantity-btn" (click)="incrementQuantity()">+</button>
+          </div>
+        </div>
+
+        <div class="price-summary">
+          <div class="summary-row">
+            <span class="summary-label">Base Price:</span>
+            <span class="summary-value">${{ pricePerTonne | number:'1.0-0' }}</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">Quantity</span>
+            <span class="summary-value">{{ quantity }}</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">VAT / GST:</span>
+            <span class="summary-value">0.00</span>
+          </div>
+          <div class="summary-row total-row">
+            <span class="summary-label">Total</span>
+            <span class="summary-value">${{ totalPrice | number:'1.0-0' }}</span>
+          </div>
+        </div>
+
+        <button class="btn-primary" (click)="buyNow()">Buy Now</button>
+        
+        <div class="action-buttons">
+          <button class="btn-secondary" (click)="addToCart()">Add to cart</button>
+          <button class="btn-secondary" (click)="makeOffer()">Make an offer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+<div class="product-detail">
+  <!-- Tabs -->
+  <div class="tabs">
+    <button 
+      class="tab-btn" 
+      [class.active]="activeTab === 'credit'"
+      (click)="switchTab('credit')"
+    >
+      Credit Vintages
+    </button>
+    <button 
+      class="tab-btn" 
+      [class.active]="activeTab === 'transactions'"
+      (click)="switchTab('transactions')"
+    >
+      Transactions
+    </button>
+    <button 
+      class="tab-btn" 
+      [class.active]="activeTab === 'understandings'"
+      (click)="switchTab('understandings')"
+    >
+      Understandings
+    </button>
+  </div>
+
+  <!-- Tab 1: Credit Vintages -->
+  <div *ngIf="activeTab === 'credit'" class="tab-content">
+    <h4>Carbon Credit Vintages & Availability</h4>
+    <p>Historical issuance and current availability by project year</p>
+
+    <table class="credit-table">
+      <thead>
+        <tr>
+          <th>Vintage Year</th>
+          <th>Credits Issued</th>
+          <th>Available</th>
+          <th>Retired</th>
+          <th>Avg. Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let credit of creditData">
+          <td>{{ credit.year }}</td>
+          <td>{{ credit.issued | number }}</td>
+          <td [ngClass]="{'red': credit.available < 20000, 'yellow': credit.available >= 20000 && credit.available < 50000, 'green': credit.available >= 50000}">
+            {{ credit.available | number }}
+          </td>
+          <td>{{ credit.retired | number }}</td>
+          <td>${{ credit.price }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="summary">
+      <div>
+        <h3>{{ totalIssued | number:'1.0-0' }}</h3>
+        <p>Total Credits Issued</p>
+      </div>
+      <div>
+        <h3>{{ currentAvailable }}</h3>
+        <p>Current Available</p>
+      </div>
+      <div>
+        <h3>{{ permanentRetired }}</h3>
+        <p>Permanent Retired</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab 2: Transactions -->
+  <div *ngIf="activeTab === 'transactions'" class="tab-content">
+    <h4>Recent Transactions</h4>
+    <table class="transaction-table">
+      <thead>
+        <tr>
+          <th>Country</th>
+          <th>Date</th>
+          <th>Transaction ID</th>
+          <th>Purchased Quantity</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tx of transactions">
+          <td>{{ tx.country }}</td>
+          <td>{{ tx.date }}</td>
+          <td>{{ tx.transactionId }}</td>
+          <td>{{ tx.quantity }}</td>
+          <td class="blue">${{ tx.price }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tab 3: Understandings -->
+  <div *ngIf="activeTab === 'understandings'" class="tab-content">
+    <div *ngFor="let item of understandings; let i = index" class="qa-item">
+      <div class="question" (click)="toggleAnswer(i)">
+        <p>{{ item.question }}</p>
+        <button class="toggle-btn">{{ item.open ? '-' : '+' }}</button>
+      </div>
+      <div class="answer" *ngIf="item.open">
+        <p>{{ item.answer }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<div class="projects-container">
+  <h2>Other Project</h2>
+
+  <div class="slider-wrapper">
+
+    <button class="arrow left" (click)="scrollLeft()">&#10094;</button>
+
+    <div
+      class="cards-slider"
+      #slider
+      (mousedown)="startDrag($event)"
+      (mousemove)="onDrag($event)"
+      (mouseup)="stopDrag()"
+      (mouseleave)="stopDrag()"
+      (touchstart)="startDrag($event)"
+      (touchmove)="onDrag($event)"
+      (touchend)="stopDrag()">
+
+      <div class="project-card" *ngFor="let item of projects">
+        <img [src]="item.image" class="card-img" />
+
+        <span class="stock-badge">In Stock</span>
+
+        <div class="sdg-label">
+          <span>{{item.sdg}}</span>
+          <small>SDGs</small>
+        </div>
+
+        <h3>{{item.name}}</h3>
+        <p>{{item.description}}</p>
+
+        <div class="info-grid">
+          <div>Vintage: {{item.vintage}}</div>
+          <div>Country: {{item.country}}</div>
+          <div>Registry: {{item.registry}}</div>
+          <div>Industry: {{item.industry}}</div>
+        </div>
+
+        <div class="footer">
+          <span class="price">${{item.price}} /ton</span>
+          <span class="available">Available: {{item.available}} UD</span>
+        </div>
+      </div>
+
+    </div>
+
+    <button class="arrow right" (click)="scrollRight()">&#10095;</button>
+
+  </div>
+</div>
