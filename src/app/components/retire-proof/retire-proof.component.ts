@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../../common/navbar/navbar.component';
+import {  Router, RouterModule  } from '@angular/router'
+import { FormBuilder } from '@angular/forms';
 
 interface CertificateData {
   projectName: string;
@@ -91,6 +93,8 @@ export class RetireProofComponent implements OnInit {
     // Initialize component
   }
 
+    constructor(private fb: FormBuilder, public router: Router) {}
+
   toggleProjectOverview(): void {
     this.projectOverviewExpanded = !this.projectOverviewExpanded;
   }
@@ -127,7 +131,8 @@ export class RetireProofComponent implements OnInit {
   }
 
   goBack(): void {
-    window.history.back();
+    // window.history.back();
+    this.router.navigate(['/dash']);
   }
 
   copyToClipboard(text: string): void {

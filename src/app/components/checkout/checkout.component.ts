@@ -2,7 +2,7 @@
 import { Component, Input  } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
+import {  Router, RouterModule  } from '@angular/router'
 
 
 // interface CardData {
@@ -36,8 +36,10 @@ export class CheckoutComponent {
   paymentForm: FormGroup;
 
   countries = ['India', 'United States', 'United Kingdom', 'Canada'];
+  
+  
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, public router: Router) {
     this.paymentForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       cardNumber: ['', [Validators.required, Validators.minLength(16)]],
@@ -49,13 +51,21 @@ export class CheckoutComponent {
   }
 
   pay() {
-    if (this.paymentForm.invalid) {
-      this.paymentForm.markAllAsTouched();
-      return;
-    }
-
+ 
+    // if (this.paymentForm.invalid) {
+    //   this.paymentForm.markAllAsTouched();
+    //   return;
+    // }
+    
     console.log('Payment Details:', this.paymentForm.value);
-    alert('Payment submitted (UI Demo Only)');
+    alert('Payment Successful! Thank you for your purchase.');
+
+    this.router.navigate(['/proof']);
+  }
+
+
+  back() {
+    this.router.navigate(['/dash']);
   }
 
 

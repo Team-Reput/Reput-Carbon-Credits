@@ -1,5 +1,5 @@
 <div class="payment-container">
-  <button class="back-button">← Back</button>
+  <button class="back-button" (click)="back()">← Back</button>
   <div class="payment-box">
     <label>Email</label>
     <input type="email" placeholder="rahulsharma@abfl.com" />
@@ -21,7 +21,7 @@
       <option>India</option>
     </select>
 
-    <button class="pay-button">Pay</button>
+    <button class="pay-button" (click)="pay()">Pay</button>
   </div>
 </div>
 

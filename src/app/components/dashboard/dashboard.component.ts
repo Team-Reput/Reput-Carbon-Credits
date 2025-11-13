@@ -20,6 +20,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../../common/navbar/navbar.component';
+import {  Router, RouterModule  } from '@angular/router'
+
 
 interface Project {
   id: number;
@@ -171,6 +173,14 @@ export class DashboardComponent {
     }
   ];
 
+
+  
+
+  constructor(  public router: Router) {  }
+
+
+
+
   get filteredProjects() {
     return this.projects.filter(project => {
       const matchesSearch = project.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
@@ -241,5 +251,22 @@ export class DashboardComponent {
   // toggleFavorite(): void {
   //   this.isFavorite = !this.isFavorite;
   // }
+
+
+  detail(): void { 
+     this.router.navigate(['/detail']);
+  }
+
+  openProjectDetails(project: any) {
+  console.log("🟢 Card clicked!", project);
+
+  this.router.navigate(['/detail']);
+
+  // this.router.navigate(['/main/industry/lca/project-details'], {
+  //   queryParams: { id: project.id }
+  // });
+
+
+}
 
 }

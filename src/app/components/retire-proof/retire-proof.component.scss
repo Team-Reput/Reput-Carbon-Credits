@@ -70,6 +70,11 @@ $certificate-bg: #f5f7f4;
   transition: all 0.2s ease;
   z-index: 10;
 
+
+  background: #ffffff69;
+  padding: 9px;
+  border-radius: 31px;
+
   &:hover {
     opacity: 0.7;
   }

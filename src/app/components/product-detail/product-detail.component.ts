@@ -1,6 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import {  Router, RouterModule  } from '@angular/router'
+
 
 interface ProductDetail {
   title: string;
@@ -184,6 +186,11 @@ export class ProductDetailComponent {
     }
   };
 
+  
+    constructor(  public router: Router) {  }
+  
+  
+
   overviewExpanded: boolean = true;
   detailsExpanded: boolean = true;
   sdgExpanded: boolean = true;
@@ -252,6 +259,7 @@ export class ProductDetailComponent {
   }
 
   buyNow(): void {
+     this.router.navigate(['/over']);
     console.log('Buy Now clicked', {
       vintage: this.selectedVintage,
       quantity: this.quantity,
@@ -445,6 +453,12 @@ export class ProductDetailComponent {
 
   stopDrag() {
     this.isDragging = false;
+  }
+
+
+
+  backToDashboard(): void {
+    this.router.navigate(['/dash']);
   }
 }
 

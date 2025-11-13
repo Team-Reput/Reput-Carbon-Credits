@@ -26,7 +26,7 @@ export const routes: Routes = [
     {path:'pur' , component:MyPurchaseComponent},
     {path:'feat' , component:FeaturesComponent},
     {path:'over' , component:OverviewComponent},
-    {path:'check' , component:CheckoutComponent},
+    {path:'checkout' , component:CheckoutComponent},
     {path:'proof' , component:RetireProofComponent},
     {path:'detail' , component:ProductDetailComponent},
     { path: '**', redirectTo: 'login' },

@@ -231,65 +231,11 @@
     <!-- Projects Grid -->
     <div class="projects-grid">
 
-      <!-- <div class="project-card" *ngFor="let project of filteredProjects">
-        <div class="project-image">
-          <img [src]="project.image" [alt]="project.name">
-          <span class="stock-badge" *ngIf="project.inStock">In Stock</span>
-          <button class="favorite-btn" (click)="toggleFavorite(project, $event)">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
-        </div>
-
-        <div class="project-content">
-          <div class="project-meta">
-            <div class="sdg-badge">
-              <span class="sdg-number">{{ project.sdgs }}</span>
-              <span class="sdg-text">{{ project.sdgsLabel }}</span>
-            </div>
-            <span class="project-tag">{{ project.tag }}</span>
-          </div>
-
-          <h3 class="project-title">{{ project.name }}</h3>
-          <p class="project-description">{{ project.description }}</p>
-
-          <div class="project-details">
-            <div class="detail-row">
-              <span class="detail-label">Vintage :</span>
-              <span class="detail-value">{{ project.vintage }}</span>
-              <span class="detail-label">Country :</span>
-              <span class="detail-value country">
-                <span class="flag">{{ project.countryFlag }}</span>
-                {{ project.country }}
-              </span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">Registry :</span>
-              <span class="detail-value">{{ project.registry }}</span>
-              <span class="detail-label">Industry :</span>
-              <span class="detail-value">{{ project.industry }}</span>
-            </div>
-          </div>
-
-          <div class="project-footer">
-            <div class="price-info">
-              <span class="price">${{ project.price }}</span>
-              <span class="price-unit">/ton</span>
-            </div>
-            <div class="availability">
-              <span class="availability-label">Available:</span>
-              <span class="availability-value">{{ project.available }} UD</span>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
-       
+ 
 
 
 
-      <div class="card" *ngFor="let project of filteredProjects">
+      <div class="card" *ngFor="let project of filteredProjects"  (click)="openProjectDetails(project)">
         <div class="card-image-container">
           <img [src]="project.image" [alt]="project.name" class="card-image">
           <div class="stock-badge" *ngIf="project.inStock">In Stock</div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import {  Router, RouterModule  } from '@angular/router'
 
 interface ProjectData {
   title: string;
@@ -71,6 +72,10 @@ export class OverviewComponent implements OnInit {
     // Initialize component
   }
 
+    constructor(  public router: Router) {  }
+    
+    
+
   toggleProjectOverview(): void {
     this.projectOverviewExpanded = !this.projectOverviewExpanded;
   }
@@ -109,7 +114,8 @@ export class OverviewComponent implements OnInit {
     return this.calculateSubtotal() + this.calculateVAT();
   }
 
-  buyNow(): void {
+  buyNow(): void { 
+    this.router.navigate(['/checkout']);
     console.log('Purchasing', this.project.selectedQuantity, 'tonnes');
     alert(`Processing purchase of ${this.project.selectedQuantity} tonnes for $${this.calculateTotal().toFixed(2)}`);
   }
