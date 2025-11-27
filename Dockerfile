@@ -12,8 +12,8 @@ RUN npm install --legacy-peer-deps
 COPY . .
  
 # Build the Angular app
-RUN npm run build -- --configuration=test --base-href=/
-# RUN npm run build -- --configuration=production --base-href=/
+# RUN npm run build -- --configuration=test --base-href=/
+RUN npm run build -- --configuration=production --base-href=/
 
 # Step 2: Use Node.js image for the runtime stage
 FROM node:18 AS runtime-stage
