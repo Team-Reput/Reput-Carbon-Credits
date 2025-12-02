@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component , HostListener,ElementRef } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -14,7 +15,7 @@ export class NavbarComponent {
    languageOpen: boolean = false;
 
 
-   constructor(private eRef : ElementRef){}
+   constructor(private eRef : ElementRef,public router: Router){}
 
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
@@ -35,5 +36,24 @@ export class NavbarComponent {
     }
   }
 
+
+
+
+  featureProject(){
+    this.router.navigate(['/feat']);
+  }
+
+
+  featureDashboard(){
+    this.router.navigate(['/pur']);
+  }
+
+  featureMain(){
+    this.router.navigate(['/dash']);
+  }
+
+  featureRetire(){
+    this.router.navigate(['/retire']);
+  }
 
 }

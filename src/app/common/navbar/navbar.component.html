@@ -27,10 +27,10 @@
 
 <!-- Dropdown Menu -->
 <div class="dropdown-menu" *ngIf="menuOpen">
-  <a>Feature Project</a>
-  <a>Dashboard</a>
-  <a class="">Projects</a>
-  <a>Retire</a>
+  <a href="javascript:void(0)" (click)="featureProject()">Feature Project</a>
+  <a href="javascript:void(0)" (click)="featureDashboard()">Dashboard</a>
+  <a href="javascript:void(0)" (click)="featureMain()" >Projects</a>
+  <a href="javascript:void(0)" (click)="featureRetire()" >Retire</a>
   <a>Carbon Portfolio</a>
   <div class="submenu" (click)="toggleLanguage()">
     <span>Language</span>
