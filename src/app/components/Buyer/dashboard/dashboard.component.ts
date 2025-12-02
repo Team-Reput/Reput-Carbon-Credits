@@ -1,25 +1,7 @@
-// import { Component } from '@angular/core';
-
-// @Component({
-//   selector: 'app-dashboard',
-//   standalone: true,
-//   imports: [],
-  // templateUrl: './dashboard.component.html',
-  // styleUrl: './dashboard.component.scss'
-// })
-// export class DashboardComponent {
-
-// }
-
-
-
-
-
-
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NavbarComponent } from '../../common/navbar/navbar.component';
+import { NavbarComponent } from '../../../common/navbar/navbar.component';
 import {  Router, RouterModule  } from '@angular/router'
 
 

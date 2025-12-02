@@ -1,0 +1,196 @@
+ <div class="dashboard-container">
+  <!-- Sidebar -->
+  <aside class="sidebar" [class.expanded]="sidebarExpanded">
+    <div class="sidebar-header">
+      <div class="logo">
+        <div class="logo-icon">R</div>
+      </div>
+    </div>
+
+    <button class="sidebar-toggle-btn" (click)="toggleSidebar()">
+      <span class="material-icons">{{ sidebarExpanded ? 'chevron_left' : 'chevron_right' }}</span>
+    </button>
+
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active">
+        <span class="material-icons">grid_view</span>
+        <span class="nav-text" *ngIf="sidebarExpanded">Dashboard</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="material-icons">description</span>
+        <span class="nav-text" *ngIf="sidebarExpanded">Projects</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="material-icons">account_circle</span>
+        <span class="nav-text" *ngIf="sidebarExpanded">Profile</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main-content" [class.sidebar-expanded]="sidebarExpanded">
+    <!-- Navbar -->
+    <header class="navbar">
+      <div class="navbar-left">
+        <h1 class="welcome-text">Welcome Back, {{ userName }}</h1>
+      </div>
+      <div class="navbar-right">
+        <button class="icon-btn">
+          <span class="material-icons">notifications</span>
+        </button>
+        <div class="user-menu-wrapper">
+          <div class="user-info" (click)="toggleUserMenu()">
+            <img src="https://ui-avatars.com/api/?name={{userName}}&background=10b981&color=fff" alt="User" class="user-avatar">
+            <span class="company-name">{{ companyName }}</span>
+            <span class="material-icons">keyboard_arrow_down</span>
+          </div>
+          <div class="user-dropdown-menu" *ngIf="showUserMenu">
+            <a href="#" class="dropdown-item">
+              <span class="material-icons">account_circle</span>
+              <span>Profile</span>
+            </a>
+            <a href="#" class="dropdown-item">
+              <span class="material-icons">settings</span>
+              <span>Settings</span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item">
+              <span class="material-icons">logout</span>
+              <span>Logout</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-content">
+      <!-- Stats Cards -->
+      <div class="stats-grid">
+        <div class="stat-card" *ngFor="let stat of dashboardStats">
+          <div class="stat-header">
+            <span class="stat-title">{{ stat.title }}</span>
+            <span class="material-icons stat-icon">{{ stat.icon }}</span>
+          </div>
+          <div class="stat-value">{{ stat.value }}</div>
+          <div class="stat-subtitle">{{ stat.subtitle }}</div>
+        </div>
+      </div>
+
+      <!-- Registered Projects -->
+      <div class="section-card">
+        <div class="section-header">
+          <div class="section-title">
+            <span class="material-icons">description</span>
+            <span>Registered Projects</span>
+          </div>
+          <button class="register-btn" (click)="registerNewProject()">
+            + Register New Project
+          </button>
+        </div>
+
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Project Name</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th><span class="material-icons">calendar_today</span> Last Updated</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let project of registeredProjects">
+                <td class="project-name">{{ project.name }}</td>
+                <td class="project-type">{{ project.type }}</td>
+                <td>
+                  <span class="status-badge" [ngClass]="getStatusClass(project.status)">
+                    {{ project.status }}
+                  </span>
+                </td>
+                <td class="date">{{ project.date }}</td>
+                <td class="actions">
+                  <button class="action-btn" (click)="viewProject(project)">
+                    <span class="material-icons">visibility</span>
+                  </button>
+                  <button class="action-btn" (click)="editProject(project)">
+                    <span class="material-icons">edit</span>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Project Status Tracker -->
+      <div class="section-card">
+        <div class="section-header">
+          <div class="section-title">
+            <span class="material-icons">track_changes</span>
+            <span>Project Status Tracker</span>
+          </div>
+        </div>
+
+        <div class="tracker-flow">
+          <span class="flow-text">Project Registration → Validation → Verification → Issuance → Tokenization</span>
+        </div>
+
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Project Name</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th><span class="material-icons">calendar_today</span> Last Updated</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let project of projectTracker">
+                <td class="project-name">{{ project.name }}</td>
+                <td class="project-type">{{ project.type }}</td>
+                <td>
+                  <span class="status-badge" [ngClass]="getStatusClass(project.status)">
+                    {{ project.status }}
+                  </span>
+                </td>
+                <td class="date">{{ project.date }}</td>
+                <td class="actions">
+                  <button class="action-btn" (click)="viewProject(project)">
+                    <span class="material-icons">visibility</span>
+                  </button>
+                  <button class="action-btn" (click)="editProject(project)">
+                    <span class="material-icons">edit</span>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Notifications -->
+      <div class="section-card">
+        <div class="section-header">
+          <div class="section-title">
+            <span class="material-icons">notifications</span>
+            <span>Notifications / Updates</span>
+          </div>
+          <button class="view-all-btn" (click)="viewAllNotifications()">
+            View All
+          </button>
+        </div>
+
+        <div class="notifications-list">
+          <div class="notification-item" *ngFor="let notification of notifications">
+            <span class="material-icons notification-icon">info</span>
+            <span class="notification-text">{{ notification }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

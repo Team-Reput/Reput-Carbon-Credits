@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NavbarComponent } from '../../common/navbar/navbar.component';
+import { NavbarComponent } from '../../../common/navbar/navbar.component';
 
 interface RetirementProject {
   name: string;

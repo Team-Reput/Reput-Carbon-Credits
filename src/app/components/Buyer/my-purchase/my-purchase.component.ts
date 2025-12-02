@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NavbarComponent } from '../../common/navbar/navbar.component';
+import { NavbarComponent } from '../../../common/navbar/navbar.component';
 
 interface Project {
   name: string;

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NavbarComponent } from '../../common/navbar/navbar.component';
+import { NavbarComponent } from '../../../common/navbar/navbar.component';
 import {  Router, RouterModule  } from '@angular/router'
 import { FormBuilder } from '@angular/forms';
 
