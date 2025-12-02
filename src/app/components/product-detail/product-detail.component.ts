@@ -2,6 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {  Router, RouterModule  } from '@angular/router'
+import { NavbarComponent } from '../../common/navbar/navbar.component';
 
 
 interface ProductDetail {
@@ -75,10 +76,27 @@ interface ProductDetail {
   };
 }
 
+
+
+
+interface Project {
+  name: string;
+  sdg: number;
+  image: string;
+  description: string;
+  vintage: string;
+  country: string;
+  registry: string;
+  industry: string;
+  price: number;
+  available: string;
+}
+
+
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,NavbarComponent],
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.scss']
 })
@@ -429,6 +447,36 @@ export class ProductDetailComponent {
         available: "300000"
     }
   ];
+
+
+
+
+    getSdgColors(project: Project): string[] {
+    const colors = [
+      '#E5243B', '#DDA63A', '#4C9F38', '#C5192D', '#FF3A21',
+      '#26BDE2', '#FCC30B', '#A21942', '#FD6925', '#DD1367',
+      '#FD9D24', '#BF8B2E', '#3F7E44', '#0A97D9', '#56C02B',
+      '#00689D', '#19486A'
+    ];
+    return colors.slice(0, project.sdg);
+  }
+
+  getGradientString(project: Project): string {
+    const colors = this.getSdgColors(project);
+    const segmentSize = 100 / colors.length;
+    let gradient = 'conic-gradient(';
+    
+    colors.forEach((color, index) => {
+      const startAngle = index * segmentSize;
+      const endAngle = (index + 1) * segmentSize;
+      gradient += `${color} ${startAngle}% ${endAngle}%`;
+      if (index < colors.length - 1) gradient += ', ';
+    });
+    
+    gradient += ')';
+    return gradient;
+  }
+
 
   scrollLeft() {
     this.slider.nativeElement.scrollLeft -= 330;

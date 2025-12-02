@@ -663,7 +663,8 @@
 }
 
 .card-content {
-  padding: 24px;
+  // padding: 24px;
+  padding: 22px;
   position: relative;
 }
 
@@ -726,7 +727,8 @@
 }
 
 .card-title {
-  font-size: 24px;
+  // font-size: 24px;
+  font-size: 22px;
   font-weight: 600;
   color: #1f2937;
   // margin: 40px 0 12px 0;
@@ -735,7 +737,7 @@
 }
 
 .card-description {
-  font-size: 14px;
+  font-size: 13px;
   color: #6b7280;
   line-height: 1.6;
   margin-bottom: 20px;
@@ -751,12 +753,13 @@
 .info-item {
   display: flex;
   gap: 8px;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .info-label {
   color: #6b7280;
   font-weight: 400;
+  font-size: 13px;
 }
 
 .info-value {
@@ -783,7 +786,8 @@
 }
 
 .price-amount {
-  font-size: 32px;
+  // font-size: 32px;
+  font-size: 28px;
   font-weight: 700;
   color: #059669;
   line-height: 1;

@@ -149,10 +149,30 @@
 
               <div class="card-content">
                 <div class="card-header">
+
+
+
                   <div class="sdg-badge">
-                    <span class="sdg-number">{{ project.sdgs }}</span>
-                    <span class="sdg-text">SDGs</span>
+                    <div class="sdg-circle" [style.background]="getGradientString(project)">
+                       <div class="sdg-inner">
+                          <span class="sdg-number">{{ project.sdgs }}</span>
+                          <span class="sdg-text">SDGs</span>
+                      </div>
+                    </div>
                   </div>
+
+                  <!-- 
+                  <div class="sdg-badge-container">
+                    <div class="sdg-circle" [style.background]="getGradientString(project)">
+                      <div class="sdg-inner">
+                        <div class="sdg-number">{{ project.sdgs }}</div>
+                        <div class="sdg-label">SDGs</div>
+                      </div>
+                    </div>
+                  </div> -->
+
+
+
                   <span class="project-tag">{{ project.tag }}</span>
                 </div>
 

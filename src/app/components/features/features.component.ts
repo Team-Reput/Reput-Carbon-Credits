@@ -204,6 +204,42 @@ export class FeaturesComponent implements OnInit, OnDestroy {
     this.stopCarousel();
   }
 
+
+
+
+
+
+
+  
+    getSdgColors(project: Project): string[] {
+    const colors = [
+      '#E5243B', '#DDA63A', '#4C9F38', '#C5192D', '#FF3A21',
+      '#26BDE2', '#FCC30B', '#A21942', '#FD6925', '#DD1367',
+      '#FD9D24', '#BF8B2E', '#3F7E44', '#0A97D9', '#56C02B',
+      '#00689D', '#19486A'
+    ];
+    return colors.slice(0, project.sdgs);
+  }
+
+  getGradientString(project: Project): string {
+    const colors = this.getSdgColors(project);
+    const segmentSize = 100 / colors.length;
+    let gradient = 'conic-gradient(';
+    
+    colors.forEach((color, index) => {
+      const startAngle = index * segmentSize;
+      const endAngle = (index + 1) * segmentSize;
+      gradient += `${color} ${startAngle}% ${endAngle}%`;
+      if (index < colors.length - 1) gradient += ', ';
+    });
+    
+    gradient += ')';
+    return gradient;
+  }
+
+
+
+
   startCarousel() {
     this.carouselInterval = setInterval(() => {
       this.nextSlide();

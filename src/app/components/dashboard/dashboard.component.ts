@@ -127,11 +127,11 @@ export class DashboardComponent {
       sdgs: 8,
       sdgsLabel: 'SDGs',
       tag: 'Carbon Management',
-      vintage: '2022 |2023 | 2024',
+      vintage: '2022 |2023 ',
       country: 'Netherlands',
       countryFlag: '🇳🇱',
       registry: 'Puro.earth',
-      industry: 'Direct Air Capture',
+      industry: 'Direct Air',
       price: 290,
       available: 500000,
       inStock: true
@@ -166,7 +166,7 @@ export class DashboardComponent {
       country: 'Spain',
       countryFlag: '🇪🇸',
       registry: 'Gold Standard',
-      industry: 'Peatland Restoration',
+      industry: 'Peatland',
       price: 220,
       available: 92000,
       inStock: true

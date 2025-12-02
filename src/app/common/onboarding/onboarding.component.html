@@ -110,10 +110,10 @@
             </div>
 
             <label>Legal Entity Name*</label>
-            <input formControlName="entityName" placeholder="Enter Legal Entity Name" />
+            <input class="inp" formControlName="entityName" placeholder="Enter Legal Entity Name" />
 
             <label>Country of Registration*</label>
-            <select formControlName="country">
+            <select class="inp" formControlName="country">
             <option value="" disabled>Select ISO country list</option>
             <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
             </select>
@@ -142,30 +142,52 @@
 
 
         <!-- Step 3 -->
-        <div *ngIf="currentStep === 2" class="thirdstepform" >
-            <h3>Authorized Contact</h3>
-            <div class="form-row">
-            <div>
-                <label>Full Name</label>
-                <input formControlName="fullName" placeholder="Enter Full Name" />
-            </div>
-            <div>
-                <label>Designation / Role</label>
-                <input formControlName="role" placeholder="Enter Designation / Role" />
-            </div>
-            </div>
 
-            <div class="form-row">
-            <div>
-                <label>Email Address</label>
-                <input formControlName="email" placeholder="Enter Email Address" />
-            </div>
-            <div>
-                <label>Phone Number</label>
-                <input formControlName="phone" placeholder="+91" />
-            </div>
+         <div *ngIf="currentStep === 2" class="kyc-step-two">
+
+    <div class="kyc-row">
+        <div class="kyc-group">
+            <label class="kyc-label">Full Name</label>
+            <input class="kyc-input" formControlName="fullName" placeholder="Enter Full Name" />
+        </div>
+
+        <div class="kyc-group">
+            <label class="kyc-label">Designation / Role</label>
+            <input class="kyc-input" formControlName="role" placeholder="Enter Designation / Role" />
+        </div>
+    </div>
+
+    <div class="kyc-row">
+        <div class="kyc-group">
+            <label class="kyc-label">Phone Number</label>
+
+            <div class="kyc-phone-wrapper">
+                <select class="kyc-phone-code">
+                    <option>+91</option>
+                </select>
+
+                <input class="kyc-phone-input" formControlName="phone" placeholder="Enter Phone Number" />
             </div>
         </div>
+
+        <div class="kyc-group">
+            <label class="kyc-label">Email Address</label>
+            <input class="kyc-input" formControlName="email" placeholder="Enter Email Address" />
+        </div>
+    </div>
+
+    <div class="kyc-group">
+        <label class="kyc-label">Country</label>
+        <select class="kyc-input" formControlName="country">
+            <option value="">Select Country</option>
+        </select>
+    </div>
+
+</div>
+
+
+
+
 
         <!-- Navigation Buttons -->
         <div class="actions">

@@ -1,3 +1,6 @@
+<app-navbar></app-navbar>
+
+
 <div class="product-detail-container">
   <!-- Hero Section -->
   <div class="hero-section" [style.background-image]="'url(' + product.heroImage + ')'">
@@ -405,10 +408,21 @@
 
         <span class="stock-badge">In Stock</span>
 
-        <div class="sdg-label">
+        <!-- <div class="sdg-label">
           <span>{{item.sdg}}</span>
           <small>SDGs</small>
-        </div>
+        </div> -->
+
+
+        <div class="sdg-badge-container">
+            <div class="sdg-circle" [style.background]="getGradientString(item)">
+              <div class="sdg-inner">
+                <div class="sdg-number">{{ item.sdg }}</div>
+                <div class="sdg-label">SDGs</div>
+              </div>
+            </div>
+           
+          </div>
 
         <h3>{{item.name}}</h3>
         <p>{{item.description}}</p>

@@ -403,7 +403,15 @@ h2 {
       }
     }
 
-    input, select {
+    // input, select {
+    //   width: 100%;
+    //   padding: 10px;
+    //   border: 1px solid #ccc;
+    //   border-radius: 8px;
+    //   margin-bottom: 20px;
+    // }
+
+    .inp {
       width: 100%;
       padding: 10px;
       border: 1px solid #ccc;
@@ -438,7 +446,8 @@ h2 {
     .actions {
       margin-top: 25px;
       display: flex;
-      justify-content: center;
+      // justify-content: center;
+      justify-content: space-between;
       gap: 15px;
 
       button {
@@ -531,4 +540,82 @@ position: relative;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.kyc-step-two {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* ===== ROW ===== */
+.kyc-row {
+  display: flex;
+  gap: 24px;
+  width: 100%;
+}
+
+/* ===== GROUP ===== */
+.kyc-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* ===== LABEL ===== */
+.kyc-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+/* ===== INPUT + SELECT ===== */
+.kyc-input {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #dcdcdc;
+  border-radius: 6px;
+  background: #fff;
+  font-size: 14px;
+}
+
+/* ===== PHONE FIELD WRAPPER ===== */
+.kyc-phone-wrapper {
+  display: flex;
+  width: 100%;
+}
+
+/* phone code box → reduced width to match the image */
+.kyc-phone-code {
+  width: 70px;              /* Perfect small width */
+  padding: 11px;
+  border: 1px solid #dcdcdc;
+  border-radius: 6px 0 0 6px;
+  background: #fff;
+  font-size: 14px;
+}
+
+/* phone input takes remaining width */
+.kyc-phone-input {
+  flex: 1;
+  padding: 11px 12px;
+  border: 1px solid #dcdcdc;
+  border-left: none;
+  border-radius: 0 6px 6px 0;
+  font-size: 14px;
 }

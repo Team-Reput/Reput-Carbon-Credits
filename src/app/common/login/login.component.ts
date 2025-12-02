@@ -28,6 +28,7 @@ export class LoginComponent {
     if(this.loginForm.valid){
       const {email, password, rememberMe} = this.loginForm.value;
       console.log('Login Details:', { email, password, rememberMe });
+      this.router.navigate(['/dash']);
     }else{
       console.log('Form is invalid');
     }
