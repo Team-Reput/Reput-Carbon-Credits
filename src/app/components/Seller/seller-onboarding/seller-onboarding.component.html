@@ -1,0 +1,619 @@
+<div class="onboarding-container">
+  <!-- Logo -->
+  <!-- <div class="logo">
+    <img src="assets/logo.svg" alt="RePut.ai" onerror="this.style.display='none'">
+    <div class="logo-text">
+      <span class="logo-title">RePut.ai</span>
+      <span class="logo-subtitle">"Your Only Source of Truth"</span>
+    </div>
+  </div> -->
+
+
+  <div class="logo" >
+    <img src="assets/images/RePutLogo.png" alt="logo" />
+  </div>
+
+  <!-- Main Content Card -->
+  <div class="content-card">
+    <!-- Step 0: Welcome Screen -->
+    <div *ngIf="currentStep === 0" class="welcome-screen">
+      <button class="back-btn" (click)="previousStep()">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <h1 class="welcome-title">Welcome to the Carbon Credit Marketplace!</h1>
+      <p class="welcome-subtitle">Let's get your organization ready to register and manage your carbon projects.</p>
+
+      <div class="steps-info">
+        <h3>In the next few steps, you'll:</h3>
+        <ul class="steps-list">
+          <li>
+            <svg class="step-icon" width="20" height="20" viewBox="0 0 20 20">
+              <rect x="2" y="2" width="16" height="16" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+              <path d="M6 6h8M6 10h8M6 14h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            Add your company profile and contact details
+          </li>
+          <li>
+            <svg class="step-icon" width="20" height="20" viewBox="0 0 20 20">
+              <circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="2" fill="none"/>
+              <path d="M7 10l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Select your preferred validation and verification pathway
+          </li>
+          <li>
+            <svg class="step-icon" width="20" height="20" viewBox="0 0 20 20">
+              <path d="M10 2v16M4 7l6-5 6 5M4 13l6 5 6-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Upload necessary registration and certification documents
+          </li>
+          <li>
+            <svg class="step-icon" width="20" height="20" viewBox="0 0 20 20">
+              <circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="2" fill="none"/>
+              <path d="M10 6v4l3 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Review and confirm your onboarding details
+          </li>
+        </ul>
+      </div>
+
+      <p class="save-progress">You can save your progress anytime and return later to complete the setup.</p>
+
+      <div class="welcome-actions">
+        <button class="btn-secondary" (click)="skipOnboarding()">Skip Now</button>
+        <button class="btn-primary" (click)="startOnboarding()">Start Onboarding</button>
+      </div>
+
+      <p class="already-registered">
+        Already registered as a Developer? 
+        <a href="#" class="link" (click)="goToDashboard()">Go to Dashboard</a>
+      </p>
+    </div>
+
+    <!-- Step 1: Basic Details -->
+    <div *ngIf="currentStep === 1" class="form-step">
+      <h2 class="step-title">Let's start by verifying your organization's core details.</h2>
+      <p class="step-subtitle">{{ getStepSubtitle() }}</p>
+
+      <div class="info-banner">
+        <p>To ensure transparency and compliance with carbon market standards, we first need your organization's legal and representative information. Please use official names and emails — this data will appear on your verification certificate.</p>
+      </div>
+
+      <div class="form-section">
+        <h3 class="section-title">Organization Information</h3>
+        <p class="section-subtitle">Provide your organization's core information</p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Organization Type<span class="required">*</span></label>
+            <select [(ngModel)]="formData.organizationType" class="form-control">
+              <option value="">Select</option>
+              <option *ngFor="let type of organizationTypes" [value]="type">{{ type }}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Legal Entity Name<span class="required">*</span></label>
+            <input type="text" [(ngModel)]="formData.legalEntityName" placeholder="Enter" class="form-control">
+          </div>
+        </div>
+
+        <div class="form-group full-width">
+          <label>Country of Registration<span class="required">*</span></label>
+          <select [(ngModel)]="formData.countryOfRegistration" class="form-control">
+            <option value="">Select ISO country list</option>
+            <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Authorized Representative Name</label>
+            <input type="text" [(ngModel)]="formData.authorizedRepName" placeholder="Enter Authorized Representative Name" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Authorized Representative Email</label>
+            <input type="email" [(ngModel)]="formData.authorizedRepEmail" placeholder="Enter Authorized Representative Email" class="form-control">
+          </div>
+        </div>
+
+        <p class="help-text">These details will be shared with registries or VVBs for coordination during project validation.</p>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-text" (click)="previousStep()">Back</button>
+        <div class="actions-right">
+          <button class="btn-text" (click)="clearAll()">Clear all</button>
+          <button class="btn-primary" (click)="nextStep()" [disabled]="!validateCurrentStep()">Next</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: Document Upload -->
+    <div *ngIf="currentStep === 2" class="form-step">
+      <h2 class="step-title">Upload supporting documents for verification.</h2>
+      <p class="step-subtitle">{{ getStepSubtitle() }}</p>
+
+      <div class="info-banner">
+        <p>To confirm your organization's legitimacy, please upload clear and valid registration documents. Your data is encrypted and stored securely.</p>
+      </div>
+
+      <div class="form-section">
+        <h3 class="section-title">Required Documents</h3>
+        <p class="section-subtitle">Upload the following documents to verify your organization</p>
+
+        <!-- Certificate Upload -->
+        <div class="upload-group">
+          <h4 class="upload-title">Certificate of incorporation / business license</h4>
+          <p class="upload-subtitle">Proof of company registration</p>
+
+          <div class="upload-area" 
+               [class.drag-over]="certificateDragOver"
+               (dragover)="onDragOver($event, 'certificate')"
+               (dragleave)="onDragLeave('certificate')"
+               (drop)="onDrop($event, 'certificate')"
+               *ngIf="!formData.certificateFile">
+            <div class="upload-icon">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                <circle cx="24" cy="24" r="20" fill="#e8f5e9"/>
+                <path d="M24 16v16M16 24h16" stroke="#4a7c59" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <p class="upload-text">Drag and drop your file here, or click to browse</p>
+            <input type="file" (change)="onFileSelected($event, 'certificate')" accept=".pdf,.doc,.docx" hidden #certInput>
+            <button class="btn-upload" (click)="certInput.click()">Choose File</button>
+          </div>
+
+          <div class="file-uploaded" *ngIf="formData.certificateFile">
+            <div class="file-info">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="#4a7c59" stroke-width="2"/>
+                <path d="M14 2v6h6" stroke="#4a7c59" stroke-width="2"/>
+              </svg>
+              <span>{{ getFileName('certificate') }}</span>
+            </div>
+            <button class="btn-remove" (click)="removeFile('certificate')">Remove</button>
+          </div>
+        </div>
+
+        <!-- Tax ID Upload -->
+        <div class="upload-group">
+          <h4 class="upload-title">Tax ID / Business registration Numbers</h4>
+          <p class="upload-subtitle">Confirms legal and fiscal identity</p>
+
+          <div class="upload-area" 
+               [class.drag-over]="taxIdDragOver"
+               (dragover)="onDragOver($event, 'taxId')"
+               (dragleave)="onDragLeave('taxId')"
+               (drop)="onDrop($event, 'taxId')"
+               *ngIf="!formData.taxIdFile">
+            <div class="upload-icon">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                <circle cx="24" cy="24" r="20" fill="#e8f5e9"/>
+                <path d="M24 16v16M16 24h16" stroke="#4a7c59" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <p class="upload-text">Drag and drop your file here, or click to browse</p>
+            <input type="file" (change)="onFileSelected($event, 'taxId')" accept=".pdf,.doc,.docx" hidden #taxInput>
+            <button class="btn-upload" (click)="taxInput.click()">Choose File</button>
+          </div>
+
+          <div class="file-uploaded" *ngIf="formData.taxIdFile">
+            <div class="file-info">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="#4a7c59" stroke-width="2"/>
+                <path d="M14 2v6h6" stroke="#4a7c59" stroke-width="2"/>
+              </svg>
+              <span>{{ getFileName('taxId') }}</span>
+            </div>
+            <button class="btn-remove" (click)="removeFile('taxId')">Remove</button>
+          </div>
+        </div>
+
+        <!-- Signatory ID Upload -->
+        <div class="upload-group">
+          <h4 class="upload-title">Authorized Signatory ID</h4>
+          <p class="upload-subtitle">Passport, Driving License or National ID</p>
+
+          <div class="upload-area" 
+               [class.drag-over]="signatoryIdDragOver"
+               (dragover)="onDragOver($event, 'signatory')"
+               (dragleave)="onDragLeave('signatory')"
+               (drop)="onDrop($event, 'signatory')"
+               *ngIf="!formData.signatoryIdFile">
+            <div class="upload-icon">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                <circle cx="24" cy="24" r="20" fill="#e8f5e9"/>
+                <path d="M24 16v16M16 24h16" stroke="#4a7c59" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <p class="upload-text">Drag and drop your file here, or click to browse</p>
+            <input type="file" (change)="onFileSelected($event, 'signatory')" accept=".pdf,.doc,.docx,.jpg,.png" hidden #sigInput>
+            <button class="btn-upload" (click)="sigInput.click()">Choose File</button>
+          </div>
+
+          <div class="file-uploaded" *ngIf="formData.signatoryIdFile">
+            <div class="file-info">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="#4a7c59" stroke-width="2"/>
+                <path d="M14 2v6h6" stroke="#4a7c59" stroke-width="2"/>
+              </svg>
+              <span>{{ getFileName('signatory') }}</span>
+            </div>
+            <button class="btn-remove" (click)="removeFile('signatory')">Remove</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-text" (click)="previousStep()">Back</button>
+        <div class="actions-right">
+          <button class="btn-text" (click)="clearAll()">Clear all</button>
+          <button class="btn-primary" (click)="nextStep()" [disabled]="!validateCurrentStep()">Next</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: Contact Information (skipped in flow, goes directly from 2 to 4) -->
+
+     <div *ngIf="currentStep === 3" class="form-card">
+    <div class="form-header">
+      <h1>Add the main contact for official communication.</h1>
+      <p class="step-info">Step 3 of 5: Primary Contact Details</p>
+    </div>
+
+    <div class="info-banner">
+      <p>This contact person will receive all updates related to project submissions, verification, and credit issuance. Please use a valid corporate email.</p>
+    </div>
+
+    <form [formGroup]="contactForm">
+      <div class="form-section">
+        <h2 class="section-title">Contact Information</h2>
+        <p class="section-subtitle">Add contact information for official communication</p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input 
+              type="text" 
+              id="fullName" 
+              formControlName="fullName"
+              placeholder="Enter full name"
+              [class.error]="contactForm.get('fullName')?.touched && contactForm.get('fullName')?.invalid"
+            />
+            <span class="error-message" *ngIf="contactForm.get('fullName')?.touched && contactForm.get('fullName')?.invalid">
+              Full name is required
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label for="designation">Designation / Role</label>
+            <input 
+              type="text" 
+              id="designation" 
+              formControlName="designation"
+              placeholder="Eg Project manager , Director"
+              [class.error]="contactForm.get('designation')?.touched && contactForm.get('designation')?.invalid"
+            />
+            <span class="error-message" *ngIf="contactForm.get('designation')?.touched && contactForm.get('designation')?.invalid">
+              Designation is required
+            </span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input 
+              type="email" 
+              id="email" 
+              formControlName="email"
+              placeholder="Enter Email Address"
+              [class.error]="contactForm.get('email')?.touched && contactForm.get('email')?.invalid"
+            />
+            <span class="error-message" *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.invalid">
+              Valid email is required
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label for="phoneNumber">Phone number</label>
+            <div class="phone-input-group">
+              <select formControlName="countryCode" class="country-code">
+                <option *ngFor="let country of countryCodes" [value]="country.code">
+                  {{ country.code }}
+                </option>
+              </select>
+              <input 
+                type="tel" 
+                id="phoneNumber" 
+                formControlName="phoneNumber"
+                placeholder="Enter Phone number"
+                [class.error]="contactForm.get('phoneNumber')?.touched && contactForm.get('phoneNumber')?.invalid"
+              />
+            </div>
+            <span class="error-message" *ngIf="contactForm.get('phoneNumber')?.touched && contactForm.get('phoneNumber')?.invalid">
+              Valid 10-digit phone number is required
+            </span>
+          </div>
+        </div>
+
+        <p class="info-text">This person acts as your authorized point of contact with RePut and partner registries.</p>
+      </div>
+    </form>
+
+    <div class="form-actions">
+      <button type="button" class="btn-secondary" (click)="previousStep()">Back</button>
+      <div class="right-actions">
+        <button type="button" class="btn-link" (click)="onClearAll()">Clear all</button>
+        <button type="button" class="btn-primary" (click)="nextStep()">Next</button>
+      </div>
+    </div>
+    </div>
+
+
+    <!-- Step 4: Blockchain Wallet Setup -->
+    <div *ngIf="currentStep === 4" class="form-step">
+      <h2 class="step-title">Set up your blockchain wallet for credit transfers</h2>
+      <p class="step-subtitle">{{ getStepSubtitle() }}</p>
+
+      <div class="info-banner">
+        <p>When your project's carbon credits are tokenized, RePut's bridge partner will transfer tokens directly to your blockchain wallet. You can add your wallet now or skip this step and complete it later in your account settings.</p>
+      </div>
+
+      <div class="form-section">
+        <h3 class="section-title">Blockchain Wallet Setup</h3>
+        <p class="section-subtitle">Add your organization's blockchain wallet details</p>
+
+        <div class="form-group full-width">
+          <label>Block Chain Network</label>
+          <select [(ngModel)]="formData.blockchainNetwork" class="form-control">
+            <option value="">Select</option>
+            <option *ngFor="let network of blockchainNetworks" [value]="network">{{ network }}</option>
+          </select>
+        </div>
+
+        <div class="form-group full-width">
+          <label>Wallet Address</label>
+          <input type="text" [(ngModel)]="formData.walletAddress" placeholder="0x..." class="form-control">
+        </div>
+
+        <div class="form-group full-width">
+          <label>Confirm Wallet Address</label>
+          <input type="text" [(ngModel)]="formData.confirmWalletAddress" placeholder="0x..." class="form-control">
+        </div>
+
+        <div class="form-group full-width">
+          <label>Wallet Nickname</label>
+          <input type="text" [(ngModel)]="formData.walletNickname" placeholder="Eg., Main Corporate" class="form-control">
+          <p class="help-text">Helps identify if multiple wallets are used later</p>
+        </div>
+
+        <div class="security-reminder">
+          <div class="reminder-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2L4 6v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V6l-8-4z" stroke="#1a1a1a" stroke-width="2"/>
+              <path d="M9 12l2 2 4-4" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="reminder-content">
+            <h4>Section B — Security Reminder</h4>
+            <p>For safety, double-check your wallet address.</p>
+            <p>If you update it later, RePut will verify changes via registered email before approval.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" (click)="previousStep()">Back</button>
+        <div class="actions-right">
+          <button type="button" class="btn-text" (click)="skipForNow()">Skip for now</button>
+          <button type="button" class="btn-text" (click)="clearAll()">Clear all</button>
+          <button type="button" class="btn-primary" (click)="nextStep()">Next</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 5: Review and Confirm -->
+    <div *ngIf="currentStep === 5" class="form-step review-step">
+      <h2 class="step-title">Review and confirm your verification details</h2>
+      <p class="step-subtitle">{{ getStepSubtitle() }}</p>
+
+      <div class="info-banner">
+        <p>Please review the details you've entered before submitting your corporate verification.</p>
+        <p>Once submitted, our compliance team will review your information and documents within 3–5 business days. You'll receive an email once your account is approved.</p>
+      </div>
+
+      <!-- Section A: Organization Information -->
+      <div class="review-section">
+        <div class="section-header">
+          <h3>Section A — Organization Information</h3>
+          <div class="section-actions">
+            <span class="status-badge completed">Completed</span>
+            <button class="btn-edit" (click)="editSection('organization')">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M11.333 2A2.827 2.827 0 0 1 14 4.667L5.333 13.333H2v-3.333L10.667 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Edit
+            </button>
+          </div>
+        </div>
+
+        <div class="review-grid">
+          <div class="review-item">
+            <span class="review-label">Organization Type</span>
+            <span class="review-value">{{ formData.organizationType }}</span>
+          </div>
+          <div class="review-item">
+            <span class="review-label">Country of Registration</span>
+            <span class="review-value">{{ formData.countryOfRegistration }}</span>
+          </div>
+          <div class="review-item">
+            <span class="review-label">Legal Entity Name</span>
+            <span class="review-value">{{ formData.legalEntityName }}</span>
+          </div>
+          <div class="review-item">
+            <span class="review-label">Authorized Representative</span>
+            <span class="review-value">{{ formData.authorizedRepName }}</span>
+          </div>
+          <div class="review-item">
+            <span class="review-label">Representative Email</span>
+            <span class="review-value">{{ formData.authorizedRepEmail }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section B: Verification Documents -->
+      <div class="review-section">
+        <div class="section-header">
+          <h3>Section B — Verification Documents</h3>
+          <div class="section-actions">
+            <span class="status-badge completed">Completed</span>
+            <button class="btn-edit" (click)="editSection('documents')">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M11.333 2A2.827 2.827 0 0 1 14 4.667L5.333 13.333H2v-3.333L10.667 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Edit
+            </button>
+          </div>
+        </div>
+
+        <p class="section-note">All documents are securely stored and used only for verification purposes.</p>
+
+        <div class="documents-list">
+          <div class="document-item">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="8" fill="#4a7c59"/>
+              <path d="M6 10l2 2 4-4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Certificate of Incorporation / Business License</span>
+            <span class="file-format">pdf-pdf</span>
+          </div>
+          <div class="document-item">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="8" fill="#4a7c59"/>
+              <path d="M6 10l2 2 4-4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Tax ID / Business Registration Number</span>
+            <span class="file-format">pdf-pdf</span>
+          </div>
+          <div class="document-item">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="8" fill="#4a7c59"/>
+              <path d="M6 10l2 2 4-4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Authorized Signatory ID</span>
+            <span class="file-format">pdf-pdf</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section C: Primary Contact Information -->
+      <div class="review-section">
+        <div class="section-header">
+          <h3>Section C — Primary Contact Information</h3>
+          <div class="section-actions">
+            <span class="status-badge completed">Completed</span>
+            <button class="btn-edit" (click)="editSection('contact')">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M11.333 2A2.827 2.827 0 0 1 14 4.667L5.333 13.333H2v-3.333L10.667 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Edit
+            </button>
+          </div>
+        </div>
+
+        <div class="review-grid">
+          <div class="review-item">
+            <span class="review-label">Full Name</span>
+            <span class="review-value">John</span>
+          </div>
+          <div class="review-item">
+            <span class="review-label">Designation / Role</span>
+            <span class="review-value">Owner</span>
+          </div>
+          <div class="review-item">
+            <span class="review-label">Email Address</span>
+            <span class="review-value">John&#64;gmail.com</span>
+          </div>
+          <div class="review-item">
+            <span class="review-label">Phone Number</span>
+            <span class="review-value">7897897890</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section D: Blockchain Wallet Summary -->
+      <div class="review-section">
+        <div class="section-header">
+          <h3>Section D — Blockchain Wallet Summary</h3>
+          <div class="section-actions">
+            <span class="status-badge completed">Completed</span>
+            <button class="btn-edit" (click)="editSection('wallet')">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M11.333 2A2.827 2.827 0 0 1 14 4.667L5.333 13.333H2v-3.333L10.667 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Edit
+            </button>
+          </div>
+        </div>
+
+        <div class="wallet-info">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <circle cx="10" cy="10" r="8" stroke="#666" stroke-width="2"/>
+            <path d="M10 6v4l3 3" stroke="#666" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span>No blockchain wallet added yet. You can link one later from Settings → Wallets.</span>
+        </div>
+      </div>
+
+      <!-- Section E: Acknowledgment & Consent -->
+      <div class="review-section">
+        <div class="section-header">
+          <h3>Section E — Acknowledgment & Consent</h3>
+          <div class="section-actions">
+            <span class="status-badge completed">Completed</span>
+            <button class="btn-edit" (click)="editSection('consent')">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M11.333 2A2.827 2.827 0 0 1 14 4.667L5.333 13.333H2v-3.333L10.667 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Edit
+            </button>
+          </div>
+        </div>
+
+        <div class="consent-checkboxes">
+          <label class="checkbox-label">
+            <input type="checkbox" [(ngModel)]="formData.accuracyConfirmed">
+            <span>I confirm that all information and documents provided are accurate and belong to my organization.</span>
+          </label>
+
+          <label class="checkbox-label">
+            <input type="checkbox" [(ngModel)]="formData.reviewConfirmed">
+            <span>I understand that RePut will review my submission for compliance and may contact me for additional details.</span>
+          </label>
+
+          <label class="checkbox-label">
+            <input type="checkbox" [(ngModel)]="formData.policiesAcknowledged">
+            <span>I acknowledge RePut's AML/KYC and Data Privacy policies. <a href="#" class="link">View Policies</a></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-text" (click)="previousStep()">Back</button>
+        <button class="btn-primary btn-submit" (click)="submitVerification()" [disabled]="!validateCurrentStep()">
+          Submit Verification
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 ALL RIGHTS RESERVED</p>
+  </footer>
+</div>
