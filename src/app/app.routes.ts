@@ -10,7 +10,10 @@ import { OverviewComponent } from './components/Buyer/overview/overview.componen
 import { CheckoutComponent } from './components/Buyer/checkout/checkout.component';
 import { RetireProofComponent } from './components/Buyer/retire-proof/retire-proof.component';
 import { ProductDetailComponent } from './components/Buyer/product-detail/product-detail.component';
+import { BuyerProfileComponent } from  './components/Buyer/buyer-profile/buyer-profile.component';
 import { SupplierDashboardComponent } from './components/Seller/supplier-dashboard/supplier-dashboard.component';
+import { TokenRequestComponent } from './components/Seller/token-request/token-request.component';
+import { PortfolioComponent } from './components/Buyer/portfolio/portfolio.component';
 
  
 
@@ -29,6 +32,9 @@ export const routes: Routes = [
     {path:'proof' , component:RetireProofComponent},
     {path:'detail' , component:ProductDetailComponent},
     {path:'supplierDash' , component:SupplierDashboardComponent},
+    {path:'token-request' , component:TokenRequestComponent},
+    {path:'buyer-profile' , component:BuyerProfileComponent},
+    {path:'portfolio' , component:PortfolioComponent},
     { path: '**', redirectTo: 'login' },
 
 

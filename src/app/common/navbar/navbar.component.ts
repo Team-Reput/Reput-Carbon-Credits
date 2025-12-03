@@ -56,4 +56,19 @@ export class NavbarComponent {
     this.router.navigate(['/retire']);
   }
 
+  onLogoClick():void{
+    console.log("Logo clicked");
+    this.router.navigate(['/buyer-profile']);
+  }
+
+  onDashboard():void{
+    console.log("Logo clicked");
+    this.router.navigate(['/dash']);
+  }
+
+  featurePortfolio():void{
+    console.log("Logo clicked");
+    this.router.navigate(['/portfolio']);
+  }
+
 }

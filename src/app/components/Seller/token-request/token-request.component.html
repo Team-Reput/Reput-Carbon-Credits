@@ -1,0 +1,181 @@
+ <div class="token-report-container">
+  <div class="content-wrapper">
+    <!-- Header Section -->
+    <div class="header-section">
+      <h1 class="page-title">Request Tokenization of Issued Credits</h1>
+      <p class="page-description">
+        Your project's credits have been issued by the registry. You can now request tokenization to receive equivalent digital tokens (1 token = 1 carbon credit) in your registered blockchain wallet. RePut's verified bridge partner will handle this process securely, ensuring full transparency and 1:1 tracking.
+      </p>
+    </div>
+
+    <!-- Tokenization Overview -->
+    <div class="section-card">
+      <h2 class="section-title">Tokenization Overview</h2>
+
+      <div class="overview-grid">
+        <div class="overview-row">
+          <div class="overview-item">
+            <label class="overview-label">Project Name</label>
+            <p class="overview-value">{{ tokenizationOverview.projectName }}</p>
+          </div>
+          <div class="overview-item">
+            <label class="overview-label">Registry Name</label>
+            <p class="overview-value">{{ tokenizationOverview.registryName }}</p>
+          </div>
+        </div>
+
+        <div class="overview-row">
+          <div class="overview-item">
+            <label class="overview-label">Registry Project ID</label>
+            <p class="overview-value">{{ tokenizationOverview.registryProjectId }}</p>
+          </div>
+          <div class="overview-item">
+            <label class="overview-label">Total Credits Issued</label>
+            <p class="overview-value">{{ tokenizationOverview.totalCreditsIssued }}</p>
+          </div>
+        </div>
+
+        <div class="overview-row">
+          <div class="overview-item">
+            <label class="overview-label">Available for Tokenization</label>
+            <p class="overview-value highlight">{{ tokenizationOverview.availableForTokenization }}</p>
+          </div>
+          <div class="overview-item">
+            <label class="overview-label">Last Updated</label>
+            <p class="overview-value">{{ tokenizationOverview.lastUpdated }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-banner">
+        <span class="material-icons">info</span>
+        <p>Once tokenized, these credits will exist as blockchain tokens linked to your verified wallet. Registry records will reflect their retirement status.</p>
+      </div>
+    </div>
+
+    <!-- Tokenization Request Details -->
+    <div class="section-card">
+      <h2 class="section-title">Tokenization Request Details</h2>
+
+      <div class="form-container">
+        <!-- Number of Credits -->
+        <div class="form-group">
+          <label class="form-label">Number of Credits to Tokenize</label>
+          <input 
+            type="number" 
+            class="form-input" 
+            placeholder="Select"
+            [(ngModel)]="numberOfCredits"
+            (input)="onCreditsInput($event)"
+            min="1"
+            [max]="maxCredits"
+          >
+          <small class="form-hint">Must be ≤ {{ maxCredits.toLocaleString() }} available credits</small>
+        </div>
+
+        <!-- Blockchain Network -->
+        <div class="form-group">
+          <label class="form-label">Blockchain Network</label>
+          <select class="form-select" [(ngModel)]="selectedBlockchain">
+            <option value="" disabled selected>Select Supported Chain</option>
+            <option *ngFor="let network of blockchainNetworks" [value]="network.id">
+              {{ network.name }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Destination Wallet Address -->
+        <div class="form-group">
+          <label class="form-label">Destination Wallet Address</label>
+          <input 
+            type="text" 
+            class="form-input" 
+            placeholder="0x4F2d87C391E88F12b07E19C7a04"
+            [(ngModel)]="destinationWallet"
+          >
+        </div>
+
+        <!-- Confirm Wallet Address -->
+        <div class="form-group">
+          <label class="form-label">Confirm Wallet Address</label>
+          <input 
+            type="text" 
+            class="form-input" 
+            placeholder="0x..."
+            [(ngModel)]="confirmWallet"
+          >
+        </div>
+
+        <!-- Tokenization Reference Name -->
+        <div class="form-group">
+          <label class="form-label">Tokenization Reference Name (Optional)</label>
+          <input 
+            type="text" 
+            class="form-input" 
+            placeholder='eg. "Batch 1 - Oct 2025"'
+            [(ngModel)]="referenceName"
+          >
+          <small class="form-hint">Used to identify this transaction in your portfolio</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Acknowledgments & Compliance -->
+    <div class="section-card">
+      <h2 class="section-title">Acknowledgments & Compliance</h2>
+
+      <div class="checkbox-group">
+        <label class="checkbox-container">
+          <input 
+            type="checkbox" 
+            [(ngModel)]="confirmOwnership"
+          >
+          <span class="checkmark"></span>
+          <span class="checkbox-label">I confirm that I am the rightful owner of these credits and authorize RePut and its bridge partner to initiate tokenization.</span>
+        </label>
+
+        <label class="checkbox-container">
+          <input 
+            type="checkbox" 
+            [(ngModel)]="understandRetirement"
+          >
+          <span class="checkmark"></span>
+          <span class="checkbox-label">I understand that once tokenized, the equivalent credits will be marked as retired in the registry.</span>
+        </label>
+
+        <label class="checkbox-container">
+          <input 
+            type="checkbox" 
+            [(ngModel)]="acknowledgeNoReissue"
+          >
+          <span class="checkmark"></span>
+          <span class="checkbox-label">I acknowledge that tokenized credits cannot be reissued or converted back to registry units.</span>
+        </label>
+      </div>
+
+      <div class="policy-link">
+        <span class="material-icons">policy</span>
+        <a href="#" class="link" (click)="openAMLPolicy(); $event.preventDefault()">
+          AML/KYC Policy — Identity verification and anti-fraud practices
+        </a>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <button 
+        class="btn btn-primary" 
+        [disabled]="!isFormValid()"
+        (click)="submitTokenizationRequest()"
+      >
+        Submit Tokenization Request
+      </button>
+      <button 
+        class="btn btn-secondary" 
+        (click)="backToProjectDetails()"
+      >
+        Back to project Details
+      </button>
+    </div>
+  </div>
+</div>

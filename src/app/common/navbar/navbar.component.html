@@ -1,14 +1,14 @@
 <nav class="navbar">
   <div class="left-section">
     <div class="logo" >
-      <img style="width: 210px;position: relative;bottom: 15px;" src="assets/images/RePutLogo.png" alt="logo" />
+      <img style="width: 210px;position: relative;bottom: 15px;cursor:pointer;" src="assets/images/RePutLogo.png" alt="logo"  (click)="onDashboard()"/>
     </div>
     
  
 </div>
 
 <div class="title-section" style="display: flex;">
-      <img style="width: 52px; height: 50px;position: relative;top: 12px;right: 6px;" src="assets/images/carbonCredit.png" alt="logo" />
+      <img style="width: 52px; height: 50px;position: relative;top: 12px;right: 6px;" src="assets/images/carbonCredit.png" alt="logo"  />
       <div style="display: flex;flex-direction: column;">
       <h3 style="font-size: 24px;color: #111827;">Carbon Credit</h3>
       <p  style="font-size: 18px;color: #808380;">Verified Climate Impact</p>
@@ -16,7 +16,7 @@
     </div>
 
   <div class="right-section">
-    <img class="company-icon" src="assets/images/user.png" alt="Company">
+    <img class="company-icon" src="assets/images/user.png" alt="Company" (click)="onLogoClick()" style="cursor:pointer;">
     <span class="company-name" style="font-size: 20px;">ABFL Pvt Ltd</span>
 
     <button class="hamburger" (click)="toggleMenu()">
@@ -31,7 +31,7 @@
   <a href="javascript:void(0)" (click)="featureDashboard()">Dashboard</a>
   <a href="javascript:void(0)" (click)="featureMain()" >Projects</a>
   <a href="javascript:void(0)" (click)="featureRetire()" >Retire</a>
-  <a>Carbon Portfolio</a>
+  <a href="javascript:void(0)" (click)="featurePortfolio()">Carbon Portfolio</a>
   <div class="submenu" (click)="toggleLanguage()">
     <span>Language</span>
      <i class="fa" [ngClass]="languageOpen ? 'fa-chevron-up' : 'fa-chevron-down'"></i>

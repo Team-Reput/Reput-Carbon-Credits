@@ -1,0 +1,417 @@
+// Import Material Icons
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+// Variables
+$primary-green: #10b981;
+$dark-green: #047857;
+$bg-green: #f0fdf4;
+$light-green: #d1fae5;
+$text-dark: #1f2937;
+$text-gray: #6b7280;
+$border-color: #e5e7eb;
+$white: #ffffff;
+$info-blue: #3b82f6;
+$info-bg: #eff6ff;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.token-report-container {
+  min-height: 100vh;
+  background-color: $bg-green;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  padding: 40px 20px;
+}
+
+.content-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+// Header Section
+.header-section {
+  margin-bottom: 32px;
+
+  .page-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: $text-dark;
+    margin-bottom: 12px;
+  }
+
+  .page-description {
+    font-size: 14px;
+    line-height: 1.6;
+    color: $text-gray;
+  }
+}
+
+// Section Card
+.section-card {
+  background: $white;
+  border-radius: 12px;
+  padding: 32px;
+  border: 1px solid $border-color;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+
+  .section-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: $text-dark;
+    margin-bottom: 24px;
+  }
+}
+
+// Overview Grid
+.overview-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 24px;
+
+  .overview-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  .overview-item {
+    .overview-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: $text-gray;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .overview-value {
+      font-size: 15px;
+      font-weight: 600;
+      color: $text-dark;
+      margin: 0;
+
+      &.highlight {
+        color: $primary-green;
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+// Info Banner
+.info-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  background: $info-bg;
+  border-left: 3px solid $info-blue;
+  border-radius: 8px;
+
+  .material-icons {
+    font-size: 20px;
+    color: $info-blue;
+    margin-top: 2px;
+  }
+
+  p {
+    flex: 1;
+    font-size: 14px;
+    line-height: 1.6;
+    color: $text-dark;
+    margin: 0;
+  }
+}
+
+// Form Container
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .form-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: $text-dark;
+  }
+
+  .form-input,
+  .form-select {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    color: $text-dark;
+    background: $white;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    transition: all 0.2s;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-green;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    }
+
+    &::placeholder {
+      color: $text-gray;
+    }
+  }
+
+  .form-select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+  }
+
+  .form-hint {
+    font-size: 12px;
+    color: $text-gray;
+  }
+}
+
+// Checkbox Group
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  position: relative;
+  padding-left: 32px;
+
+  input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+
+    &:checked ~ .checkmark {
+      background-color: $primary-green;
+      border-color: $primary-green;
+
+      &::after {
+        display: block;
+      }
+    }
+  }
+
+  .checkmark {
+    position: absolute;
+    left: 0;
+    top: 2px;
+    height: 20px;
+    width: 20px;
+    background-color: $white;
+    border: 2px solid $border-color;
+    border-radius: 4px;
+    transition: all 0.2s;
+
+    &::after {
+      content: '';
+      position: absolute;
+      display: none;
+      left: 6px;
+      top: 2px;
+      width: 5px;
+      height: 10px;
+      border: solid $white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+  }
+
+  &:hover .checkmark {
+    border-color: $primary-green;
+  }
+
+  .checkbox-label {
+    font-size: 14px;
+    line-height: 1.5;
+    color: $text-dark;
+    user-select: none;
+  }
+}
+
+// Policy Link
+.policy-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  background: $bg-green;
+  border-radius: 8px;
+
+  .material-icons {
+    font-size: 20px;
+    color: $primary-green;
+  }
+
+  .link {
+    font-size: 14px;
+    color: $info-blue;
+    text-decoration: none;
+    font-weight: 500;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// Action Buttons
+.action-buttons {
+  display: flex;
+  gap: 16px;
+  margin-top: 32px;
+
+  .btn {
+    flex: 1;
+    padding: 14px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.btn-primary {
+      background: $primary-green;
+      color: $white;
+
+      &:hover:not(:disabled) {
+        background: $dark-green;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+      }
+
+      &:disabled {
+        background: $text-gray;
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+
+    &.btn-secondary {
+      background: $white;
+      color: $text-dark;
+      border: 1px solid $border-color;
+
+      &:hover {
+        background: $bg-green;
+        border-color: $primary-green;
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .token-report-container {
+    padding: 24px 16px;
+  }
+
+  .content-wrapper {
+    max-width: 100%;
+  }
+
+  .header-section {
+    .page-title {
+      font-size: 20px;
+    }
+
+    .page-description {
+      font-size: 13px;
+    }
+  }
+
+  .section-card {
+    padding: 24px 20px;
+
+    .section-title {
+      font-size: 16px;
+    }
+  }
+
+  .overview-grid {
+    .overview-row {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+  }
+
+  .action-buttons {
+    flex-direction: column;
+
+    .btn {
+      width: 100%;
+    }
+  }
+
+  .checkbox-container {
+    .checkbox-label {
+      font-size: 13px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .token-report-container {
+    padding: 20px 12px;
+  }
+
+  .section-card {
+    padding: 20px 16px;
+  }
+
+  .header-section {
+    margin-bottom: 24px;
+
+    .page-title {
+      font-size: 18px;
+    }
+  }
+
+  .form-group {
+    .form-input,
+    .form-select {
+      padding: 10px 14px;
+      font-size: 13px;
+    }
+  }
+
+  .info-banner {
+    padding: 12px;
+
+    p {
+      font-size: 13px;
+    }
+  }
+}
