@@ -16,6 +16,7 @@ import { TokenRequestComponent } from './components/Seller/token-request/token-r
 import { PortfolioComponent } from './components/Buyer/portfolio/portfolio.component';
 import { SellerOnboardingComponent } from './components/Seller/onboard/seller-onboarding/seller-onboarding.component';
 import { SellerValidationComponent } from './components/Seller/onboard/seller-validation/seller-validation.component';
+import { RegisterProjectComponent } from './components/Seller/register-project/register-project.component';
 
  
 
@@ -33,12 +34,14 @@ export const routes: Routes = [
     {path:'checkout' , component:CheckoutComponent},
     {path:'proof' , component:RetireProofComponent},
     {path:'detail' , component:ProductDetailComponent},
+    {path:'portfolio' , component:PortfolioComponent},
+
     {path:'supplier-dashboard' , component:SupplierDashboardComponent},
     {path:'token-request' , component:TokenRequestComponent},
     {path:'buyer-profile' , component:BuyerProfileComponent},
-    {path:'portfolio' , component:PortfolioComponent},
     {path:'seller-onboarding' , component:SellerOnboardingComponent},
     {path:'seller-validation' , component:SellerValidationComponent},
+    {path:'register-project' , component:RegisterProjectComponent},
     { path: '**', redirectTo: 'login' },
 
 

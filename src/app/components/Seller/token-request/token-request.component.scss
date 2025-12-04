@@ -28,13 +28,19 @@ $info-bg: #eff6ff;
 }
 
 .content-wrapper {
-  max-width: 800px;
+  // max-width: 800px;
+  // margin: 0 auto;
+
+  max-width: 988px;
   margin: 0 auto;
+  background: white;
+  border-radius: 8px;
 }
 
 // Header Section
 .header-section {
   margin-bottom: 32px;
+  padding: 26px;
 
   .page-title {
     font-size: 24px;
@@ -52,10 +58,10 @@ $info-bg: #eff6ff;
 
 // Section Card
 .section-card {
-  background: $white;
-  border-radius: 12px;
+  // background: $white;
+  // border-radius: 12px;
   padding: 32px;
-  border: 1px solid $border-color;
+  // border: 1px solid $border-color;
   margin-bottom: 24px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 
@@ -287,6 +293,8 @@ $info-bg: #eff6ff;
   display: flex;
   gap: 16px;
   margin-top: 32px;
+
+  padding: 30px;
 
   .btn {
     flex: 1;
