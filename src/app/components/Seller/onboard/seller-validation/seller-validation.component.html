@@ -1,0 +1,397 @@
+<div class="seller-validation-container">
+  <!-- Header -->
+  <header class="header">
+  <div class="logo" >
+    <img src="assets/images/RePutLogo.png" alt="logo" />
+  </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    
+    <!-- Step 1: Service Selection -->
+    <div *ngIf="currentStep === 1" class="step-container">
+      <div class="content-card">
+        <h1 class="main-title">Choose how you'd like to manage your project validation and verification</h1>
+        
+        <p class="subtitle">
+          RePut offers two service paths based on how hands-on you'd like to be in your project's validation and verification process. Select
+          the model that best suits your capacity and support needs. You can change this later by contacting our team.
+        </p>
+
+        <div class="service-options">
+          <!-- Self Service -->
+          <div class="service-card" [class.selected]="selectedService === 'self'" (click)="selectService('self')">
+            <h2 class="service-title">Manage your own validation & verification with RePut's support</h2>
+            
+            <p class="service-description">
+              If you already work with accredited Validation & Verification Bodies (VVBs) or prefer to coordinate directly, this option is for you.
+            </p>
+
+            <ul class="feature-list">
+              <li>
+                <span class="checkmark">✓</span>
+                <span>Step-by-step project checklist</span>
+              </li>
+              <li>
+                <span class="checkmark">✓</span>
+                <span>Access to RePut's approved VVB directory</span>
+              </li>
+              <li>
+                <span class="checkmark">✓</span>
+                <span>Secure document uploads (PDD, Validation & Verification Reports</span>
+              </li>
+              <li>
+                <span class="checkmark">✓</span>
+                <span>RePut review for completeness and registry submission</span>
+              </li>
+            </ul>
+
+            <p class="service-note">
+              You'll have direct communication with your chosen VVB, RePut will step in once validation and verification are complete.
+            </p>
+
+            <button class="btn-outline" (click)="selectService('self')">Select Self-Service with Guidance</button>
+          </div>
+
+          <!-- Full Service -->
+          <div class="service-card recommended" [class.selected]="selectedService === 'full'" (click)="selectService('full')">
+            <span class="badge-recommended">Recommended</span>
+            
+            <h2 class="service-title">Let RePut manage the entire process for you</h2>
+            
+            <p class="service-description">
+              RePut's Full-Service model takes care of every step—from coordinating with accredited VVBs to registry submission and issuance. You simply
+              provide your initial project documents, our team handles validation, verification, and credit issuance on your behalf.
+            </p>
+
+            <ul class="feature-list">
+              <li>
+                <span class="checkmark">✓</span>
+                <span>Dedicated RePut project manager</span>
+              </li>
+              <li>
+                <span class="checkmark">✓</span>
+                <span>VVB coordination and timeline tracking</span>
+              </li>
+              <li>
+                <span class="checkmark">✓</span>
+                <span>Document preparation & submission</span>
+              </li>
+              <li>
+                <span class="checkmark">✓</span>
+                <span>Registry handling and issuance management</span>
+              </li>
+            </ul>
+
+            <p class="service-note">
+              Service fees apply for the concierge model. Your account manager will share details after submission.
+            </p>
+
+            <button class="btn-primary" (click)="selectService('full')">Select Full-Service (Recommended)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: Project Details -->
+    <div *ngIf="currentStep === 2" class="step-container">
+      <div class="content-card form-card">
+        <h1 class="main-title">Provide your project details — RePut will handle the rest</h1>
+        <p class="step-indicator">Step 5 of 5: Review & Consent</p>
+
+        <div class="info-box">
+          <p>You've selected the Full-Service model. Our team will manage your entire project lifecycle — from Validation & Verification Body (VVB) coordination to registry submission and credit issuance.</p>
+          <p>To get started, please share some key project information and initial documentation. Your dedicated RePut project manager will contact you shortly to take it forward.</p>
+        </div>
+
+        <div class="form-section">
+          <h2 class="section-title">Enter the primary details of your project</h2>
+          <p class="section-subtitle">These details help us assign the right validation partner and streamline your registry submission.</p>
+
+          <div class="form-group">
+            <label>Project Name</label>
+            <select [(ngModel)]="projectDetails.projectName" class="form-control">
+              <option value="">Select</option>
+              <option value="project1">Project 1</option>
+              <option value="project2">Project 2</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Project type</label>
+            <input type="text" [(ngModel)]="projectDetails.projectType" placeholder="0x..." class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Country/ Region</label>
+            <input type="text" [(ngModel)]="projectDetails.countryRegion" placeholder="0x..." class="form-control">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group half">
+              <label>Estimated Issuance Period (Optional)</label>
+              <input type="text" [(ngModel)]="projectDetails.issuancePeriodStart" placeholder="DD-MM-YYYY" class="form-control">
+            </div>
+            <div class="form-group half">
+              <label>&nbsp;</label>
+              <input type="text" [(ngModel)]="projectDetails.issuancePeriodEnd" placeholder="DD-MM-YYYY" class="form-control">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h2 class="section-title">Upload your available project documents</h2>
+          <p class="section-subtitle">
+            • If you don't yet have a PDD, you can upload a summary proposal. Our team will assist you in preparing one.<br>
+            • All files are stored securely and reviewed only by authorised RePut project managers.
+          </p>
+
+          <div class="file-upload-group">
+            <label>Project Design Document (PDD)</label>
+            <p class="file-description">The main technical document describing the project activity</p>
+            <div class="file-upload-area" (click)="triggerFileInput('pdd-upload')">
+              <div class="upload-icon">☁️</div>
+              <p>Drag and drop your file here, or click to browse</p>
+              <button type="button" class="btn-choose-file">Choose File</button>
+              <p *ngIf="pddFileName" class="file-name">{{ pddFileName }}</p>
+            </div>
+            <input type="file" id="pdd-upload" (change)="onFileSelect($event, 'pdd')" hidden>
+          </div>
+
+          <div class="file-upload-group">
+            <label>Feasibility Study / Project Proposal</label>
+            <p class="file-description">Optional supporting document</p>
+            <div class="file-upload-area" (click)="triggerFileInput('feasibility-upload')">
+              <div class="upload-icon">☁️</div>
+              <p>Drag and drop your file here, or click to browse</p>
+              <button type="button" class="btn-choose-file">Choose File</button>
+              <p *ngIf="feasibilityFileName" class="file-name">{{ feasibilityFileName }}</p>
+            </div>
+            <input type="file" id="feasibility-upload" (change)="onFileSelect($event, 'feasibility')" hidden>
+          </div>
+
+          <div class="file-upload-group">
+            <label>Legal / Ownership Proof</label>
+            <p class="file-description">Land ownership, lease agreement, or authorization letter</p>
+            <div class="file-upload-area" (click)="triggerFileInput('legal-upload')">
+              <div class="upload-icon">☁️</div>
+              <p>Drag and drop your file here, or click to browse</p>
+              <button type="button" class="btn-choose-file">Choose File</button>
+              <p *ngIf="legalProofFileName" class="file-name">{{ legalProofFileName }}</p>
+            </div>
+            <input type="file" id="legal-upload" (change)="onFileSelect($event, 'legal')" hidden>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h2 class="section-title">Tell us how you'd like to collaborate</h2>
+          <p class="section-subtitle">This information helps us tailor our communication and service experience.</p>
+
+          <div class="form-group">
+            <label>preferred communication channel</label>
+            <select [(ngModel)]="projectDetails.communicationChannel" class="form-control">
+              <option value="">Select</option>
+              <option value="email">Email</option>
+              <option value="phone">Phone</option>
+              <option value="slack">Slack</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>preferred Language ( optional )</label>
+            <input type="text" [(ngModel)]="projectDetails.preferredLanguage" placeholder="0x..." class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Additional Notes</label>
+            <textarea [(ngModel)]="projectDetails.additionalNotes" placeholder="Any Special requirements, timelines or instructions" 
+                      class="form-control" rows="4"></textarea>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="checkbox-group">
+            <label class="checkbox-label">
+              <input type="checkbox" [(ngModel)]="authorizationChecks.actOnBehalf">
+              <span>I confirm that the documents uploaded are final, authentic, and issued by an accredited Validation & Verification Body (VVB)</span>
+            </label>
+          </div>
+          <div class="checkbox-group">
+            <label class="checkbox-label">
+              <input type="checkbox" [(ngModel)]="authorizationChecks.dataAccuracy">
+              <span>I confirm that the information provided is accurate to the best of my knowledge</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-outline" (click)="previousStep()">Back</button>
+          <button type="button" class="btn-link" (click)="clearAll()">Clear all</button>
+          <button type="button" class="btn-primary" (click)="nextStep()">Next</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: Authorization -->
+    <div *ngIf="currentStep === 3" class="step-container">
+      <div class="content-card form-card">
+        <h1 class="main-title">Review and confirm your compliance authorization</h1>
+        <p class="step-indicator">Step 5 of 5: Review & Consent</p>
+
+        <div class="info-box">
+          <p>To maintain transparency and integrity in the carbon market, all developers are required to confirm their agreement with RePut's compliance framework.</p>
+          <p>This ensures that projects listed on the platform meet international standards and that RePut is authorized to represent you before accredited registries and verification bodies (VVBs).</p>
+        </div>
+
+        <div class="authorization-section">
+          <h2 class="section-title">Authorization Statements</h2>
+
+          <div class="checkbox-group large">
+            <label class="checkbox-label">
+              <input type="checkbox" [(ngModel)]="authorizationChecks.actOnBehalf">
+              <div>
+                <strong>Authorization to Act on Behalf:</strong>
+                <p>I authorize RePut to coordinate directly with accredited Validation & Verification Bodies (VVBs) and submit my project documentation to the relevant carbon registries on my behalf.</p>
+              </div>
+            </label>
+          </div>
+
+          <div class="checkbox-group large">
+            <label class="checkbox-label">
+              <input type="checkbox" [(ngModel)]="authorizationChecks.dataAccuracy">
+              <div>
+                <strong>Data Accuracy Confirmation:</strong>
+                <p>I confirm that all information and documents provided are true, complete, and belong to my organization.</p>
+              </div>
+            </label>
+          </div>
+
+          <div class="checkbox-group large">
+            <label class="checkbox-label">
+              <input type="checkbox" [(ngModel)]="authorizationChecks.complianceRules">
+              <div>
+                <strong>Compliance with Marketplace Rules:</strong>
+                <p>I acknowledge that I have read and agree to RePut's AML/KYC, Marketplace, and Data Privacy Policies.</p>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="info-box">
+          <p>These confirmations are required to ensure compliance with registry rules, international carbon credit standards, and anti-money laundering regulations.</p>
+        </div>
+
+        <div class="policy-links">
+          <h2 class="section-title">Link to Policies</h2>
+          <p>You can download these policies for your records at any time from your profile settings.</p>
+
+          <ul class="link-list">
+            <li><a href="#">🔗 AML/KYC Policy — Identity verification and anti-fraud practices</a></li>
+            <li><a href="#">🔗 Marketplace Policy — Fair trading, data accuracy, and platform usage</a></li>
+            <li><a href="#">🔗 Data Privacy Policy — How RePut stores and protects your project data</a></li>
+          </ul>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-outline" (click)="previousStep()">Back</button>
+          <button type="button" class="btn-link" (click)="clearAll()">Clear all</button>
+          <button type="button" class="btn-primary" (click)="submitOnboarding()">Next</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4: Submission Success -->
+    <div *ngIf="currentStep === 4" class="step-container">
+      <div class="content-card success-card">
+        <h1 class="main-title">Your onboarding has been submitted successfully</h1>
+
+        <div class="success-content">
+          <h2>Thank you for completing your onboarding with RePut.</h2>
+          <p>Our compliance and project management teams have received your submission and will begin the review process shortly. You will be notified by email once your account and project details are verified.</p>
+
+          <div class="info-box timeline-box">
+            <div class="timeline-icon">⏱️</div>
+            <div>
+              <p><strong>During this review period:</strong></p>
+              <ul>
+                <li>You can log in to your dashboard to track your onboarding status</li>
+                <li>Please ensure your contact details remain up-to-date to avoid delays in communication</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="action-buttons">
+            <button type="button" class="btn-primary" (click)="goToDashboard()">Go TO Developer Dashboard</button>
+            <button type="button" class="btn-outline" (click)="viewSubmission()">View Submitted Details</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 5: Dashboard -->
+    <div *ngIf="currentStep === 5" class="step-container">
+      <div class="content-card dashboard-card">
+        <h1 class="main-title">Welcome to RePut, Rahul 👋</h1>
+        <p class="subtitle">Your onboarding submission is under review</p>
+
+        <div class="info-box">
+          <div class="info-icon">ℹ️</div>
+          <div>
+            <p>• Our compliance team is reviewing your details and uploaded documents. You will be notified once your developer profile is approved.</p>
+            <p>• You'll be able to start your first project once your onboarding verification is complete.</p>
+          </div>
+        </div>
+
+        <div class="status-grid">
+          <div class="status-card">
+            <div class="status-icon">⏱</div>
+            <div class="status-content">
+              <h3>Onboarding Verification </h3> 
+              <div class="status-value">Pending</div>
+              <p class="status-description">In progress by RePut compliance team</p>
+            </div>
+          </div>
+
+          <div class="status-card">
+            <div class="status-icon">📊</div>
+            <div class="status-content">
+              <h3>Account Type</h3>
+              <div class="status-value">Developer</div>
+              <p class="status-description">Total credits issued across projects</p>
+            </div>
+          </div>
+
+          <div class="status-card">
+            <div class="status-icon">⏰</div>
+            <div class="status-content">
+              <h3>Review Timeline</h3>
+              <div class="status-value">3–5 days</div>
+              <p class="status-description">Estimated completion</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="next-steps">
+          <h2>What's Next?</h2>
+          <div class="info-box">
+            <p>You can continue to explore the platform while your account is being verified. Project registration will be enabled once your onboarding is approved.</p>
+          </div>
+
+          <div class="action-buttons">
+            <button type="button" class="btn-primary" (click)="viewSubmission()">View My Submission</button>
+            <button type="button" class="btn-outline" (click)="contactSupport()">
+              <span class="icon">💬</span> Contact Support
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 ALL RIGHTS RESERVED</p>
+  </footer>
+</div>

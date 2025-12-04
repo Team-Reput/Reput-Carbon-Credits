@@ -14,7 +14,8 @@ import { BuyerProfileComponent } from  './components/Buyer/buyer-profile/buyer-p
 import { SupplierDashboardComponent } from './components/Seller/supplier-dashboard/supplier-dashboard.component';
 import { TokenRequestComponent } from './components/Seller/token-request/token-request.component';
 import { PortfolioComponent } from './components/Buyer/portfolio/portfolio.component';
-import { SellerOnboardingComponent } from './components/Seller/seller-onboarding/seller-onboarding.component';
+import { SellerOnboardingComponent } from './components/Seller/onboard/seller-onboarding/seller-onboarding.component';
+import { SellerValidationComponent } from './components/Seller/onboard/seller-validation/seller-validation.component';
 
  
 
@@ -37,6 +38,7 @@ export const routes: Routes = [
     {path:'buyer-profile' , component:BuyerProfileComponent},
     {path:'portfolio' , component:PortfolioComponent},
     {path:'seller-onboarding' , component:SellerOnboardingComponent},
+    {path:'seller-validation' , component:SellerValidationComponent},
     { path: '**', redirectTo: 'login' },
 
 
