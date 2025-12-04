@@ -17,6 +17,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 interface ProjectDetails {
   projectName: string;
@@ -64,6 +65,8 @@ export class SellerValidationComponent {
   pddFileName: string = '';
   feasibilityFileName: string = '';
   legalProofFileName: string = '';
+
+  constructor(public router: Router) {}
 
   selectService(service: 'self' | 'full') {
     this.selectedService = service;
@@ -172,5 +175,10 @@ export class SellerValidationComponent {
 
   contactSupport() {
     console.log('Contact support');
+  }
+
+
+  navigateDashboard() { 
+      this.router.navigate(['/supplier-dashboard']);
   }
 }

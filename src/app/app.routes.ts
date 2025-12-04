@@ -33,7 +33,7 @@ export const routes: Routes = [
     {path:'checkout' , component:CheckoutComponent},
     {path:'proof' , component:RetireProofComponent},
     {path:'detail' , component:ProductDetailComponent},
-    {path:'supplierDash' , component:SupplierDashboardComponent},
+    {path:'supplier-dashboard' , component:SupplierDashboardComponent},
     {path:'token-request' , component:TokenRequestComponent},
     {path:'buyer-profile' , component:BuyerProfileComponent},
     {path:'portfolio' , component:PortfolioComponent},

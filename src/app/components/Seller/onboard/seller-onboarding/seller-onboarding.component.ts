@@ -151,13 +151,13 @@ export class SellerOnboardingComponent {
   }
 
   nextStep() {
-    if (this.validateCurrentStep()) {
+    // if (this.validateCurrentStep()) {
       if (this.currentStep < this.totalSteps) {
         this.currentStep++;
       }
-    }
+    // }
   }
-
+ 
  
 
   previousStep() {
@@ -309,8 +309,8 @@ export class SellerOnboardingComponent {
       // Handle submission logic here
       alert('Verification submitted successfully!');
       // Optionally redirect to dashboard
-      // this.router.navigate(['/dashboard']);
     }
+    this.router.navigate(['/seller-validation']);
   }
 
   // Helper method to get step title
