@@ -26,7 +26,11 @@ export class OnboardingComponent {
   }
 
   selectRole(role: string) {
-    this.selectedRole = role;
+    this.selectedRole = role; 
+  }
+
+  loginPage() {
+    this.router.navigate(['/login']);
   }
 
   startOnboarding() {
@@ -35,6 +39,10 @@ export class OnboardingComponent {
     // } else {
     //   this.router.navigate(['/seller-onboarding']);
     // }
+
+     if (this.selectedRole === 'seller') {
+      this.router.navigate(['/seller-onboarding']);
+    }
 
     if(this.onGoingStep==='step1'){
       this.onGoingStep = 'step2'

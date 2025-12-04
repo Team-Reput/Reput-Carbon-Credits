@@ -42,8 +42,8 @@ interface OnboardingData {
   styleUrls: ['./seller-onboarding.component.scss']
 })
 export class SellerOnboardingComponent {
-  // currentStep = 0;  
-  currentStep = 3;  
+   
+  currentStep = 0;  
   totalSteps = 5;
 
   // Form data
@@ -164,6 +164,11 @@ export class SellerOnboardingComponent {
     if (this.currentStep > 0) {
       this.currentStep--;
     }
+  }
+
+
+  selectType() {
+     this.router.navigate(['/onboarding']);
   }
 
   clearAll() {

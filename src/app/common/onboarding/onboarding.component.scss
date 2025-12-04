@@ -619,3 +619,28 @@ position: relative;
   border-radius: 0 6px 6px 0;
   font-size: 14px;
 }
+
+
+
+
+
+
+
+.back-btn {
+  position: absolute;
+  top: 30%; 
+  background: transparent;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  
+  &:hover {
+    color: #1a1a1a;
+    transform: translateX(-2px);
+  }
+}

@@ -17,7 +17,7 @@
   <div class="content-card">
     <!-- Step 0: Welcome Screen -->
     <div *ngIf="currentStep === 0" class="welcome-screen">
-      <button class="back-btn" (click)="previousStep()">
+      <button class="back-btn" (click)="selectType()">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
           <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -261,7 +261,7 @@
 
      <div *ngIf="currentStep === 3" class="form-card">
     <div class="form-header">
-      <h1>Add the main contact for official communication.</h1>
+      <h5>Add the main contact for official communication.</h5>
       <p class="step-info">Step 3 of 5: Primary Contact Details</p>
     </div>
 

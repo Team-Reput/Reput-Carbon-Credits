@@ -73,7 +73,8 @@
 .back-btn {
   position: absolute;
   left: 0;
-  top: 0;
+  // top: 0;
+  top: 15px;
   background: transparent;
   border: none;
   color: #666;
@@ -869,9 +870,11 @@ select.form-control {
         justify-content: start;
         position: absolute;
         top: 2%;
-        left: 2%;
+        // left: 2%;
+        right: 83%;
         img{
             width: 160px;
+            height: 55px;
         }
     }
 
