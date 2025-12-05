@@ -1,80 +1,11 @@
 <div class="app-container">
-  <!-- Sidebar -->
-  <aside class="sidebar" [class.expanded]="isSidebarExpanded" [class.collapsed]="!isSidebarExpanded">
-    <div class="sidebar-content">
-      <div class="sidebar-header">
-        <div class="logo">
-         <img src="assets/images/collapseLogo.png" alt="Logo" style="width: 45px;" >
-        </div>
-
-       
-       
-        <div>
-          <button class="sidebar-toggle" (click)="toggleSidebar()">
-            <svg *ngIf="isSidebarExpanded" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/>
-            </svg>
-            <svg *ngIf="!isSidebarExpanded" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
-            </svg>
-          </button>
-        </div>
-      </div>
-      
-      <nav class="nav-menu">
-        <a href="#" class="nav-item active">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-            <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
-          </svg>
-          <span *ngIf="isSidebarExpanded" class="nav-text">Dashboard</span>
-        </a>
-        
-        <a href="#" class="nav-item">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-            <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
-            <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/>
-          </svg>
-          <span *ngIf="isSidebarExpanded" class="nav-text">Projects</span>
-        </a>
-        
-        <a href="#" class="nav-item">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-            <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
-          </svg>
-          <span *ngIf="isSidebarExpanded" class="nav-text">Team</span>
-        </a>
-      </nav>
-    </div>
-  </aside>
+ 
 
   <!-- Main Content -->
   <div class="main-wrapper" [class.sidebar-expanded]="isSidebarExpanded">
-    <!-- Top Navbar -->
-    <header class="navbar">
-      <div class="navbar-left">
-        <button class="back-button" (click)="navigateToDashboard()">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-          </svg>
-          Back To Dashboard
-        </button>
-      </div>
-      
-      <div class="navbar-right">
-        <div class="notification-icon">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-            <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/>
-          </svg>
-        </div>
-        
-        <div class="user-info">
-          <img [src]="userInfo.avatar" alt="User avatar" class="user-avatar">
-          <span class="user-name">{{ userInfo.name }}</span>
-        </div>
-      </div>
-    </header>
+ 
 
-    <!-- Main Content Area -->
+ 
     <main class="content">
       <div class="form-container">
         <div class="form-card">
@@ -305,5 +236,7 @@
         </div>
       </div>
     </main>
+
+ 
   </div>
 </div>

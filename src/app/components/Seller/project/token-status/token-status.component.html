@@ -1,0 +1,290 @@
+<div class="tokenization-dashboard">
+  <div class="main-content">
+    <!-- Header -->
+    <div class="page-header">
+      <h1 class="page-title">{{ pageTitle }}</h1>
+      <p class="page-info">{{ projectInfo }}</p>
+    </div>
+
+    <!-- Success Alert -->
+    <div class="success-alert">
+      <p>{{ successMessage }}</p>
+    </div>
+
+
+
+
+
+
+
+
+
+    <!-- ________________________________________________________________________________________ -->
+
+  <div class="ab-container">
+    <!-- Project Information Section -->
+    <section class="info-section">
+      <div class="section-header">
+        <h2 class="section-title">Project Information</h2>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-item">
+          <label class="info-label">Project ID</label>
+          <p class="info-value">{{ projectInfo.projectId }}</p>
+        </div>
+
+        <div class="info-item">
+          <label class="info-label">Project Name</label>
+          <p class="info-value">{{ projectInfo.projectName }}</p>
+        </div>
+
+        <div class="info-item">
+          <label class="info-label">Vintage Year</label>
+          <p class="info-value">{{ projectInfo.vintageYear }}</p>
+        </div>
+
+        <div class="info-item">
+          <label class="info-label">Registry Name</label>
+          <p class="info-value">{{ projectInfo.registryName }}</p>
+        </div>
+
+        <div class="info-item">
+          <label class="info-label">Registry Project ID</label>
+          <p class="info-value">{{ projectInfo.registryProjectId }}</p>
+        </div>
+
+        <div class="info-item">
+          <label class="info-label">Methodology</label>
+          <p class="info-value">{{ projectInfo.methodology }}</p>
+        </div>
+
+        <div class="info-item full-width">
+          <label class="info-label">Carbon Type</label>
+          <p class="info-value">{{ projectInfo.carbonType }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tokenization Details Section -->
+    <section class="info-section">
+      <div class="section-header">
+        <h2 class="section-title">Tokenization Details</h2>
+        <button class="view-details-btn" (click)="viewTokenDetails()">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M10 2H14V6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M6 10L14 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14 9.33333V13.3333C14 13.687 13.8595 14.0261 13.6095 14.2761C13.3594 14.5262 13.0203 14.6667 12.6667 14.6667H2.66667C2.31304 14.6667 1.97391 14.5262 1.72386 14.2761C1.47381 14.0261 1.33333 13.687 1.33333 13.3333V3.33333C1.33333 2.97971 1.47381 2.64057 1.72386 2.39052C1.97391 2.14048 2.31304 2 2.66667 2H6.66667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          View Token Details
+        </button>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-item">
+          <label class="info-label">Total Credits Issued</label>
+          <p class="info-value">{{ tokenizationDetails.totalCreditsIssued }}</p>
+        </div>
+
+        <div class="info-item">
+          <label class="info-label">Minted Tokens</label>
+          <p class="info-value">{{ tokenizationDetails.mintedTokens }}</p>
+        </div>
+
+        <div class="info-item">
+          <label class="info-label">Token Symbol</label>
+          <p class="info-value">{{ tokenizationDetails.tokenSymbol }}</p>
+        </div>
+
+        <div class="info-item">
+          <label class="info-label">Token Mint Date</label>
+          <p class="info-value">{{ tokenizationDetails.tokenMintDate }}</p>
+        </div>
+
+        <div class="info-item">
+          <label class="info-label">Blockchain Network</label>
+          <p class="info-value">{{ tokenizationDetails.blockchainNetwork }}</p>
+        </div>
+
+        <div class="info-item">
+          <label class="info-label">Bridge Reference ID</label>
+          <p class="info-value">{{ tokenizationDetails.bridgeReferenceId }}</p>
+        </div>
+
+        <div class="info-item full-width">
+          <label class="info-label">Retirement Status</label>
+          <span class="status-badge" [ngClass]="getRetirementStatusClass()">
+            {{ tokenizationDetails.retirementStatus }}
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Issuance & Custody Section -->
+    <section class="info-section">
+      <div class="section-header">
+        <h2 class="section-title">Issuance & Custody</h2>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-item">
+          <label class="info-label">Token Contract Address</label>
+          <p class="info-value mono">{{ issuanceCustody.tokenContractAddress }}</p>
+        </div>
+
+        <div class="info-item">
+          <label class="info-label">Wallet Receiving Tokens</label>
+          <p class="info-value mono">{{ issuanceCustody.walletReceivingTokens }}</p>
+        </div>
+
+        <div class="info-item full-width">
+          <label class="info-label">Issuer</label>
+          <p class="info-value">{{ issuanceCustody.issuer }}</p>
+        </div>
+      </div>
+
+      <button class="polygonscan-btn" (click)="viewOnPolygonScan()">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <rect x="2" y="2" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M6 6H12M6 9H12M6 12H9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        View on PolygonScan
+      </button>
+
+      <div class="info-note">
+        Each credit tokenized on-chain is backed 1:1 by a verified credit in registry custody.
+      </div>
+    </section>
+  </div>
+
+    <!-- ________________________________________________________________________________________ -->
+    
+
+
+
+
+
+
+
+
+
+
+        <!-- Transaction Progress Tracker -->
+    <section class="section">
+      <h2 class="section-title">Transaction Progress Tracker</h2>
+
+      <div class="transaction-steps-vertical">
+        <div 
+          class="transaction-step-item" 
+          *ngFor="let step of transactionSteps; let isLast = last"
+          [class]="getStepStatusClass(step.status)">
+          <div class="step-left">
+            <div class="step-circle">
+              <span *ngIf="step.status === 'Complete'">✓</span>
+              <span *ngIf="step.status !== 'Complete'">{{ step.stepNumber }}</span>
+            </div>
+            <div class="step-line" *ngIf="!isLast"></div>
+          </div>
+          <div class="step-right">
+            <div class="step-header">
+              <h4>{{ step.stepNumber }}. {{ step.title }}</h4>
+              <span class="step-badge" [class]="getStepStatusClass(step.status)">
+                {{ step.status }}
+              </span>
+            </div>
+            <p class="step-desc">{{ step.description }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <!-- Transaction Log (Audit Trail) -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Transaction Log (Audit Trail)</h2>
+        <button class="download-csv-btn" (click)="downloadCSV()">
+          ⬇️ Download CSV
+        </button>
+      </div>
+
+      <div class="audit-table">
+        <div class="table-header">
+          <div class="table-cell">Date</div>
+          <div class="table-cell">Action</div>
+          <div class="table-cell">Performed By</div>
+          <div class="table-cell">Details</div>
+        </div>
+        <div class="table-row" *ngFor="let entry of auditLog">
+          <div class="table-cell">{{ entry.date }}</div>
+          <div class="table-cell">{{ entry.action }}</div>
+          <div class="table-cell">{{ entry.performedBy }}</div>
+          <div class="table-cell">{{ entry.details }}</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RePut Comments / Updates -->
+    <section class="section">
+      <h2 class="section-title">RePut Comments / Updates</h2>
+
+      <div class="comments-list">
+        <div class="comment-item" *ngFor="let comment of comments">
+          <div class="comment-icon"></div>
+          <div class="comment-content">
+            <p class="comment-message">{{ comment.message }}</p>
+            <!-- <p class="comment-date">{{ formatDate(comment.timestamp) }}</p> -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Add Comment / Query to RePut -->
+    <section class="section">
+      <h2 class="section-title">Add Comment / Query to RePut</h2>
+
+      <div class="comment-form">
+        <textarea 
+          class="comment-input"
+          [(ngModel)]="newComment"
+          placeholder="Type Your Message here"
+          rows="4"></textarea>
+        
+        <div class="form-actions">
+          <button class="secondary-btn"  style="background: #0E3E1B;color: white;border-radius: 10px;" (click)="sendMessage()">
+             Send Message
+          </button>
+          <button class="secondary-btn" (click)="contactSupport()">
+            Contact Support
+          </button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Sidebar -->
+  <!-- <aside class="sidebar">
+    <div class="sidebar-section">
+      <h3 class="sidebar-title">Quick Actions</h3>
+      
+      <button class="sidebar-btn" (click)="downloadProjectSummary()">
+        📥 Download Project Summary PDF
+      </button>
+
+      <button class="sidebar-btn" (click)="downloadCertificate()">
+        <span class="icon">📄</span>
+        Download Certificate
+      </button>
+
+      <button class="sidebar-btn" (click)="viewOnChain()">
+        <span class="icon">🔗</span>
+        View on chain
+      </button>
+
+      <button class="sidebar-btn" (click)="initiateNewTokenization()">
+        <span class="icon">➕</span>
+        Initiate New Tokenization
+      </button>
+    </div>
+  </aside> -->
+</div>

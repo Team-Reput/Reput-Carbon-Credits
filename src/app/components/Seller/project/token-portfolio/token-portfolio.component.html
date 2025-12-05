@@ -1,0 +1,262 @@
+<div class="portfolio-dashboard">
+  <!-- Header -->
+  <div class="page-header">
+    <h1 class="page-title">{{ pageTitle }}</h1>
+    <p class="page-description">{{ pageDescription }}</p>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="stats-grid">
+    <div class="stat-card" *ngFor="let stat of statCards">
+      <div class="stat-icon">{{ stat.icon }}</div>
+      <div class="stat-content">
+        <label>{{ stat.label }}</label>
+        <div class="stat-value">{{ stat.value }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Projects with Tokenized Credits -->
+  <section class="section">
+    <h2 class="section-title">Projects with Tokenized Credits</h2>
+
+    <div class="projects-table">
+      <div class="table-header">
+        <div class="th">Project Name</div>
+        <div class="th">Credits Owned</div>
+        <div class="th">Credits Retired</div>
+        <div class="th">📅 Last Update</div>
+        <div class="th">Status</div>
+        <div class="th">Action</div>
+      </div>
+
+      <div class="table-body">
+        <ng-container *ngFor="let project of projects">
+          <!-- Main Project Row -->
+          <div class="table-row" [class.expanded]="project.expanded">
+            <div class="td">{{ project.projectName }}</div>
+            <div class="td">{{ project.creditsOwned }}</div>
+            <div class="td">{{ project.creditsRetired }}</div>
+            <div class="td">{{ project.lastUpdate }}</div>
+            <div class="td">
+              <span class="status-badge" [class]="getStatusClass(project.status)">
+                {{ project.status }}
+              </span>
+            </div>
+            <div class="td">
+              <button class="action-link" (click)="viewBatch(project.projectName)">
+                View Batch
+              </button>
+              <button class="expand-btn" (click)="toggleProject(project)" *ngIf="project.batches">
+                {{ project.expanded ? '▲' : '▼' }}
+              </button>
+            </div>
+          </div>
+
+          <!-- Expanded Batch Rows -->
+          <div class="batch-rows" *ngIf="project.expanded && project.batches">
+            <div class="batch-table-header">
+              <div class="th-batch">Batch ID</div>
+              <div class="th-batch">Vintage Year</div>
+              <div class="th-batch">Credits Tokenized</div>
+              <div class="th-batch">Date</div>
+              <div class="th-batch">Token Contract</div>
+              <div class="th-batch">Status</div>
+              <div class="th-batch">Action</div>
+            </div>
+            <div class="batch-row" *ngFor="let batch of project.batches">
+              <div class="td-batch">{{ batch.batchId }}</div>
+              <div class="td-batch">{{ batch.vintageYear }}</div>
+              <div class="td-batch">{{ batch.creditsTokenized }}</div>
+              <div class="td-batch">{{ batch.date }}</div>
+              <div class="td-batch code">{{ batch.tokenContract }}</div>
+              <div class="td-batch">
+                <span class="status-badge" [class]="getStatusClass(batch.status)">
+                  {{ batch.status }}
+                </span>
+              </div>
+              <div class="td-batch">
+                <button class="action-link" (click)="viewBatchDetail(batch.batchId)">
+                  View 🔗
+                </button>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sustainability Impact Overview -->
+  <section class="section">
+    <h2 class="section-title">Sustainability Impact Overview</h2>
+    <p class="section-subtitle">Impact metrics are calculated from verified retirements only, based on on-chain and registry records.</p>
+
+    <div class="charts-grid">
+      <!-- Line Chart -->
+      <div class="chart-container">
+        <h3 class="chart-title">Tokenized Credits Over Time</h3>
+        <highcharts-chart
+          [Highcharts]="Highcharts"
+          [options]="lineChartOptions"
+          style="width: 100%; height: 300px; display: block;">
+        </highcharts-chart>
+      </div>
+
+      <!-- Pie Chart -->
+      <div class="chart-container">
+        <h3 class="chart-title">Distribution By Network</h3>
+        <highcharts-chart
+          [Highcharts]="Highcharts"
+          [options]="pieChartOptions"
+          style="width: 100%; height: 300px; display: block;">
+        </highcharts-chart>
+      </div>
+
+      <!-- Bar Chart -->
+      <div class="chart-container">
+        <h3 class="chart-title">Credits Per Project</h3>
+        <highcharts-chart
+          [Highcharts]="Highcharts"
+          [options]="barChartOptions"
+          style="width: 100%; height: 300px; display: block;">
+        </highcharts-chart>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certificates & Proofs -->
+  <section class="section">
+    <h2 class="section-title">Certificates & Proofs</h2>
+    <p class="section-subtitle">Each PDF includes project details, registry reference, ReFut signature, and transaction hash.</p>
+
+    <div class="certificates-table">
+      <div class="table-header">
+        <div class="th">Credits Owned</div>
+        <div class="th">Certificate Type</div>
+        <div class="th">Quantity</div>
+        <div class="th">Issued Date</div>
+        <div class="th">Action</div>
+      </div>
+
+      <div class="table-row" *ngFor="let cert of certificates">
+        <div class="td">{{ cert.creditsOwned }}</div>
+        <div class="td">{{ cert.certificateType }}</div>
+        <div class="td">{{ cert.quantity }}</div>
+        <div class="td">{{ cert.issuedDate }}</div>
+        <div class="td">
+          <button class="download-btn" (click)="downloadCertificate(cert.certificateType)">
+            Download PDF ⬇️
+          </button>
+          <button class="view-chain-btn" (click)="viewOnChain(cert.certificateType)">
+            View on chain 🔗
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Transaction History -->
+  <section class="section">
+    <div class="section-header">
+      <h2 class="section-title">Transaction History</h2>
+      <div class="filters-row">
+        <select class="filter-select">
+          <option>All Projects</option>
+          <option>GreenWind Solar Hybrid</option>
+          <option>BlueForest Reforestation</option>
+          <option>Waste2Energy Kerala</option>
+        </select>
+        <select class="filter-select">
+          <option>All Type</option>
+          <option>Mint</option>
+          <option>Transfer</option>
+          <option>Retire</option>
+        </select>
+        <button class="download-csv-btn" (click)="downloadCSV()">
+          ⬇️ Download CSV
+        </button>
+      </div>
+    </div>
+
+    <div class="transactions-table">
+      <div class="table-header">
+        <div class="th">Date</div>
+        <div class="th">Project Name</div>
+        <div class="th">Action</div>
+        <div class="th">Credits</div>
+        <div class="th">Network</div>
+        <div class="th">Tx Hash</div>
+        <div class="th">Status</div>
+      </div>
+
+      <div class="table-row" *ngFor="let tx of transactions">
+        <div class="td">{{ tx.date }}</div>
+        <div class="td">{{ tx.projectName }}</div>
+        <div class="td">{{ tx.action }}</div>
+        <div class="td">{{ tx.credits }}</div>
+        <div class="td">{{ tx.network }}</div>
+        <div class="td">
+          <button class="hash-link" (click)="viewTxHash(tx.txHash)">
+            {{ tx.txHash }} 🔗
+          </button>
+        </div>
+        <div class="td">
+          <span class="status-badge" [class]="getStatusClass(tx.status)">
+            {{ tx.status }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Actions -->
+  <section class="section quick-actions-section">
+    <h2 class="section-title">Quick Actions</h2>
+
+    <div class="quick-actions-grid">
+      <button class="quick-action-btn" (click)="initiateNewTokenization()">
+        <span class="icon">📄</span>
+        Initiate New Tokenization
+      </button>
+      <button class="quick-action-btn" (click)="viewProjectDetails()">
+        <span class="icon">📄</span>
+        View Project Details
+      </button>
+      <button class="quick-action-btn" (click)="viewBridgeTransactions()">
+        <span class="icon">🔗</span>
+        View Bridge Transactions
+      </button>
+      <button class="quick-action-btn" (click)="generatePortfolioReport()">
+        <span class="icon">⬇️</span>
+        Generate Portfolio Report
+      </button>
+    </div>
+  </section>
+
+  <!-- Compliance & Certificates -->
+  <section class="section">
+    <h2 class="section-title">Compliance & Certificates</h2>
+    <p class="section-subtitle">Each certificate includes ReFut's digital signature and blockchain transaction reference for traceability.</p>
+
+    <div class="compliance-table">
+      <div class="table-header">
+        <div class="th">Date</div>
+        <div class="th">Linked Project</div>
+        <div class="th">Issued On</div>
+        <div class="th">Download</div>
+      </div>
+
+      <div class="table-row" *ngFor="let comp of complianceCerts">
+        <div class="td">{{ comp.date }}</div>
+        <div class="td">{{ comp.linkedProject }}</div>
+        <div class="td">{{ comp.issuedOn }}</div>
+        <div class="td">
+          <button class="download-btn" (click)="downloadComplianceCert(comp.linkedProject)">
+            Download PDF ⬇️
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,216 @@
+<div class="project-dashboard">
+  <div class="main-content">
+    <!-- Header -->
+    <div class="project-header">
+      <div class="header-content">
+        <h1 class="project-title">{{ projectData.title }}</h1>
+        <p class="project-meta">
+          Project ID: {{ projectData.id }} • Submitted on: {{ projectData.submittedDate }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Status Alert -->
+    <div class="status-alert">
+      <p>Your project is currently under RePut review. You'll be notified once registry coordination begins.</p>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <button class="action-btn" (click)="editSubmission()">
+        <span class="icon">✏️</span>
+        Edit Submission
+      </button>
+      <button class="action-btn" (click)="uploadFiles()">
+        <span class="icon">📤</span>
+        Upload Additional Files
+      </button>
+      <button class="action-btn" (click)="contactRePutTeam()">
+        <span class="icon">💬</span>
+        Contact RePut Team
+      </button>
+      <button class="action-btn" (click)="viewRegistryRecord()">
+        <span class="icon">🔗</span>
+        View Registry Record
+      </button>
+    </div>
+
+    <!-- Project Snapshot -->
+    <section class="section">
+      <h2 class="section-title">Project Snapshot</h2>
+      <p class="section-subtitle">These key details summarize your project profile and ownership as verified during onboarding.</p>
+
+      <div class="info-grid">
+        <div class="info-item">
+          <label>Project Type</label>
+          <div class="value">{{ projectData.projectType }}</div>
+        </div>
+        <div class="info-item">
+          <label>Project Category</label>
+          <div class="value">{{ projectData.category }}</div>
+        </div>
+        <div class="info-item">
+          <label>Country / Region</label>
+          <div class="value">{{ projectData.country }}</div>
+        </div>
+        <div class="info-item">
+          <label>Total Credits Issued</label>
+          <div class="value">{{ projectData.creditsIssued }}</div>
+        </div>
+        <div class="info-item">
+          <label>Date of Request</label>
+          <div class="value">{{ projectData.requestDate }}</div>
+        </div>
+        <div class="info-item">
+          <label>Service Type</label>
+          <div class="value">{{ projectData.serviceType }}</div>
+        </div>
+        <div class="info-item full-width">
+          <label>Assigned RePut Manager</label>
+          <div class="value">{{ projectData.assignedManager }} ({{ projectData.managerEmail }})</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Project Progress -->
+    <section class="section">
+      <h2 class="section-title">Project Progress</h2>
+      
+      <div class="progress-header">
+        <h3>{{ projectData.progress }}% Complete</h3>
+      </div>
+
+      <div class="progress-bar-container">
+        <div class="progress-bar" [style.width.%]="projectData.progress"></div>
+      </div>
+
+      <div class="progress-steps">
+        <div 
+          class="progress-step" 
+          *ngFor="let step of progressSteps; let i = index"
+          [class]="getProgressStepClass(step.status)">
+          <div class="step-indicator">
+            <div class="step-icon">
+              <span *ngIf="step.status === 'Complete'">✓</span>
+              <span *ngIf="step.status === 'In Progress'">⟳</span>
+              <span *ngIf="step.status === 'Pending'">{{ i + 1 }}</span>
+            </div>
+            <div class="step-line" *ngIf="i < progressSteps.length - 1"></div>
+          </div>
+          <div class="step-content">
+            <h4>{{ step.name }}</h4>
+            <p>{{ step.description }}</p>
+            <span class="step-status" [class]="getProgressStepClass(step.status)">
+              {{ step.status }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Uploaded & Generated Documents -->
+    <section class="section">
+      <h2 class="section-title">Uploaded & Generated Documents</h2>
+      <p class="section-subtitle">All uploaded and generated documents are retained for audit trail and transparency.</p>
+
+      <div class="documents-list">
+        <div class="document-item" *ngFor="let doc of documents">
+          <div class="document-icon">📄</div>
+          <div class="document-info">
+            <h4>{{ doc.name }}</h4>
+            <p class="document-meta">{{ doc.filename }}</p>
+            <p class="document-meta">Uploaded by {{ doc.uploadedBy }} • {{ doc.uploadDate }}</p>
+          </div>
+          <div class="document-actions">
+            <span class="document-status" [class]="getStatusClass(doc.status)">
+              {{ doc.status }}
+            </span>
+            <button class="view-btn" (click)="viewDocument(doc)">View</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Registry Details & Blockchain Details -->
+    <div class="two-column-section">
+      <section class="section half-width">
+        <h2 class="section-title">Registry Details</h2>
+        
+        <div class="detail-item">
+          <label>Registry Name</label>
+          <div class="value">{{ projectData.registryName }}</div>
+        </div>
+        <div class="detail-item">
+          <label>Registry Project ID</label>
+          <div class="value">{{ projectData.registryProjectId }}</div>
+        </div>
+        <div class="detail-item">
+          <label>Submission Date</label>
+          <div class="value">{{ projectData.submissionDate }}</div>
+        </div>
+
+        <button class="secondary-btn" (click)="viewOnPolygon()">
+          View on Polygon Portal
+        </button>
+      </section>
+
+      <section class="section half-width">
+        <h2 class="section-title">Blockchain Details</h2>
+        
+        <div class="detail-item">
+          <label>Blockchain Network</label>
+          <div class="value">{{ projectData.blockchainNetwork }}</div>
+        </div>
+        <div class="detail-item">
+          <label>Token Contract Address</label>
+          <div class="value code">{{ projectData.tokenContract }}</div>
+        </div>
+        <div class="detail-item">
+          <label>Wallet Receiving Tokens</label>
+          <div class="value code">{{ projectData.walletAddress }}</div>
+        </div>
+
+        <p class="blockchain-note">
+          Credits are tokenized 1:1 through RePut's verified bridge partner. Transaction details are verifiable on-chain.
+        </p>
+      </section>
+    </div>
+
+    <!-- Communication & Updates -->
+    <section class="section">
+      <h2 class="section-title">Communication & Updates</h2>
+
+      <div class="communications-list">
+        <div class="communication-item" *ngFor="let comm of communications">
+          <div class="comm-icon">💬</div>
+          <div class="comm-content">
+            <p class="comm-message">{{ comm.message }}</p>
+            <p class="comm-meta">{{ comm.author }} • {{ comm.date }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <h3 class="sidebar-title">Quick Actions</h3>
+      
+      <button class="sidebar-btn " (click)="downloadPDF()">
+        <!-- <span class="icon"></span> -->
+        📥 Download Project Summary PDF
+      </button>
+
+      <!-- <div class="sidebar-divider"></div> -->
+
+      <!-- <h4 class="sidebar-subtitle">Request Tokenization</h4> -->
+      <!-- <button class="sidebar-btn" (click)="requestTokenDetails()">
+        Request Tokenization
+      </button> -->
+      <button class="sidebar-btn" (click)="viewTokenDetails()">
+        View Token Details
+      </button>
+    </div>
+  </aside>
+</div>

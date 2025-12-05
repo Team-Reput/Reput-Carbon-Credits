@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 interface DashboardStat {
   title: string;
@@ -19,7 +19,7 @@ interface Project {
 @Component({
   selector: 'app-supplier-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterLink],
   templateUrl: './supplier-dashboard.component.html',
   styleUrl: './supplier-dashboard.component.scss'
 })
@@ -110,7 +110,7 @@ export class SupplierDashboardComponent {
   toggleSidebar(): void {
     this.sidebarExpanded = !this.sidebarExpanded;
   }
-
+ 
   toggleUserMenu(): void {
     this.showUserMenu = !this.showUserMenu;
   }
@@ -127,6 +127,14 @@ export class SupplierDashboardComponent {
 
   viewProject(project: Project): void {
     console.log('Viewing project:', project);
+
+    this.router.navigate(['/project/about-project']);
+  }
+
+  viewRegisteredProject(project: Project): void {
+    console.log('Viewing project:', project);
+
+    this.router.navigate(['/project/token-status']);
   }
 
   editProject(project: Project): void {
@@ -135,7 +143,12 @@ export class SupplierDashboardComponent {
 
   registerNewProject(): void {
     console.log('Registering new project');
-    this.router.navigate(['/register-project']);
+    this.router.navigate(['/project/register-project']);
+  }
+
+  navigatePortfolio(): void {
+    console.log('Registering new project');
+    this.router.navigate(['/project/portfolio']);
   }
 
   viewAllNotifications(): void {

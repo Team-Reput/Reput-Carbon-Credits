@@ -12,11 +12,16 @@ import { RetireProofComponent } from './components/Buyer/retire-proof/retire-pro
 import { ProductDetailComponent } from './components/Buyer/product-detail/product-detail.component';
 import { BuyerProfileComponent } from  './components/Buyer/buyer-profile/buyer-profile.component';
 import { SupplierDashboardComponent } from './components/Seller/supplier-dashboard/supplier-dashboard.component';
-import { TokenRequestComponent } from './components/Seller/token-request/token-request.component';
+import { TokenRequestComponent } from './components/Seller/project/token-request/token-request.component';
 import { PortfolioComponent } from './components/Buyer/portfolio/portfolio.component';
 import { SellerOnboardingComponent } from './components/Seller/onboard/seller-onboarding/seller-onboarding.component';
 import { SellerValidationComponent } from './components/Seller/onboard/seller-validation/seller-validation.component';
-import { RegisterProjectComponent } from './components/Seller/register-project/register-project.component';
+import { ProjectComponent } from './components/Seller/project/project.component';
+import { AboutProjectComponent } from './components/Seller/project/about-project/about-project.component';
+import { TokenStatusComponent } from './components/Seller/project/token-status/token-status.component';
+import { TokenPortfolioComponent } from './components/Seller/project/token-portfolio/token-portfolio.component';
+import { RegisterProjectComponent } from './components/Seller/project/register-project/register-project.component';
+import { TokenDetailsComponent } from './components/Seller/project/token-details/token-details.component';
 
  
 
@@ -37,11 +42,19 @@ export const routes: Routes = [
     {path:'portfolio' , component:PortfolioComponent},
 
     {path:'supplier-dashboard' , component:SupplierDashboardComponent},
-    {path:'token-request' , component:TokenRequestComponent},
     {path:'buyer-profile' , component:BuyerProfileComponent},
     {path:'seller-onboarding' , component:SellerOnboardingComponent},
     {path:'seller-validation' , component:SellerValidationComponent},
-    {path:'register-project' , component:RegisterProjectComponent},
+
+    {path:'project' , component:ProjectComponent,children: [
+        {path:'', redirectTo:'about-project', pathMatch:'full'},
+        {path:'register-project', component: RegisterProjectComponent},
+        {path:'token-request' , component:TokenRequestComponent},
+        {path:'about-project', component: AboutProjectComponent},
+        {path:'token-status', component: TokenStatusComponent},
+        {path:'portfolio', component: TokenPortfolioComponent},
+        {path:'token-details', component: TokenDetailsComponent}
+    ]},
     { path: '**', redirectTo: 'login' },
 
 

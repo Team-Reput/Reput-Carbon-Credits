@@ -16,9 +16,9 @@
         <span class="material-icons">grid_view</span>
         <span class="nav-text" *ngIf="sidebarExpanded">Dashboard</span>
       </a>
-      <a href="#" class="nav-item">
+      <a   class="nav-item"  [routerLink]="['/project/portfolio']">
         <span class="material-icons">description</span>
-        <span class="nav-text" *ngIf="sidebarExpanded">Projects</span>
+        <span class="nav-text" *ngIf="sidebarExpanded" (click)="navigatePortfolio()">Portfolio</span>
       </a>
       <a href="#" class="nav-item">
         <span class="material-icons">account_circle</span>
@@ -111,7 +111,7 @@
                 </td>
                 <td class="date">{{ project.date }}</td>
                 <td class="actions">
-                  <button class="action-btn" (click)="viewProject(project)">
+                  <button class="action-btn" (click)="viewRegisteredProject(project)">
                     <span class="material-icons">visibility</span>
                   </button>
                   <button class="action-btn" (click)="editProject(project)">

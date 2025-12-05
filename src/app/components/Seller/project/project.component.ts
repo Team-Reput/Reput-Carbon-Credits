@@ -1,28 +1,8 @@
-// import { Component } from '@angular/core';
-
-// @Component({
-//   selector: 'app-register-project',
-//   standalone: true,
-//   imports: [],
-//   templateUrl: './register-project.component.html',
-//   styleUrl: './register-project.component.scss'
-// })
-// export class RegisterProjectComponent {
-
-// }
-
-
-
-
-
-
-
-
-
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { AboutProjectComponent } from './about-project/about-project.component';
 
 interface ProjectType {
   id: string;
@@ -48,15 +28,20 @@ interface DocumentUpload {
 }
 
 @Component({
-  selector: 'app-register-project',
+  selector: 'app-project',
   standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './register-project.component.html',
-  styleUrls: ['./register-project.component.scss']
+  imports: [CommonModule, FormsModule,AboutProjectComponent,RouterOutlet,RouterLinkActive,RouterLink],
+  templateUrl: './project.component.html',
+  styleUrls: ['./project.component.scss']
 })
-export class RegisterProjectComponent {
-  // Sidebar state
+
+export class ProjectComponent {
+  
   isSidebarExpanded = false;
+   showUserMenu = false;
+
+  @ViewChild(AboutProjectComponent) aboutProjectComponent!: AboutProjectComponent;
+
 
   constructor(public router: Router) {}
 
@@ -65,6 +50,10 @@ export class RegisterProjectComponent {
     name: 'ARETL Pvt Ltd',
     avatar: 'https://ui-avatars.com/api/?name=ARETL+Pvt+Ltd&background=10b981&color=fff'
   };
+
+    toggleUserMenu(): void {
+    this.showUserMenu = !this.showUserMenu;
+  }
 
   // Form data
   projectData = {
@@ -178,4 +167,11 @@ export class RegisterProjectComponent {
     this.router.navigate(['/supplier-dashboard']);
     // Implement navigation logic
   }
+
+  
+  navigatePortfolio(): void {
+    console.log('Registering new project');
+    this.router.navigate(['/project/portfolio']);
+  }
+
 }

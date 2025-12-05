@@ -1,0 +1,501 @@
+.token-details-container {
+  display: flex;
+  gap: 24px;
+  padding: 32px;
+  background: linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%);
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.main-content {
+  flex: 1;
+  max-width: calc(100% - 340px);
+
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+// Header Section
+.header-section {
+  margin-bottom: 24px;
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 8px 0;
+}
+
+.page-description {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.5;
+}
+
+// Info Box
+.info-box {
+  background: #dcfce7;
+  border: 1px solid #86efac;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 24px;
+
+  p {
+    margin: 0;
+    font-size: 14px;
+    color: #166534;
+    line-height: 1.5;
+  }
+}
+
+// Card
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 20px 0;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+// Batch Overview
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px 40px;
+  margin-bottom: 20px;
+}
+
+.detail-item {
+  label {
+    display: block;
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+
+  .detail-value {
+    font-size: 14px;
+    color: #1a1a1a;
+    margin: 0;
+    font-weight: 500;
+  }
+}
+
+.info-note {
+  background: #f9fafb;
+  border-radius: 6px;
+  padding: 12px;
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 20px;
+}
+
+// Token Lifecycle
+.lifecycle-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.lifecycle-step {
+  display: flex;
+  gap: 16px;
+  position: relative;
+
+  &:not(:last-child) {
+    padding-bottom: 32px;
+  }
+}
+
+.step-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.step-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  border: 2px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #9ca3af;
+  flex-shrink: 0;
+
+  &.active {
+    background: #10b981;
+    border-color: #10b981;
+    color: #ffffff;
+  }
+}
+
+.step-connector {
+  width: 2px;
+  flex: 1;
+  background: #e5e7eb;
+  margin-top: 4px;
+}
+
+.step-content {
+  flex: 1;
+  padding-top: 2px;
+}
+
+.step-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 4px;
+}
+
+.step-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.step-status {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-weight: 500;
+
+  &.status-completed {
+    background: #dcfce7;
+    color: #166534;
+  }
+
+  &.status-progress {
+    background: #dbeafe;
+    color: #1e40af;
+  }
+
+  &.status-pending {
+    background: #fef3c7;
+    color: #92400e;
+  }
+}
+
+.step-description {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0 0 4px 0;
+}
+
+.step-date {
+  font-size: 13px;
+  color: #9ca3af;
+  margin: 0;
+}
+
+// Two Column Layout
+.two-column-layout {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+// Token Distribution
+.chart-container {
+  margin-bottom: 20px;
+  min-height: 300px;
+}
+
+.distribution-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.stat-label {
+  color: #6b7280;
+}
+
+.stat-value {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  &.available {
+    color: #8b5cf6;
+  }
+
+  &.sold {
+    color: #f87171;
+  }
+
+  &.retired {
+    color: #60a5fa;
+  }
+}
+
+.stat-percentage {
+  font-weight: 400;
+  color: #9ca3af;
+  font-size: 13px;
+}
+
+// Blockchain Records
+.blockchain-details {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.blockchain-item {
+  label {
+    display: block;
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+
+  .blockchain-value {
+    font-size: 14px;
+    color: #1a1a1a;
+    margin: 0;
+    font-family: 'Courier New', monospace;
+    word-break: break-all;
+  }
+}
+
+// Sales Log Table
+.download-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background: #f9fafb;
+    border-color: #9ca3af;
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.table-container {
+  overflow-x: auto;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.sales-log-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+
+  thead {
+    background: #f9fafb;
+    
+    th {
+      padding: 12px 16px;
+      text-align: left;
+      font-weight: 600;
+      color: #374151;
+      border-bottom: 1px solid #e5e7eb;
+      font-size: 13px;
+    }
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid #f3f4f6;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &:hover {
+        background: #f9fafb;
+      }
+    }
+
+    td {
+      padding: 14px 16px;
+      color: #1a1a1a;
+    }
+  }
+}
+
+.event-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+
+  &.event-completed {
+    background: #dcfce7;
+    color: #166534;
+  }
+
+  &.event-retired {
+    background: #fef3c7;
+    color: #92400e;
+  }
+}
+
+.certificate-link {
+  color: #3b82f6;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// Sidebar
+.sidebar {
+  width: 316px;
+  flex-shrink: 0;
+}
+
+.sidebar-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 32px;
+}
+
+.sidebar-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 20px 0;
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+
+  &:hover {
+    background: #f9fafb;
+    border-color: #d1d5db;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    color: #6b7280;
+  }
+
+  span {
+    line-height: 1.4;
+  }
+}
+
+// Responsive Design
+@media (max-width: 1200px) {
+  .token-details-container {
+    flex-direction: column;
+  }
+
+  .main-content {
+    max-width: 100%;
+  }
+
+  .sidebar {
+    width: 100%;
+  }
+
+  .sidebar-card {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .token-details-container {
+    padding: 16px;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .two-column-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .table-container {
+    overflow-x: scroll;
+  }
+
+  .sales-log-table {
+    min-width: 800px;
+  }
+
+  .action-buttons {
+    .action-btn {
+      span {
+        font-size: 13px;
+      }
+    }
+  }
+}
