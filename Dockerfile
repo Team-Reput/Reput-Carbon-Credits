@@ -12,8 +12,8 @@ RUN npm install --legacy-peer-deps
 COPY . .
  
 # Build the Angular app
-# RUN npm run build -- --configuration=test --base-href=/
-RUN npm run build -- --configuration=production --base-href=/
+RUN npm run build -- --configuration=test --base-href=/
+# RUN npm run build -- --configuration=production --base-href=/
 
 # Step 2: Use Node.js image for the runtime stage
 FROM node:18 AS runtime-stage
@@ -22,7 +22,7 @@ FROM node:18 AS runtime-stage
 WORKDIR /app
 
 # Copy the build output from the build stage
-COPY --from=build-stage /app/dist/reput-carbon/browser /app/dist/browser
+COPY --from=build-stage /app/dist/carbon-credit/browser /app/dist/browser
 
 # Install a lightweight HTTP server
 RUN npm install -g http-server

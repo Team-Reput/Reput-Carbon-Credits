@@ -57,14 +57,14 @@
   .filter-icon {
     width: 20px;
     height: 20px;
-    stroke: #10b981;
+    stroke: #049567;
   }
 }
 
 .clear-all {
   background: none;
   border: none;
-  color: #10b981;
+  color: #049567;
   font-size: 14px;
   cursor: pointer;
   padding: 4px 8px;
@@ -160,7 +160,8 @@
   gap: 8px;
   padding: 10px 16px;
   border: none;
-  background-color: #10b981;
+  // background-color: #10b981;
+  background-color: #049567;
   border-radius: 6px;
   font-size: 14px;
   font-weight: 500;
@@ -174,7 +175,7 @@
   }
 
   &:hover {
-    background-color: #059669;
+    background-color: #049567d8;
   }
 }
 
@@ -301,7 +302,7 @@
   }
 
   &.active {
-    background-color: #10b981;
+    background-color: #049567;
 
     svg {
       color: #ffffff;
@@ -789,7 +790,7 @@
   // font-size: 32px;
   font-size: 28px;
   font-weight: 700;
-  color: #059669;
+  color: #049567;
   line-height: 1;
 }
 
