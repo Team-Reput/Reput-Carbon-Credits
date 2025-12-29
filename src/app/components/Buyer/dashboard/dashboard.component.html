@@ -1,4 +1,4 @@
-<app-navbar></app-navbar>
+ <app-navbar></app-navbar>
 
 <div class="cart-container">
   <!-- Sidebar -->
@@ -14,8 +14,10 @@
     </div>
 
     <!-- Filter Items -->
-    <div class="filter-item" (click)="toggleFilter('projectType')">
-      <div class="filter-item-header">
+    
+    <!-- Project Type Filter -->
+    <div class="filter-item">
+      <div class="filter-item-header" (click)="toggleFilter('projectType')">
         <svg class="filter-item-icon" viewBox="0 0 24 24" fill="currentColor">
           <path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z"/>
         </svg>
@@ -24,10 +26,20 @@
           <path d="M9 18l6-6-6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
+      <div class="filter-content" *ngIf="filterExpanded.projectType">
+        <label class="filter-option" *ngFor="let type of projectTypes">
+          <input type="checkbox" 
+                 [checked]="selectedProjectTypes.includes(type.value)"
+                 (change)="toggleProjectType(type.value)">
+          <span class="color-dot" [style.background-color]="type.color"></span>
+          <span>{{ type.label }}</span>
+        </label>
+      </div>
     </div>
 
-    <div class="filter-item" (click)="toggleFilter('country')">
-      <div class="filter-item-header">
+    <!-- Country Filter -->
+    <div class="filter-item">
+      <div class="filter-item-header" (click)="toggleFilter('country')">
         <svg class="filter-item-icon" viewBox="0 0 24 24" fill="currentColor">
           <circle cx="12" cy="12" r="10"/>
           <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="white" stroke-width="1"/>
@@ -37,10 +49,33 @@
           <path d="M9 18l6-6-6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
+      <div class="filter-content" *ngIf="filterExpanded.country">
+        <div class="search-box-filter">
+          <svg class="search-icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <circle cx="11" cy="11" r="8" stroke-width="2"/>
+            <path d="m21 21-4.35-4.35" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <input 
+            type="text" 
+            placeholder="Search Country" 
+            [(ngModel)]="countrySearchQuery"
+            class="search-input-filter"
+          />
+          <button class="clear-search" *ngIf="countrySearchQuery" (click)="countrySearchQuery = ''">×</button>
+        </div>
+        <label class="filter-option country-option" *ngFor="let country of filteredCountries">
+          <input type="checkbox" 
+                 [checked]="selectedCountries.includes(country.value)"
+                 (change)="toggleCountry(country.value)">
+          <span>{{ country.flag }} {{ country.label }}</span>
+          <span class="country-code">{{ country.code }}</span>
+        </label>
+      </div>
     </div>
 
-    <div class="filter-item" (click)="toggleFilter('vintageYear')">
-      <div class="filter-item-header">
+    <!-- Vintage Year Filter -->
+    <div class="filter-item">
+      <div class="filter-item-header" (click)="toggleFilter('vintageYear')">
         <svg class="filter-item-icon" viewBox="0 0 24 24" fill="currentColor">
           <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
           <line x1="16" y1="2" x2="16" y2="6" stroke="white" stroke-width="1.5"/>
@@ -52,8 +87,33 @@
           <path d="M9 18l6-6-6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
+      <div class="filter-content" *ngIf="filterExpanded.vintageYear">
+        <div class="year-range-display">
+          <span class="year-label">{{ vintageYearRange[0] }} - {{ vintageYearRange[1] }}</span>
+          <span class="year-count">{{ vintageYearRange[1] - vintageYearRange[0] + 1 }} Years</span>
+        </div>
+        <div class="range-slider">
+          <input type="range" 
+                 [min]="2000" 
+                 [max]="2025" 
+                 [(ngModel)]="vintageYearRange[0]"
+                 (input)="onVintageYearChange()"
+                 class="slider slider-min">
+          <input type="range" 
+                 [min]="2000" 
+                 [max]="2025" 
+                 [(ngModel)]="vintageYearRange[1]"
+                 (input)="onVintageYearChange()"
+                 class="slider slider-max">
+        </div>
+        <div class="year-labels">
+          <span>2000</span>
+          <span>2025</span>
+        </div>
+      </div>
     </div>
 
+    <!-- Price Range Filter -->
     <div class="filter-item" (click)="toggleFilter('priceRange')">
       <div class="filter-item-header">
         <svg class="filter-item-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -66,6 +126,7 @@
       </div>
     </div>
 
+    <!-- Registry Filter -->
     <div class="filter-item" (click)="toggleFilter('registry')">
       <div class="filter-item-header">
         <svg class="filter-item-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -78,6 +139,7 @@
       </div>
     </div>
 
+    <!-- UN SDGs Filter -->
     <div class="filter-item" (click)="toggleFilter('unSdgs')">
       <div class="filter-item-header">
         <svg class="filter-item-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -91,6 +153,7 @@
       </div>
     </div>
 
+    <!-- Stocks Filter -->
     <div class="filter-item" (click)="toggleFilter('stocks')">
       <div class="filter-item-header">
         <svg class="filter-item-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -103,6 +166,7 @@
       </div>
     </div>
 
+    <!-- Impacts Filter -->
     <div class="filter-item" (click)="toggleFilter('impacts')">
       <div class="filter-item-header">
         <svg class="filter-item-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -125,7 +189,7 @@
         </svg>
         Clear Filter
       </button>
-      <button class="applied-filter-btn">
+      <button class="applied-filter-btn" (click)="applyFilters()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
           <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           <polyline points="22 4 12 14.01 9 11.01" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -153,6 +217,7 @@
       </div>
 
       <div class="top-controls">
+        
         <div class="dropdown">
           <select [(ngModel)]="selectedStatus" class="select-input">
             <option value="all">Status: All</option>
@@ -226,28 +291,14 @@
       </div>
     </div>
 
-
-
     <!-- Projects Grid -->
     <div class="projects-grid">
-
- 
-
-
-
       <div class="card" *ngFor="let project of filteredProjects"  (click)="openProjectDetails(project)">
         <div class="card-image-container">
           <img [src]="project.image" [alt]="project.name" class="card-image">
           <div class="stock-badge" *ngIf="project.inStock">In Stock</div>
           <button class="favorite-btn" (click)="toggleFavorite(project, $event)" [class.active]="isFavorite">
-            <!-- <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" 
-                    [attr.fill]="isFavorite ? '#ff4757' : 'none'" 
-                    [attr.stroke]="isFavorite ? '#ff4757' : 'white'" 
-                    stroke-width="2"/>
-            </svg> -->
             <img src="assets/images/heart.svg" class="favorite-icon" [style.filter]="isFavorite ? 'drop-shadow(0 0 4px #ff4757)' : ''">
-
           </button>
         </div>
 
@@ -259,7 +310,9 @@
                 <div class="sdg-label">SDGs</div>
               </div>
             </div>
-            <div class="category-badge">{{ project.tag }}</div>
+            <div class="tag">
+              <div class="category-badge">{{ project.tag }}</div>
+            </div>
           </div>
 
           <h2 class="card-title">{{ project.name }}</h2>
@@ -290,17 +343,11 @@
               <span class="price-unit">/ton</span>
             </div>
             <div class="availability">
-              <!-- <span class="availability-label">Available:</span> -->
-              <span class="availability-value">              <span class="availability-label">Available: </span>{{ project.available.toLocaleString() }} UD</span>
+              <span class="availability-value"><span class="availability-label">Available: </span>{{ project.available.toLocaleString() }} UD</span>
             </div>
           </div>
         </div>
       </div>
-
-
-
-
-
     </div>
   </main>
 </div>

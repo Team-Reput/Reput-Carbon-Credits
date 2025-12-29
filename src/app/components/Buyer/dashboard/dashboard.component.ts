@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../../../common/navbar/navbar.component';
 import {  Router, RouterModule  } from '@angular/router'
 
-
 interface Project {
   id: number;
   name: string;
@@ -23,10 +22,23 @@ interface Project {
   inStock: boolean;
 }
 
+interface ProjectType {
+  label: string;
+  value: string;
+  color: string;
+}
+
+interface Country {
+  label: string;
+  value: string;
+  flag: string;
+  code: string;
+}
+
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule,NavbarComponent],
+  imports: [CommonModule, FormsModule, NavbarComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
@@ -38,6 +50,7 @@ export class DashboardComponent {
   currency: string = 'US ($)';
   viewMode: string = 'grid';
   
+  // Filter states
   filterExpanded = {
     projectType: false,
     country: false,
@@ -48,6 +61,36 @@ export class DashboardComponent {
     stocks: false,
     impacts: false
   };
+
+  // Project Types
+  projectTypes: ProjectType[] = [
+    { label: 'Biodiversity', value: 'biodiversity', color: '#10B981' },
+    { label: 'Carbon offsetting', value: 'carbon-offsetting', color: '#10B981' },
+    { label: 'Contribution', value: 'contribution', color: '#F59E0B' },
+    { label: 'Energy Attributes', value: 'energy-attributes', color: '#3B82F6' }
+  ];
+
+  selectedProjectTypes: string[] = [];
+
+  // Countries
+  countries: Country[] = [
+    { label: 'India', value: 'india', flag: '🇮🇳', code: 'IN' },
+    { label: 'Brazil', value: 'brazil', flag: '🇧🇷', code: 'BR' },
+    { label: 'United States of America', value: 'usa', flag: '🇺🇸', code: 'US' },
+    { label: 'Bangladesh', value: 'bangladesh', flag: '🇧🇩', code: 'BD' },
+    { label: 'Kenya', value: 'kenya', flag: '🇰🇪', code: 'KE' },
+    { label: 'France', value: 'france', flag: '🇫🇷', code: 'FR' },
+    { label: 'Italy', value: 'italy', flag: '🇮🇹', code: 'IT' },
+    { label: 'Spain', value: 'spain', flag: '🇪🇸', code: 'ES' },
+    { label: 'Netherlands', value: 'netherlands', flag: '🇳🇱', code: 'NL' },
+    { label: 'Germany', value: 'germany', flag: '🇩🇪', code: 'DE' }
+  ];
+
+  selectedCountries: string[] = [];
+  countrySearchQuery: string = '';
+
+  // Vintage Year Range
+  vintageYearRange: number[] = [2015, 2025];
 
   projects: Project[] = [
     {
@@ -139,7 +182,6 @@ export class DashboardComponent {
       id: 6,
       name: 'IberHydro',
       description: 'Peatland restoration to lock carbon in soil and rejuvenate native wildlife ..',
-      // image: 'https://images.unsplash.com/photo-1587048170540-9b5fc127e528?w=800&h=600&fit=crop',
       image: 'assets/images/verdeBiomass.png',
       sdgs: 7,
       sdgsLabel: 'SDGs',
@@ -155,21 +197,40 @@ export class DashboardComponent {
     }
   ];
 
+  constructor(public router: Router) {}
 
-  
-
-  constructor(  public router: Router) {  }
-
-
-
+  get filteredCountries(): Country[] {
+    if (!this.countrySearchQuery) {
+      return this.countries;
+    }
+    const query = this.countrySearchQuery.toLowerCase();
+    return this.countries.filter(country => 
+      country.label.toLowerCase().includes(query) || 
+      country.code.toLowerCase().includes(query)
+    );
+  }
 
   get filteredProjects() {
     return this.projects.filter(project => {
+      // Search filter
       const matchesSearch = project.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
                           project.description.toLowerCase().includes(this.searchQuery.toLowerCase());
+      
+      // Status filter
       const matchesStatus = this.selectedStatus === 'all' || 
                           (this.selectedStatus === 'in-stock' && project.inStock);
-      return matchesSearch && matchesStatus;
+      
+      // Country filter
+      const matchesCountry = this.selectedCountries.length === 0 || 
+                            this.selectedCountries.includes(project.country.toLowerCase());
+      
+      // Project type filter (you can enhance this based on your project tags)
+      const matchesProjectType = this.selectedProjectTypes.length === 0 || 
+                                this.selectedProjectTypes.some(type => 
+                                  project.tag.toLowerCase().includes(type)
+                                );
+      
+      return matchesSearch && matchesStatus && matchesCountry && matchesProjectType;
     }).sort((a, b) => {
       if (this.selectedSort === 'newest') return b.id - a.id;
       if (this.selectedSort === 'oldest') return a.id - b.id;
@@ -185,11 +246,51 @@ export class DashboardComponent {
     this.filterExpanded[filterName] = !this.filterExpanded[filterName];
   }
 
+  toggleProjectType(type: string) {
+    const index = this.selectedProjectTypes.indexOf(type);
+    if (index > -1) {
+      this.selectedProjectTypes.splice(index, 1);
+    } else {
+      this.selectedProjectTypes.push(type);
+    }
+  }
+
+  toggleCountry(country: string) {
+    const index = this.selectedCountries.indexOf(country);
+    if (index > -1) {
+      this.selectedCountries.splice(index, 1);
+    } else {
+      this.selectedCountries.push(country);
+    }
+  }
+
+  onVintageYearChange() {
+    // Ensure min is always less than max
+    if (this.vintageYearRange[0] > this.vintageYearRange[1]) {
+      const temp = this.vintageYearRange[0];
+      this.vintageYearRange[0] = this.vintageYearRange[1];
+      this.vintageYearRange[1] = temp;
+    }
+  }
+
   clearAllFilters() {
     this.searchQuery = '';
     this.selectedStatus = 'all';
     this.selectedSort = 'newest';
     this.selectedPrice = 'low-high';
+    this.selectedProjectTypes = [];
+    this.selectedCountries = [];
+    this.countrySearchQuery = '';
+    this.vintageYearRange = [2015, 2025];
+  }
+
+  applyFilters() {
+    console.log('Filters applied:', {
+      projectTypes: this.selectedProjectTypes,
+      countries: this.selectedCountries,
+      vintageYear: this.vintageYearRange
+    });
+    // Add your filter application logic here
   }
 
   toggleFavorite(project: Project, event: Event) {
@@ -200,7 +301,6 @@ export class DashboardComponent {
   setViewMode(mode: string) {
     this.viewMode = mode;
   }
-
 
   getSdgColors(project: Project): string[] {
     const colors = [
@@ -230,25 +330,12 @@ export class DashboardComponent {
 
   isFavorite: boolean = false;
 
-  // toggleFavorite(): void {
-  //   this.isFavorite = !this.isFavorite;
-  // }
-
-
   detail(): void { 
-     this.router.navigate(['/detail']);
+    this.router.navigate(['/detail']);
   }
 
   openProjectDetails(project: any) {
-  console.log("🟢 Card clicked!", project);
-
-  this.router.navigate(['/detail']);
-
-  // this.router.navigate(['/main/industry/lca/project-details'], {
-  //   queryParams: { id: project.id }
-  // });
-
-
-}
-
+    console.log("🟢 Card clicked!", project);
+    this.router.navigate(['/detail']);
+  }
 }
