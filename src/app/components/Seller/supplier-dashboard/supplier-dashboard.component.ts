@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
 
 interface DashboardStat {
   title: string;
@@ -30,55 +31,18 @@ export class SupplierDashboardComponent {
 
   showUserMenu = false;
 
-  constructor(public router: Router) {}
+ 
 
-  dashboardStats: DashboardStat[] = [
-    { 
-      title: 'Active Projects', 
-      value: '2', 
-      subtitle: 'currently being validated/verified', 
-      icon: 'trending_up' 
-    },
-    { 
-      title: 'Credits Issued', 
-      value: '0', 
-      subtitle: 'Total credits issued across projects', 
-      icon: 'content_copy' 
-    },
-    { 
-      title: 'Credits Tokenized', 
-      value: '0', 
-      subtitle: 'Credits processed via bridge', 
-      icon: 'bar_chart' 
-    },
-    { 
-      title: 'Projects Registered', 
-      value: '3', 
-      subtitle: 'Successfully submitted to registries', 
-      icon: 'check_circle' 
-    }
-  ];
+  constructor(public router: Router, private authservice : AuthService) {}
 
-  registeredProjects: Project[] = [
-    { 
-      name: 'Green Wind Solar Hybrid', 
-      type: 'Renewable Energy', 
-      status: 'Active', 
-      date: '10/09/2025' 
-    },
-    { 
-      name: 'Blue Forest Reforestation', 
-      type: 'Reforestation', 
-      status: 'Active', 
-      date: '11/09/2025' 
-    },
-    { 
-      name: 'Waste To Energy Kerala', 
-      type: 'Renewable Energy', 
-      status: 'Active', 
-      date: '12/09/2025' 
-    }
-  ];
+   ngOnInit(): void {
+    this.getProjectDashboard();
+  }
+
+  dashboardStats: DashboardStat[] = [];
+  
+
+  registeredProjects: Project[] = [];
 
   projectTracker: Project[] = [
     { 
@@ -128,13 +92,13 @@ export class SupplierDashboardComponent {
   viewProject(project: Project): void {
     console.log('Viewing project:', project);
 
-    this.router.navigate(['/project/about-project']);
+    this.router.navigate(['/seller/project/about-project']);
   }
 
   viewRegisteredProject(project: Project): void {
     console.log('Viewing project:', project);
 
-    this.router.navigate(['/project/token-status']);
+    this.router.navigate(['/seller/project/token-status']);
   }
 
   editProject(project: Project): void {
@@ -143,15 +107,83 @@ export class SupplierDashboardComponent {
 
   registerNewProject(): void {
     console.log('Registering new project');
-    this.router.navigate(['/project/register-project']);
+    this.router.navigate(['/seller/project/register-project']);
   }
 
   navigatePortfolio(): void {
     console.log('Registering new project');
-    this.router.navigate(['/project/portfolio']);
+    this.router.navigate(['/seller/project/portfolio']);
   }
 
   viewAllNotifications(): void {
     console.log('Viewing all notifications');
+  }
+
+  formatDate(date: string): string {
+    return new Date(date).toLocaleDateString('en-GB');
+  }
+
+
+
+
+  getProjectDashboard(): void {
+    try {
+      const obj = {
+      user_id : 70 
+    }
+
+    this.authservice.getProjectDashboard(obj).subscribe({
+      next:(res:any)=>{
+        if(res.success && res.data?.length){
+          console.log(res.data);
+          const dashboard = res.data[0];
+        //  STATS
+        this.dashboardStats = [
+          {
+            title: 'Active Projects',
+            value: dashboard.o_stats.active_projects.toString(),
+            subtitle: 'currently being validated/verified',
+            icon: 'trending_up'
+          },
+          {
+            title: 'Credits Issued',
+            value: dashboard.o_stats.credits_issued.toString(),
+            subtitle: 'Total credits issued across projects',
+            icon: 'content_copy'
+          },
+          {
+            title: 'Credits Tokenized',
+            value: dashboard.o_stats.credits_tokenized.toString(),
+            subtitle: 'Credits processed via bridge',
+            icon: 'bar_chart'
+          },
+          {
+            title: 'Projects Registered',
+            value: dashboard.o_stats.projects_registered.toString(),
+            subtitle: 'Successfully submitted to registries',
+            icon: 'check_circle'
+          }
+        ];
+
+        //Project List
+        this.registeredProjects = dashboard.o_projects.map( (p:any) => ({
+          name:   p.project_name,
+          type:   p.project_type,
+          status: p.status,
+          date:   this.formatDate(p.last_updated)
+        }) );
+
+
+        }
+      },
+      error:(err:any)=>{
+        console.error(err);
+      }
+    })
+
+    } catch (error) {
+      console.log(error);
+    }
+
   }
 }

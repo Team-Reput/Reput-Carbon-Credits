@@ -37,24 +37,29 @@ export const routes: Routes = [
     {path:'feat' , component:FeaturesComponent},
     {path:'over' , component:OverviewComponent},
     {path:'checkout' , component:CheckoutComponent},
+    {path:'buyer-profile' , component:BuyerProfileComponent},
     {path:'proof' , component:RetireProofComponent},
     {path:'detail' , component:ProductDetailComponent},
     {path:'portfolio' , component:PortfolioComponent},
 
-    {path:'supplier-dashboard' , component:SupplierDashboardComponent},
-    {path:'buyer-profile' , component:BuyerProfileComponent},
-    {path:'seller-onboarding' , component:SellerOnboardingComponent},
-    {path:'seller-validation' , component:SellerValidationComponent},
+    {
+        path: 'seller', canActivate: [AuthGuard], children: [
+            {path:'seller-dashboard' , component:SupplierDashboardComponent},
+            {path:'seller-onboarding' , component:SellerOnboardingComponent},
+            {path:'seller-validation' , component:SellerValidationComponent},
 
-    {path:'project' , component:ProjectComponent,children: [
-        {path:'', redirectTo:'about-project', pathMatch:'full'},
-        {path:'register-project', component: RegisterProjectComponent},
-        {path:'token-request' , component:TokenRequestComponent},
-        {path:'about-project', component: AboutProjectComponent},
-        {path:'token-status', component: TokenStatusComponent},
-        {path:'portfolio', component: TokenPortfolioComponent},
-        {path:'token-details', component: TokenDetailsComponent}
-    ]},
+            {path:'project' , component:ProjectComponent,children: [
+                {path:'', redirectTo:'about-project', pathMatch:'full'},
+                {path:'register-project', component: RegisterProjectComponent},
+                {path:'token-request' , component:TokenRequestComponent},
+                {path:'about-project', component: AboutProjectComponent},
+                {path:'token-status', component: TokenStatusComponent},
+                {path:'portfolio', component: TokenPortfolioComponent},
+                {path:'token-details', component: TokenDetailsComponent}
+            ]},
+        ]
+    },
+    
     { path: '**', redirectTo: 'login' },
 
 

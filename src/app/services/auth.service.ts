@@ -44,20 +44,20 @@ export class AuthService {
 
       console.log("isPlatformBrowser(this.platformId)");
       if (isPlatformBrowser(this.platformId)) {
-        sessionStorage.setItem('reput', token); // Access sessionStorage only in browser
+        sessionStorage.setItem('reput-credit', token); // Access sessionStorage only in browser
       }
     }
 
     getToken(): string | null {
       if (isPlatformBrowser(this.platformId)) {
-        return sessionStorage.getItem('reput');
+        return sessionStorage.getItem('reput-credit');
       }
       return null;
     }
   
     clearToken(): void {
       if (isPlatformBrowser(this.platformId)) {
-        sessionStorage.removeItem('reput');
+        sessionStorage.removeItem('reput-credit');
       }
     }
 
@@ -104,7 +104,7 @@ getEntityId(): number | null {
 
     
     UserLogin(userDetails:any): Observable<any> {
-         return this.http.post(`${this.apiUrl}/auth/login`, userDetails).pipe(
+         return this.http.post(`${this.apiUrl}/auth/loginup`, userDetails).pipe(
           tap((response: any) => {
             if(response.issuccessful){
               this.storeToken(response.data.token);
@@ -119,20 +119,7 @@ getEntityId(): number | null {
     // ________________________________________________InviteChildUsers_____________
 
 
-    InviteChildUsers(userDetails: any): Observable<any> {
-      return this.http.post(`${this.apiUrl}/InviteChildUsers`, userDetails).pipe(
-        tap((response: any) => {
-          if (response.issuccessful) {
-            console.log("User invited successfully");
-          }
-        }),
-        catchError((error) => {
-          console.error("Error inviting user:", error);
-          // return throwError(() => new Error(error));
-          return throwError(() => error);
-        })
-      );
-    }
+ 
 
     fetchTotalEmission(userDetails: any): Observable<any> {
       return this.http.post(`${this.apiUrl}/fetchTotalEmission`, userDetails).pipe(
@@ -177,15 +164,10 @@ getEntityId(): number | null {
       );
     }
  
-                 updateBrsrLifeInsurance(payload: any): Observable<any> {
-                  return this.http.post<any>(`${this.apiUrl}/updatebrsrlifeinsurance`, payload);
-                }
+    getProjectDashboard(payload: any): Observable<any> {
+      return this.http.post<any>(`${this.apiUrl}/seller/getProjectDashboard`, payload);
+    }
 
- 
-
-                    insertFootprintKPICategoryData(data : any): Observable<any>{
-                     const url = `${this.apiUrl}/insertFootprintKPICategoryData`; 
-                     return this.http.post(url, data );
-                    } 
+  
  
 }

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormGroup,FormBuilder,Validator, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 // import { BrowserModule } from '@angular/platform-browser';
 
 @Component({
@@ -14,7 +15,7 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   loginForm! : FormGroup;
 
-  constructor(private fb: FormBuilder,private router : Router){}
+  constructor(private fb: FormBuilder,private router : Router,private authService: AuthService){}
 
   ngOnInit():void{
     this.loginForm = this.fb.group({
@@ -28,7 +29,32 @@ export class LoginComponent {
     if(this.loginForm.valid){
       const {email, password, rememberMe} = this.loginForm.value;
       console.log('Login Details:', { email, password, rememberMe });
-      this.router.navigate(['/dash']);
+
+      const obj = {
+        email: email.trim(),
+        password: password
+      }
+
+      this.authService.UserLogin(obj).subscribe({
+        next:(res)=> {
+          if(res.success){
+            console.log('Login successful:', res); 
+            // localStorage.setItem('reput-credit', res.token); 
+            sessionStorage.setItem('reput-credit', res.token);
+
+            this.router.navigate(['/dash']);
+          }else{
+            console.log('Login failed:', res.message);
+          }
+
+        },
+        error:(err)=> {
+          console.error('Login failed:', err);
+        }
+
+      })
+
+      
     }else{
       console.log('Form is invalid');
     }
